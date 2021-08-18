@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>navigation2.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>515AF38884B4D0CF7EB8BDE816FCE7CCD1256C97</string>
+				<key>dateExpires</key>
+				<string>2022-01-27</string>
+				<key>type</key>
+				<string>Apple Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>Z39UJ57298.org.reactjs.YouAndMe</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>Z39UJ57298</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>Z39UJ57298.org.reactjs.YouAndMe</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>navigation2.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>3f9139bc-b8cb-40af-8e48-80e500bde88b</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>Z39UJ57298</string>
+				<key>name</key>
+				<string>Malin Hettiarachchi</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

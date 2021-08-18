@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134263757374",
+    "project_id": "youandme-8fa60",
+    "storage_bucket": "youandme-8fa60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134263757374:android:bb4c7aa5c291518a5d4f6f",
+        "android_client_info": {
+          "package_name": "com.navigation2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134263757374-f9qfgmjj24ujsblgvnpmshp39tukhbgf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsS34lnazaHjIoDDtpqo90XAwRk9XDUNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134263757374-f9qfgmjj24ujsblgvnpmshp39tukhbgf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
