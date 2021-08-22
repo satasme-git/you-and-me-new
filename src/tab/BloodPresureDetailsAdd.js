@@ -8,6 +8,7 @@ import moment from 'moment' // 2.20.1
 import AsyncStorage from '@react-native-community/async-storage';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import FlashMessage, { showMessage } from "react-native-flash-message";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import i18n from 'i18n-js';
 const db = new Database();
 const _format = 'YYYY-MM-DD'
@@ -94,7 +95,7 @@ export class BloodPresureDetailsAdd extends Component {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
                 <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
-                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+                <CustomHeader bgcolor='#fbb146' title={i18n.t('blood.chartheadding')} gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
                 <FlashMessage duration={1000} />
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -102,22 +103,27 @@ export class BloodPresureDetailsAdd extends Component {
                     style={styles.scrollView}>
                     <View>
                         <LinearGradient start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 140, zIndex: -1 }}>
+                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 120, zIndex: -1 }}>
                          
                             <View style={{ marginTop: 0, marginLeft: 20 }}>
-                                <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('blood.heading')} {this.state.userName}</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('blood.heading2')} {this.state.userName}</Text>
                                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('blood.subheading')}</Text>
 
                             </View>
                             <View style={{ flexDirection: 'row' }}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('BloodPresureBarChart')} style={styles.button}>
-                                    <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
                                         <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
-                                            <Icon
+                                            {/* <Icon
                                                 name='bar-chart'
                                                 type='font-awesome'
                                                 color='red'
                                                 iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'black' }}
+                                            /> */}
+                                            <MaterialCommunityIcons
+                                                name="history"
+                                                size={20}
+                                                color="#4633cb"
                                             />
                                         </View>
                                         <Text style={{ color: 'black', padding: 7 }}>{i18n.t('blood.buttonhis')}</Text>
@@ -127,10 +133,10 @@ export class BloodPresureDetailsAdd extends Component {
                         </LinearGradient>
                         <View style={styles.breadthPo1}>
 
-                            <Text style={{ marginVertical: 15 }}>{i18n.t('blood.sltdate')}</Text>
+                            {/* <Text style={{ marginVertical: 15 }}>{i18n.t('blood.sltdate')}</Text> */}
 
                             <TouchableOpacity onPress={this.DatePickerMainFunctionCall.bind(this)} >
-                                <View style={{ borderColor: 'gray', height: 50, borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10, paddingTop: 15 }} placeholder="Select Date">
+                                {/* <View style={{ borderColor: 'gray', height: 50, borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10, paddingTop: 15 }} placeholder="Select Date">
                                     {
                                         this.state.DateText != '' ?
                                             <Text style={styles.datePickerText}>{this.state.DateText}</Text>
@@ -138,16 +144,41 @@ export class BloodPresureDetailsAdd extends Component {
                                             <Text style={styles.datePickerText}>{_today}</Text>
                                     }
 
-                                </View>
+                                </View> */}
+                                <View style={{ borderColor: 'gray', height: 50, borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingHorizontal: 15, paddingTop: 15,flexDirection:'row' ,justifyContent:'space-between'}}>
+                                        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                                        <Icon
+                                            name='calendar'
+                                            type='font-awesome'
+                                            color='#4633cb'
+                                            iconStyle={{ fontSize: 17, color: '#4633cb',paddingRight:10 }}
+                                        />
+                                        <Text>Date</Text>
+                                        </View>
+                                        <View style={{flexDirection:'row'}}>
+                                {
+                                    this.state.DateText != '' ?
+                                        <Text style={styles.datePickerText}>{this.state.DateText}</Text>
+                                        :
+                                        <Text style={styles.datePickerText}>{_today}</Text>
+                                }
+                                <Icon
+                                            name='chevron-down'
+                                            type='feather'
+                                            color='#4633cb'
+                                            iconStyle={{ fontSize: 20, color: 'gray',paddingLeft:10 }}
+                                        />
+                                        </View>
+                            </View>
                             </TouchableOpacity>
-                            <Text style={{ marginVertical: 15 }}>{i18n.t('blood.sostolic')}  :</Text>
+                            {/* <Text style={{ marginVertical: 15 }}>{i18n.t('blood.sostolic')}  :</Text> */}
                             <TextInput
-                                keyboardType='numeric' style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 }}
+                                keyboardType='numeric' style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10,marginTop:10  }}
                                 placeholder="Foobar" onEndEditing={this.clearFocus} autoFocus={false} onChangeText={TextInputValue => this.setState({ TextInpuSystolicbValue: TextInputValue })} placeholder={i18n.t('blood.sostolinner')}
                             />
-                            <Text style={{ marginVertical: 15 }}>{i18n.t('blood.diastolicInner')}  :</Text>
+                            {/* <Text style={{ marginVertical: 15 }}>{i18n.t('blood.diastolicInner')}  :</Text> */}
                             <TextInput
-                                keyboardType='numeric' style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 }}
+                                keyboardType='numeric' style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10,marginTop:10 }}
                                 onEndEditing={this.clearFocus} autoFocus={false} onChangeText={TextInputValue => this.setState({ TextInpuDiastolicValue: TextInputValue })} placeholder={i18n.t('blood.diastvalinner')}
                             />
                             <TouchableOpacity onPress={() => this.saveData()} activeOpacity={0.5} >
@@ -244,9 +275,10 @@ export class BloodPresureDetailsAdd extends Component {
 
     }, button: {
         backgroundColor: "white",
-        padding: 5,
+        padding: 0,
+        paddingHorizontal:10,
         borderRadius: 10,
-        marginTop: 18,
+        marginTop: 15,
 
         elevation: 10,
         shadowColor: '#30C1DD',
@@ -257,10 +289,10 @@ export class BloodPresureDetailsAdd extends Component {
 
     }, linearGradient: {
 
-        marginTop: 40,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 25,
+        marginTop: 30,
+        paddingLeft: 25,
+        paddingRight: 25,
+        borderRadius: 10,
         marginBottom: 20,
         elevation: 3,
         shadowColor: '#000',
@@ -268,8 +300,9 @@ export class BloodPresureDetailsAdd extends Component {
         shadowOpacity: 0.7,
         shadowRadius: 8,
         padding: 1,
+        alignSelf:'center'
     }, buttonText: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'Gill Sans',
         textAlign: 'center',
         margin: 10,

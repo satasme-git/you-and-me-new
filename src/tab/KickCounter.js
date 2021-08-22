@@ -14,6 +14,8 @@ import *as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
 import i18n from 'i18n-js';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const db = new Database();
 var j = 0;
 const _format = 'YYYY-MM-DD';
@@ -372,33 +374,38 @@ export class KickCounter extends Component {
 
                 <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
-                    <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
-                    <View style={styles.brestposition5}></View>
+                    <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('kick.heading')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+                    {/* <View style={styles.brestposition5}></View>
                     <View style={styles.brestposition6}></View>
                     <View style={styles.brestposition3}></View>
-                    <View style={styles.brestposition4}></View>
+                    <View style={styles.brestposition4}></View> */}
 
                     <LinearGradient start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{  backgroundColor: '#fbb146', height: 145, zIndex: -1,}}>
+                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{  backgroundColor: '#fbb146', height: 100, zIndex: -1,}}>
 
 
                     {/* <View style={{ backgroundColor: '#fbb146', height: 145, zIndex: -1, borderBottomLeftRadius: 30, borderBottomRightRadius: 30 }}> */}
                         <View style={{ marginTop: 0, marginLeft: 20 }}>
 
                             {/* <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>Hello {this.state.userName}</Text> */}
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('kick.heading')}</Text>
+                            {/* <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('kick.heading')}</Text> */}
                             <Text style={{ color: 'white' }}>{i18n.t('kick.subheading')}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 0 }}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('KickCounterHister')} style={[styles.buttonh, { backgroundColor: 'white', width: 130 }]}>
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
                                     <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
-                                        <Icon
+                                        {/* <Icon
                                             name='bar-chart'
                                             type='font-awesome'
 
                                             iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'gray' }}
-                                        />
+                                        /> */}
+                                         <MaterialCommunityIcons
+                                    name="history"
+                                    size={20}
+                                    color="#4633cb"
+                                />
                                     </View>
                                     <Text style={{ color: 'black', padding: 7 }}>{i18n.t('kick.buttonhis')}</Text>
                                 </View>
@@ -709,7 +716,7 @@ export class KickCounter extends Component {
         flexDirection: 'row',
     }, buttonh: {
         backgroundColor: "#AF1E8F",
-        padding: 5,
+        padding: 0,
         borderRadius: 10,
         marginTop: 18,
 

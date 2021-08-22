@@ -91,7 +91,7 @@ export class BMICalculator extends Component {
       <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#fff" />
      
-        <CustomHeader bgcolor='#F2F2F2' gradient1="#fff"gradient2="#fff"  titleColor="black" bcbuttoncolor='#F2F2F2' title={i18n.t('bmi.hedding')} navigation={this.props.navigation} bdcolor='#F2F2F2' />
+        <CustomHeader bgcolor='#F2F2F2' gradient1="#fff" gradient2="#fff"  titleColor="black" bcbuttoncolor='#F2F2F2' title={i18n.t('bmi.hedding')} navigation={this.props.navigation} bdcolor='#F2F2F2' />
         {/* <View style={styles.innerCircle} /> */}
         <View style={{ flex: 1 }}>
 

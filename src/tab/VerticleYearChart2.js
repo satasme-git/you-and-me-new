@@ -165,7 +165,7 @@ export class VerticleYearChart2 extends Component {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
                 <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
-                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bcbuttoncolor='#fff' title="" navigation={this.props.navigation} bdcolor='#fbb146' />
+                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bcbuttoncolor='#fff' title={i18n.t('vaccine.vaccineheadding')} navigation={this.props.navigation} bdcolor='#fbb146' />
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -173,99 +173,118 @@ export class VerticleYearChart2 extends Component {
                     style={styles.scrollView}>
 
                     <View>
-                        <LinearGradient start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 175, zIndex: -1 }}>
-                            {/* <View style={{ backgroundColor: '#fbb146', height: 175, zIndex: -1 }}> */}
-                            <View style={{ marginTop: 0, marginLeft: 20 }}>
+                        {/* <LinearGradient start={{ x: 0, y: 1 }}
+                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 75, zIndex: -1 }}> */}
+                        {/* <View style={{ backgroundColor: '#fbb146', height: 175, zIndex: -1 }}> */}
+                        {/* <View style={{ marginTop: 0, marginLeft: 20 }}> */}
 
-                                <Text style={{ fontSize: 21, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('vaccine.vaccineheadding')}</Text>
-                                {/* <Text style={{ color: 'white' }}>Yesterday remaining 12 kg</Text> */}
+                        {/* <Text style={{ fontSize: 21, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('vaccine.vaccineheadding')}</Text> */}
+                        {/* <Text style={{ color: 'white' }}>Yesterday remaining 12 kg</Text> */}
+                        {/* </View>
+                        </LinearGradient> */}
+                        <View style={{ backgroundColor: 'white' }}>
+                            <View style={styles.breadthPo1}>
+                                <View style={{ backgroundColor: '#4E3CCE', padding: 7, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                                    <Text style={{ fontWeight: 'bold', color: 'white' }}>{i18n.t('vaccine.firstyesr')}</Text>
+                                </View>
+                                {/* <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View> */}
+                                <View style={{ padding: 12 }}>
+                                    <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.4weeks')}</Text>
+                                    <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.4w_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._bcg}</Text>
+
+                                    <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.2month')}</Text>
+                                    <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.2m_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opv}</Text>
+
+                                    <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.4month')}</Text>
+                                    <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.4m_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvp}</Text>
+
+                                    <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.6month')}</Text>
+                                    <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.6m_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvp2}</Text>
+
+                                    <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.9month')}</Text>
+                                    <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.9m_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._mmr}</Text>
+                                </View>
                             </View>
-                        </LinearGradient>
+                            <View style={{ marginTop: 10 }}></View>
 
-                        <View style={styles.breadthPo1}>
-                            <Text style={{ fontWeight: 'bold', paddingBottom: 10 }}>{i18n.t('vaccine.firstyesr')}</Text>
-                            <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View>
+                            <View style={styles.breadthPo2}>
+                                <View style={{ backgroundColor: '#4E3CCE', padding: 7, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                                    <Text style={{ fontWeight: 'bold', color: 'white' }}>{i18n.t('vaccine.secondyesr')}</Text>
+                                </View>
+                                {/* <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View> */}
+                                <View style={{ padding: 12 }}>
+                                    <Text style={{ paddingTop: 10, }}>{i18n.t('vaccine.12month')} {i18n.t('vaccine.12m_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._je}</Text>
+                                    <Text style={{ paddingTop: 10, }}>{i18n.t('vaccine.18month')} {i18n.t('vaccine.18m_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvdt}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.breadthPo2}>
+                                <View style={{ backgroundColor: '#4E3CCE', padding: 7, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                                    <Text style={{ fontWeight: 'bold', color: 'white' }}>{i18n.t('vaccine.preschooage')}</Text>
+                                </View>
+                                {/* <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View> */}
+                                <View style={{ padding: 12 }}>
+                                    <Text >{i18n.t('vaccine.3rdyear')} {i18n.t('vaccine.preschool_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._mmr2}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.breadthPo2}>
+                                <View style={{ backgroundColor: '#4E3CCE', padding: 7, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                                    <Text style={{ fontWeight: 'bold', color: 'white' }}>{i18n.t('vaccine.schoolage')}</Text>
+                                </View>
+                                {/* <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View> */}
 
-                            <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.4weeks')}</Text>
-                            <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.4w_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._bcg}</Text>
+                                <View style={{ padding: 12 }}>
+                                    <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text>{i18n.t('vaccine.5rdyear')} {i18n.t('vaccine.5rdyear_vaccine')} </Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvdt5}</Text>
 
-                            <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.2month')}</Text>
-                            <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.2m_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opv}</Text>
+                                    <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text>{i18n.t('vaccine.10rdyear')} {i18n.t('vaccine.10thyear_vaccine')} </Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._hpv1}</Text>
 
-                            <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.4month')}</Text>
-                            <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.4m_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvp}</Text>
+                                    <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text>{i18n.t('vaccine.hpvsecont')}  </Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._hpv2}</Text>
 
-                            <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.6month')}</Text>
-                            <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.6m_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvp2}</Text>
+                                    <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text> {i18n.t('vaccine.11rdyear')} {i18n.t('vaccine.11thyear_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._atd}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.breadthPo2}>
+                                <View style={{ backgroundColor: '#4E3CCE', padding: 7, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                                    <Text style={{ fontWeight: 'bold', color: 'white' }}>{i18n.t('vaccine.15rdyear')}</Text>
+                                </View>
+                                {/* <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View> */}
 
-                            <Text style={{ fontWeight: "bold", paddingBottom: 5 }}>{i18n.t('vaccine.9month')}</Text>
-                            <Text style={{ paddingLeft: 10 }}>{i18n.t('vaccine.9m_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 10, color: 'red', fontWeight: 'bold' }}>{this.state._mmr}</Text>
+                                <View style={{ padding: 12 }}>
+                                    <Text style={{ paddingTop: 10, }}>{i18n.t('vaccine.15thyear_vaccine')}</Text>
+                                    <Text style={{ paddingLeft: 0, color: 'red', fontWeight: 'bold' }}>{this.state._rb_strt} - {this.state._rb_end}
+                                    </Text>
+                                    <Text style={{ paddingBottom: 10, paddingTop: 5, color: 'green' }}>
+                                        {i18n.t('vaccine.discription')}
+
+                                    </Text>
+                                </View>
+                                {/* <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._atd}</Text> */}
+
+                            </View>
+
+
+                            {/* <WebView source={{ uri: 'https://reactnative.dev/' }} />; */}
                         </View>
-                        <View style={{ marginTop: -120 }}></View>
-
-                        <View style={styles.breadthPo2}>
-                            <Text style={{ fontWeight: 'bold', paddingBottom: 10 }}>{i18n.t('vaccine.secondyesr')}</Text>
-                            <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View>
-                            <Text style={{ paddingTop: 10, }}>{i18n.t('vaccine.12month')} {i18n.t('vaccine.12m_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._je}</Text>
-                            <Text style={{ paddingTop: 10, }}>{i18n.t('vaccine.18month')} {i18n.t('vaccine.18m_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvdt}</Text>
-                        </View>
-                        <View style={styles.breadthPo2}>
-                            <Text style={{ fontWeight: 'bold', paddingBottom: 10 }}>{i18n.t('vaccine.preschooage')}</Text>
-                            <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View>
-                            <Text >{i18n.t('vaccine.3rdyear')} {i18n.t('vaccine.preschool_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._mmr2}</Text>
-                        </View>
-                        <View style={styles.breadthPo2}>
-                            <Text style={{ fontWeight: 'bold', paddingBottom: 10 }}>{i18n.t('vaccine.schoolage')}</Text>
-                            <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View>
-
-
-                            <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text>{i18n.t('vaccine.5rdyear')} {i18n.t('vaccine.5rdyear_vaccine')} </Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._opvdt5}</Text>
-
-                            <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text>{i18n.t('vaccine.10rdyear')} {i18n.t('vaccine.10thyear_vaccine')} </Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._hpv1}</Text>
-
-                            <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text>{i18n.t('vaccine.hpvsecont')}  </Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._hpv2}</Text>
-
-                            <Text style={{ paddingTop: 5 }}><Text>{'\u2022'}</Text> {i18n.t('vaccine.11rdyear')} {i18n.t('vaccine.11thyear_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._atd}</Text>
+                        <View style={{ margin: 10 }}>
+                            <Button
+                                title={i18n.t('edd.moredetailsbtn')}
+                                titleStyle={{ color: 'white' }}
+                                buttonStyle={{ borderRadius: 25, backgroundColor: '#e91e63', borderColor: '#e91e63', color: '#e91e63', padding: 12, borderWidth: 1, marginBottom: 20, marginTop: 15 }}
+                                onPress={() => this.props.navigation.navigate('Vaccine details')}
+                            />
 
                         </View>
-                        <View style={styles.breadthPo2}>
-                            <Text style={{ fontWeight: 'bold', paddingBottom: 10 }}>{i18n.t('vaccine.15rdyear')}</Text>
-                            <View style={{ borderBottomWidth: 0.2, borderBottomColor: 'gray', margin: 0 }}></View>
-                            <Text style={{ paddingTop: 10, }}>{i18n.t('vaccine.15thyear_vaccine')}</Text>
-                            <Text style={{ paddingLeft: 0, color: 'red', fontWeight: 'bold' }}>{this.state._rb_strt} - {this.state._rb_end}
-                            </Text>
-                            <Text style={{ paddingBottom: 10, paddingTop: 5, color: 'green' }}>
-                                {i18n.t('vaccine.discription')}
-
-                            </Text>
-                            {/* <Text style={{ paddingLeft: 0, paddingBottom: 10, color: 'red', fontWeight: 'bold' }}>{this.state._atd}</Text> */}
-
-                        </View>
-
-
-                        {/* <WebView source={{ uri: 'https://reactnative.dev/' }} />; */}
-                    </View>
-                    <View style={{ margin: 10 }}>
-                        <Button
-                            title={i18n.t('edd.moredetailsbtn')}
-                            titleStyle={{ color: 'white' }}
-                            buttonStyle={{ borderRadius: 25, backgroundColor: '#e91e63', borderColor: '#e91e63', color: '#e91e63', padding: 12, borderWidth: 1, marginBottom: 20, marginTop: 15 }}
-                            onPress={() => this.props.navigation.navigate('Vaccine details')}
-                        />
-
                     </View>
                 </ScrollView>
 
@@ -318,18 +337,19 @@ export class VerticleYearChart2 extends Component {
         // borderColor: '#ef5d9a',
         // borderWidth: 4,
     }, breadthPo1: {
-
+        flex: 1,
         justifyContent: 'center',
         alignSelf: 'center',
         // position: 'absolute',
         backgroundColor: 'white',
-        bottom: 130,
-        zIndex: 5,
+        // bottom: 130,
+        // top:100,
+        // zIndex: 5,
         width: '95%',
         borderRadius: 10,
         elevation: 2,
-        padding: 12,
-
+        padding: 0,
+        marginTop: 15
     }, breadthPo2: {
 
         justifyContent: 'center',
@@ -339,7 +359,7 @@ export class VerticleYearChart2 extends Component {
         width: '95%',
         borderRadius: 10,
         elevation: 2,
-        padding: 12,
+        padding: 0,
 
     }
 });

@@ -9,6 +9,10 @@ import { Icon, Avatar, Button } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
 import i18n from 'i18n-js';
 import RNDirectPayCardPayment from 'react-native-direct-pay-card-payment';
+import RenderHTML from "react-native-render-html";
+import RBSheet from "react-native-raw-bottom-sheet";
+import HTML_FILE from '../constants/index.html';
+import { WebView } from 'react-native-webview';
 
 import {
   BallIndicator,
@@ -30,7 +34,8 @@ const styles = StyleSheet.create({
   },
   gradient: {
 
-    top:-15,
+    top: -15,
+    marginBottom: 30
   },
   header: {
     flex: 2,
@@ -90,7 +95,35 @@ const styles = StyleSheet.create({
   }
 
 });
+const html = `
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Directpay|RecurringPayment</title>
+    </head>
+ 
+  <body>
+  <h1>This HTML snippet is now rendered with native components !</h1>
+  <h2>chamil pathirana</h2>
 
+  </body>
+</html>
+  `;
+
+
+const HTML = `
+<h1>This Is A Heading</h1>
+<h2>And below is my dog</h2>
+<img src="https://www.kindacode.com/wp-content/uploads/2020/10/dog_sample.jpg" alt="My Dog"/>
+<br/>
+<hr/>
+<br/>
+<em style="textAlign: center;">Have a nice day with React Native</em>
+<div>
+  <p>This is a paragraph</p>
+</div>
+`;
 export class RegisterScreen extends Component {
   constructor(props) {
     super(props)
@@ -98,7 +131,7 @@ export class RegisterScreen extends Component {
       dataSource: [],
       TextInputName: '',
       TextInputEmail: '',
-      TextInputNic:'',
+      TextInputNic: '',
       // TextInputPhoneNumber: '',
       TextInputpassword: '',
       isLoading: true,
@@ -111,9 +144,10 @@ export class RegisterScreen extends Component {
       // emailError: "",
     }
   }
+
   InputUsers = () => {
     // const emailError = validate("email", this.state.TextInputEmail)
-   
+
     // this.validate({
     //   TextInputName: { required: true},
     //   TextInputEmail: {email: true},
@@ -127,7 +161,7 @@ export class RegisterScreen extends Component {
     const { TextInputpassword } = this.state;
     const { PickerValueHolder } = this.state;
     const { TextInputNic } = this.state;
-    
+
 
 
     let emailValidateregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -135,7 +169,7 @@ export class RegisterScreen extends Component {
     let nic10 = /^[0-9]{9}[vVxX]$/;
     let nic12 = /^[0-9]{7}[0][0-9]{4}$/;
 
-    if (TextInputName == '' || TextInputEmail == '' || TextInputpassword == '' || PickerValueHolder == ''||TextInputNic=='') {
+    if (TextInputName == '' || TextInputEmail == '' || TextInputpassword == '' || PickerValueHolder == '' || TextInputNic == '') {
       if (PickerValueHolder == '') {
         showMessage({
           message: "Somefields not filled",
@@ -178,7 +212,7 @@ export class RegisterScreen extends Component {
         })
       } else {
 
-   
+
 
         this.setState({
           emailError: "",
@@ -190,7 +224,7 @@ export class RegisterScreen extends Component {
             emailError: "Invalid email",
             errorFound: "true",
           })
-        }else{
+        } else {
 
         }
       }
@@ -210,7 +244,7 @@ export class RegisterScreen extends Component {
         })
       }
       if (TextInputNic == '') {
-       
+
         showMessage({
           message: "Somefields not filled",
           backgroundColor: 'red'
@@ -220,32 +254,32 @@ export class RegisterScreen extends Component {
           errorFound: "true",
         })
       } else {
-      
-        if(TextInputNic.length==10){
+
+        if (TextInputNic.length == 10) {
           if (nic10.test(TextInputNic) == false) {
             this.setState({
               nicError: "invalid NIC number",
               errorFound: "true",
             })
-          }else{
+          } else {
             this.setState({
               nicError: "",
               errorFound: "",
             })
           }
-        }else  if(TextInputNic.length==12){
+        } else if (TextInputNic.length == 12) {
           if (nic12.test(TextInputNic) == false) {
             this.setState({
               nicError: "invalid NIC number",
               errorFound: "true",
             })
-          }else{
+          } else {
             this.setState({
               nicError: "",
               errorFound: "",
             })
           }
-        }else{
+        } else {
           this.setState({
             nicError: "invalid NIC number",
             errorFound: "true",
@@ -276,7 +310,7 @@ export class RegisterScreen extends Component {
         //mobile verification success. process continue for further validation
 
 
-     
+
 
         //start save data in the server
         if (this.state.errorFound != "false" || this.state.errorFound == "") {
@@ -312,13 +346,13 @@ export class RegisterScreen extends Component {
                 AsyncStorage.setItem('memberNames', TextInputName).then(
                   responseJson => {
 
-                
-                    if(PickerValueHolder==3){
+
+                    if (PickerValueHolder == 3) {
                       this.props.navigation.navigate('midwifeConfirm');
-                    }else{
+                    } else {
                       this.props.navigation.navigate('HomeApp');
                     }
-                   
+
                   }
                 );
                 AsyncStorage.setItem('memberId', PickerValueHolder);
@@ -335,13 +369,13 @@ export class RegisterScreen extends Component {
                   // passwordError: passwordError
                 })
                 this.props.navigation.navigate('Register')
-               
+
               }
 
 
             }).catch((error) => {
               console.error(error);
-              
+
             })
 
           this.state.errorFound = "false"
@@ -363,57 +397,57 @@ export class RegisterScreen extends Component {
 
 
   }
-//    source = {
-//     html: `
-//     <head>
-//     <meta charset="UTF-8" />
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//     <title>Directpay|RecurringPayment</title>
-// </head>
-// <div id="card_container"></div>
-// <body>
-//     <script src="https://cdn.directpay.lk/dev/v1/directpayCardPayment.js?v=1"></script>
-//     <script>
-//         DirectPayCardPayment.init({
-//             container: "card_container", //<div id="card_container"></div>
-//             merchantId: "xxxxxxx", //your merchant_id
-//             amount: "100.00",
-//             refCode: "DP12345", //unique referance code form merchant
-//             currency: "LKR",
-//             type: "RECURRING",
-//             recurring: {
-//                 startPaymentDate: "2050-07-18",
-//                 lastPaymentDate: "2050-07-19",
-//                 interval: "MONTHLY",
-//                 isRetry: true,
-//                 retryAttempts: 2,
-//                 recurringAmount: "50.00",
-//                 doFirstPayment: true,
-//             },
-//             customerEmail: "abc@mail.com",
-//             customerMobile: "+94712345467",
-//             description: "test products", //product or service description
-//             debug: true,
-//             responseCallback: responseCallback,
-//             errorCallback: errorCallback,
-//             logo: "https://test.com/directpay_logo.png",
-//             apiKey: "xxxxxxxxxxx",
-//         });
-//         //response callback.
-//         function responseCallback(result) {
-//             console.log("successCallback-Client", result);
-//             alert(JSON.stringify(result));
-//         }
+  //    source = {
+  //     html: `
+  //     <head>
+  //     <meta charset="UTF-8" />
+  //     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  //     <title>Directpay|RecurringPayment</title>
+  // </head>
+  // <div id="card_container"></div>
+  // <body>
+  //     <script src="https://cdn.directpay.lk/dev/v1/directpayCardPayment.js?v=1"></script>
+  //     <script>
+  //         DirectPayCardPayment.init({
+  //             container: "card_container", //<div id="card_container"></div>
+  //             merchantId: "xxxxxxx", //your merchant_id
+  //             amount: "100.00",
+  //             refCode: "DP12345", //unique referance code form merchant
+  //             currency: "LKR",
+  //             type: "RECURRING",
+  //             recurring: {
+  //                 startPaymentDate: "2050-07-18",
+  //                 lastPaymentDate: "2050-07-19",
+  //                 interval: "MONTHLY",
+  //                 isRetry: true,
+  //                 retryAttempts: 2,
+  //                 recurringAmount: "50.00",
+  //                 doFirstPayment: true,
+  //             },
+  //             customerEmail: "abc@mail.com",
+  //             customerMobile: "+94712345467",
+  //             description: "test products", //product or service description
+  //             debug: true,
+  //             responseCallback: responseCallback,
+  //             errorCallback: errorCallback,
+  //             logo: "https://test.com/directpay_logo.png",
+  //             apiKey: "xxxxxxxxxxx",
+  //         });
+  //         //response callback.
+  //         function responseCallback(result) {
+  //             console.log("successCallback-Client", result);
+  //             alert(JSON.stringify(result));
+  //         }
 
-//         //error callback
-//         function errorCallback(result) {
-//             console.log("successCallback-Client", result);
-//             alert(JSON.stringify(result));
-//         }
-//     </script>
-// </body>
-// `
-//   };
+  //         //error callback
+  //         function errorCallback(result) {
+  //             console.log("successCallback-Client", result);
+  //             alert(JSON.stringify(result));
+  //         }
+  //     </script>
+  // </body>
+  // `
+  //   };
   componentDidMount() {
     fetch('https://youandmenest.com/tr_reactnative/api/view_role', {
       method: 'get',
@@ -451,7 +485,7 @@ export class RegisterScreen extends Component {
       this.setState({ PickerValueHolder: itemValue });
     }
   }
-  card(){
+  card() {
     RNDirectPayCardPayment.addCardToUser(
       'dev', //env : dev or prod
       '7c62d2fdd3d4edf99e97be9838dd2fd7bac316578bffc37ef68100d516fa7409',// apiKey
@@ -463,11 +497,11 @@ export class RegisterScreen extends Component {
       '0716460440', // phone number of the user
       (_err, _r) => {
         if (_err) {//failed
-                                  
+
           console.log('code: ' + _err.code);
-                                  console.log('message: ' + _err.message);          
+          console.log('message: ' + _err.message);
         } else {//successfully added the card
-                      
+
           console.log('id: ' + _r.id); // id (token) of the added card
           console.log('mask: ' + _r.mask); // masked card number
           console.log('reference: ' + _r.reference); // unique user id as the reference
@@ -477,80 +511,81 @@ export class RegisterScreen extends Component {
     )
   }
   render() {
-    let { isLoading,loading } = this.state
+
+    let { isLoading, loading } = this.state
     if (isLoading) {
       return (
         <BarIndicator color='#fbb146' />
       );
     } else {
       return (
-      
-          <LinearGradient colors={['#fbb448', '#f78a2c']} style={styles.gradient}>
-            <CustomHeader bgcolor='#fbb448' gradient1="transparent"gradient2="transparent"  titleColor="black" title="" navigation={this.props.navigation} bdcolor='#fbb448' />
-            <FlashMessage duration={4000} />
-            <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}>
-              <View style={{
-                flex: 1, justifyContent: 'center', paddingHorizontal: 15,
-                paddingVertical: 0
-              }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-                  <Text style={{ fontSize: 22, fontWeight: "bold", marginTop: 0, color: 'white' }}> {i18n.t('SignUp.headding')}</Text>
 
-                  <Text style={{ fontSize: 12, marginTop: 2, color: 'black', textAlign: 'center' }}>{i18n.t('SignUp.subtitle1')} </Text>
-                  <Text style={{ fontSize: 12, marginTop: -2, marginBottom: 10, color: 'black' }}>{i18n.t('SignUp.subtitle2')}</Text>
+        <LinearGradient colors={['#fbb448', '#f78a2c']} style={styles.gradient}>
+          <CustomHeader bgcolor='#fbb448' gradient1="transparent" gradient2="transparent" titleColor="black" title="" navigation={this.props.navigation} bdcolor='#fbb448' />
+          <FlashMessage duration={4000} />
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}>
+            <View style={{
+              flex: 1, justifyContent: 'center', paddingHorizontal: 15,
+              paddingVertical: 0
+            }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+                <Text style={{ fontSize: 22, fontWeight: "bold", marginTop: 0, color: 'white' }}> {i18n.t('SignUp.headding')}</Text>
+
+                <Text style={{ fontSize: 12, marginTop: 2, color: 'black', textAlign: 'center' }}>{i18n.t('SignUp.subtitle1')} </Text>
+                <Text style={{ fontSize: 12, marginTop: -2, marginBottom: 10, color: 'black' }}>{i18n.t('SignUp.subtitle2')}</Text>
+              </View>
+
+
+              <Animatable.View animation="fadeInLeft">
+
+                <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.role1')} :</Text>
+                <View style={{ bborderColor: '#F2F2F2', borderWidth: 0.2, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }}>
+
+                  <Picker
+                    mode="dropdown"
+                    // selectedValue={this.state.datasource[index].packselectedValue}
+                    selectedValue={this.state.PickerValueHolder}
+                    // style={{ borderBottomColor: 'red', borderWidth: 1 }}
+                    // onValueChange={this.handleChangeOption}
+                    prompt='Options'
+                    onValueChange={
+                      (itemValue, itemIndex) =>
+
+                        this.setState(
+                          { PickerValueHolder: itemValue },
+                          (name, index) => {
+                          })
+                    }
+                  >
+                    <RedPickerItem label={i18n.t('SignUp.pickerheading')} value="red" color='red' fontSize='15' value={0} />
+
+                    {this.state.dataSource.map((item, key) => (
+
+                      <Picker.Item label={item.role_name} value={item.id} key={key} />)
+                    )}
+
+                  </Picker>
                 </View>
+                <Text style={{ color: 'red' }}>{this.state.optionError}</Text>
+
+                <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.username')} :</Text>
+                <TextInput onChangeText={TextInputValue => this.setState({ TextInputName: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_uname')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <Text style={{ color: 'red' }}>{this.state.unameError}</Text>
 
 
-                <Animatable.View animation="fadeInLeft">
-
-                  <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.role1')} :</Text>
-                  <View style={{ bborderColor: '#F2F2F2', borderWidth: 0.2, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }}>
-
-                    <Picker
-                      mode="dropdown"
-                      // selectedValue={this.state.datasource[index].packselectedValue}
-                      selectedValue={this.state.PickerValueHolder}
-                      // style={{ borderBottomColor: 'red', borderWidth: 1 }}
-                      // onValueChange={this.handleChangeOption}
-                      prompt='Options'
-                      onValueChange={
-                        (itemValue, itemIndex) =>
-
-                          this.setState(
-                            { PickerValueHolder: itemValue },
-                            (name, index) => {
-                            })
-                      }
-                    >
-                      <RedPickerItem label={i18n.t('SignUp.pickerheading')} value="red" color='red' fontSize='15' value={0} />
-
-                      {this.state.dataSource.map((item, key) => (
-
-                        <Picker.Item label={item.role_name} value={item.id} key={key} />)
-                      )}
-
-                    </Picker>
-                  </View>
-                  <Text style={{ color: 'red' }}>{this.state.optionError}</Text>
-
-                  <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.username')} :</Text>
-                  <TextInput onChangeText={TextInputValue => this.setState({ TextInputName: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_uname')} onEndEditing={this.clearFocus} autoFocus={false} />
-                  <Text style={{ color: 'red' }}>{this.state.unameError}</Text>
-
-
-                  <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.nic')} :</Text>
-                  <TextInput onChangeText={TextInputValue => this.setState({ TextInputNic: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_nic')} onEndEditing={this.clearFocus} autoFocus={false} />
-                  <Text style={{ color: 'red' }}>{this.state.nicError}</Text>
+                <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.nic')} :</Text>
+                <TextInput onChangeText={TextInputValue => this.setState({ TextInputNic: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_nic')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <Text style={{ color: 'red' }}>{this.state.nicError}</Text>
 
 
 
-                  <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.email')} :</Text>
-                  <TextInput onChangeText={TextInputValue => this.setState({ TextInputEmail: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_email')} enter_email onEndEditing={this.clearFocus} autoFocus={false} />
-                  <Text style={{ color: 'red' }}>{this.state.emailError}</Text>
+                <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.email')} :</Text>
+                <TextInput onChangeText={TextInputValue => this.setState({ TextInputEmail: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_email')} enter_email onEndEditing={this.clearFocus} autoFocus={false} />
+                <Text style={{ color: 'red' }}>{this.state.emailError}</Text>
 
-                  {/* <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>Mobil number :</Text>
+                {/* <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>Mobil number :</Text>
                   <TextInput
                     onChangeText={TextInputValue => this.setState({ TextInputPhoneNumber: TextInputValue })}
                     keyboardType="numeric"
@@ -558,60 +593,117 @@ export class RegisterScreen extends Component {
                     style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder="Enter Mobil number" onEndEditing={this.clearFocus} autoFocus={false} />
                   <Text style={{ color: 'red' }}>{this.state.mobileError}</Text> */}
 
-                  <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.pw')} :</Text>
-                  <TextInput secureTextEntry={true} onChangeText={TextInputValue => this.setState({ TextInputpassword: TextInputValue })} style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.pwInner')} onEndEditing={this.clearFocus} autoFocus={false} />
-                  <Text style={{ color: 'red' }}>{this.state.pwError}</Text>
+                <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.pw')} :</Text>
+                <TextInput secureTextEntry={true} onChangeText={TextInputValue => this.setState({ TextInputpassword: TextInputValue })} style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.pwInner')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <Text style={{ color: 'red' }}>{this.state.pwError}</Text>
+                <View style={{ flex: 1 }}>
+                
+                  <WebView
+                    style={{ flex: 1 }}
+                    originWhitelist={['*']}
+                    source={HTML_FILE}
+                    // style={{ marginTop: 100 }}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                  />
+                </View>
+                <Button
+                  title={i18n.t('SignUp.signUp')}
+                  titleStyle={{ color: 'black', fontSize: 17 }}
+                  loading={loading}
+                  buttonStyle={{
+                    width: '100%',
+                    backgroundColor: '#e2e1e1',
+                    alignSelf: 'flex-end',
+                    paddingLeft: 15,
+                    paddingRight: 15,
+                    borderRadius: 25,
+                    marginBottom: 20,
+                    marginTop: 30,
+                    paddingVertical: 11,
+                    elevation: 3,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 3 },
+                    shadowOpacity: 0.7,
+                    shadowRadius: 8,
+                  }}
+                  onPress={() => this.props.navigation.navigate('HomeApp')} onPress={this.InputUsers}
+                >
 
-                  <Button
-                    title={i18n.t('SignUp.signUp')}
-                    titleStyle={{ color: 'black', fontSize: 17 }}
-                    loading={loading}
-                    buttonStyle={{
-                      width:'100%',
-                      backgroundColor:'#e2e1e1',
-                      alignSelf: 'flex-end',
-                      paddingLeft: 15,
-                      paddingRight: 15,
-                      borderRadius: 25,
-                      marginBottom: 20,
-                      marginTop: 30,
-                      paddingVertical:11,
-                      elevation: 3,
-                      shadowColor: '#000',
-                      shadowOffset: { width: 0, height: 3 },
-                      shadowOpacity: 0.7,
-                      shadowRadius: 8,
-                    }}
-                    onPress={() => this.props.navigation.navigate('HomeApp')} onPress={this.InputUsers}
-                  >
-                     
-                  </Button>
+                </Button>
 
-                  <TouchableOpacity style={{ marginTop: 30 }}  onPress={this.card}>
+                <TouchableOpacity style={{ marginTop: 30 }} onPress={this.card}>
 
-                    <LinearGradient colors={['#fff', '#e2e1e1']}
-                      start={{ x: 1, y: 0 }}
-                      end={{ x: 1, y: 1 }}
-                      style={styles.linearGradient}>
-                      <Text style={styles.buttonText}>
+                  <LinearGradient colors={['#fff', '#e2e1e1']}
+                    start={{ x: 1, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.linearGradient}>
+                    <Text style={styles.buttonText}>
                       card
-                      </Text>
-                    </LinearGradient>
-                  </TouchableOpacity>
-                </Animatable.View>
+                    </Text>
+                  </LinearGradient>
+                </TouchableOpacity>
 
-              </View>
-            </ScrollView>
-          </LinearGradient>
-        
-        
+         
+
+                {/* <RenderHTML contentWidth={300} source={{ html }} /> */}
+
+              </Animatable.View>
+
+            </View>
+
+
+            <RBSheet
+
+              ref={ref => {
+                this.RBSheet = ref;
+              }}
+              closeOnDragDown={true}
+              height={400}
+              openDuration={700}
+              customStyles={{
+                container: {
+                  // justifyContent: "center",
+                  // alignItems: "center",
+                  borderTopRightRadius: 20,
+                  borderTopLeftRadius: 20,
+                  backgroundColor: '#F2F2F2'
+                }
+              }}
+            >
+
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentInsetAdjustmentBehavior="automatic"
+                style={styles.scrollView}>
+        <RedPickerItem2  />
+              </ScrollView>
+            </RBSheet>
+
+
+          </ScrollView>
+        </LinearGradient>
+
+
       );
     }
   }
-} class RedPickerItem extends Component {
+} 
+class RedPickerItem extends Component {
   render() {
     return (
       <Picker.Item {...this.props} style={{ color: '#fff', placeholderTextColor: '#fff' }} />
+    )
+  }
+}
+
+class RedPickerItem2 extends Component {
+  render() {
+    return (
+      <WebView
+      style={{flex: 1}}
+     
+    />
     )
   }
 }

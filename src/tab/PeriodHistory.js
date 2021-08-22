@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView, TouchableOpacity, StyleSheet, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, TouchableNativeFeedback, Alert, FlatList } from 'react-native';
+import { Text, View, SafeAreaView, StatusBar, StyleSheet, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, TouchableNativeFeedback, Alert, FlatList } from 'react-native';
 import { IMAGE } from '../constants/image';
 import { CustomHeader } from '../index';
 import { List, ListItem, Left, Body, Right } from 'native-base';
@@ -183,8 +183,9 @@ export class PeriodHistory extends Component {
     render() {
 
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
-                <CustomHeader bgcolor='#fbb146' title=""  bcbuttoncolor='#ffc470' navigation={this.props.navigation} bdcolor='#fbb146' />
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+                <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
+                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('period_calan.history')}  bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
                 <FlashMessage duration={1000} />
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -193,10 +194,10 @@ export class PeriodHistory extends Component {
 
                     <View>
 
-                        <View style={{ backgroundColor: '#fbb146', height: 60, zIndex: -1 }}>
+                        {/* <View style={{ backgroundColor: '#fbb146', height: 60, zIndex: -1 }}>
 
                         <Text style={{ fontSize: 20, marginTop: 0, marginLeft: 15, fontWeight: 'bold', color: 'white' }}>{i18n.t('period_calan.history')}</Text>
-                        </View>
+                        </View> */}
 
                         <View style={styles.breadthPo1}>
 

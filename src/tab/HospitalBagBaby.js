@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Modal, StyleSheet, Text, Image, View, SafeAreaView, TouchableOpacity, ScrollView,StatusBar, FlatList, Switch } from 'react-native';
+import { Modal, StyleSheet, Text, Dimensions, View, SafeAreaView, ImageBackground, ScrollView,StatusBar, FlatList, Switch } from 'react-native';
 
 import { CustomHeader } from '../index';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -127,7 +127,8 @@ export class HospitalBagBaby extends Component {
     }
     keyExtractor = (item, index) => index.toString()
     render() {
-
+        const windowWidth = Dimensions.get('window').width;
+        const windowHeight = Dimensions.get('window').height;
         let value = 0;
 
         let { isLoading } = this.state
@@ -140,22 +141,30 @@ export class HospitalBagBaby extends Component {
 
             return (
 
-                <SafeAreaView style={{ flex: 1, }}>
-                     <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#F2F2F2" />
+                <SafeAreaView style={{ flex: 1,backgroundColor:'white' }}>
+                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
               
-                    <CustomHeader bgcolor='#F2F2F2'  gradient1="transparent" gradient2="transparent" titleColor="black"  title={i18n.t('bag.Preparebabybaghead')} bcbuttoncolor='#fff'  navigation={this.props.navigation} bdcolor='#F2F2F2' />
-                    <View style={styles.brestposition3}></View>
-                    <View style={styles.brestposition4}></View>
-                    <View style={styles.header}>
-                        <Image style={{ width: 380, height: 290, marginLeft: 0, }}
+                    <CustomHeader bgcolor='#F2F2F2'gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white"  title={i18n.t('bag.Preparebabybaghead')} bcbuttoncolor='#fff'  navigation={this.props.navigation} bdcolor='#F2F2F2' />
+                    {/* <View style={styles.brestposition3}></View>
+                    <View style={styles.brestposition4}></View> */}
+                    {/* <View style={styles.header}> */}
+                        {/* <Image style={{ width: 380, height: 290, marginLeft: 0, }}
                             source={IMAGE.ICON_BABYBAG}
                             resizeMode="contain"
-                        />
+                        /> */}
               
-                    </View>
-                    <Animatable.View style={styles.footer} animation="fadeInUpBig">
-                        <View style={styles.brestposition5}></View>
-                        <View style={styles.brestposition6}></View>
+                    {/* </View> */}
+                    <Animatable.View style={[styles.footer,{marginTop:0}]} animation="fadeInUpBig">
+                    <ImageBackground
+              source={IMAGE.ICON_BABYBAG2}
+              imageStyle={{borderRadius:20,resizeMode:'cover'}}
+              style={{ width: windowWidth-60, height: windowWidth-60, alignSelf:'center',justifyContent:'flex-end',borderRadius:20}}>
+              <View style={{backgroundColor:'#4633cb',alignItems:'center',padding:7,borderBottomRightRadius:20,borderBottomLeftRadius:20}}>
+              <Text style={{color:'#fff'}}>{i18n.t('bag.Preparebabybaghead')}</Text>
+              </View>
+            </ImageBackground>
+                        {/* <View style={styles.brestposition5}></View>
+                        <View style={styles.brestposition6}></View> */}
 
                         <Text style={{ marginHorizontal: 20, fontSize: 18, fontWeight: "bold" }}>{i18n.t('bag.Preparebabybag')}</Text>
                         <FlatList
@@ -249,15 +258,16 @@ const styles = StyleSheet.create({
         marginLeft: 19,
 
     }, footer: {
-        flex: 2,
+        // flex: 2,
         backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
 
         paddingVertical: 20,
         //  paddingHorizontal: 20
     }, header: {
         flex: 1,
+        marginTop:15
         // justifyContent: 'center',
         // alignItems: 'center',
     }, brestposition5: {

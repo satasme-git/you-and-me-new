@@ -502,13 +502,13 @@ export class BloodPresureBarChart extends Component {
 
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-        <StatusBar barStyle="light-content" hidden={false} backgroundColor="#fff" />
+        <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
         <FlashMessage duration={1000} />
-        <CustomHeader bgcolor='white'  gradient1="transparent" gradient2="transparent" title={i18n.t('blood.bldchart')} bcbuttoncolor='#F2F2F2' navigation={this.props.navigation} bdcolor='white' />
+        <CustomHeader bgcolor='white'  gradient1="#4E3CCE"  titleColor="white" gradient2="#9A81FD" title={i18n.t('blood.bldchart')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='white' />
         <View style={styles.header}>
 
           <View style={{ marginTop: 0, marginLeft: 20, marginBottom: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'black' }}>{i18n.t('blood.chartheadding')}</Text>
+          {/* <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'black' }}>{i18n.t('blood.chartheadding')}</Text> */}
          
           </View>
           <SegmentedControlTab
@@ -679,9 +679,9 @@ const styles = StyleSheet.create({
 
   footer: {
     flex: 2,
-    backgroundColor: '#ffc15a',
+    // backgroundColor: '#ffc15a',
     // borderTopLeftRadius: 30,
-    borderTopRightRadius: 50,
+    // borderTopRightRadius: 50,
     // paddingVertical: 30,
     //  paddingHorizontal: 20
 

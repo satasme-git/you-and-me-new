@@ -122,13 +122,13 @@ export class VerticleYearChart extends Component {
             <LinearGradient start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ flex: 1 }}>
                 <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
-                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" titleColor="black" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('dietplan.hedding')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
                 <LinearGradient start={{ x: 0, y: 1 }}
                     end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={styles.header}>
 
 
                     <View style={{ marginTop: 0, marginLeft: 20, marginBottom: -10 }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('dietplan.hedding')}</Text>
+                        {/* <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('dietplan.hedding')}</Text> */}
 
                     </View>
                     <View style={{ marginHorizontal: 10, zIndex: 5, top: 22 }}>
@@ -137,16 +137,16 @@ export class VerticleYearChart extends Component {
                         </TouchableOpacity> */}
 
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('MealPlan')} style={[styles.buttonh, { backgroundColor: 'white', }]}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ backgroundColor: 'red', padding: 8, borderRadius: 40 }}>
+                            <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
+                                {/* <View style={{ backgroundColor: 'red', padding: 8, borderRadius: 40 }}> */}
                                   
                                     <Icon
                                         name="fast-food-outline"
-                                        iconStyle={{ fontSize: 12, paddingRight: 2, paddingLeft: 2, color: 'white' }}
-                                        size={21}
-                                        color="white"
+                                        style={{paddingHorizontal:5}}
+                                        size={15}
+                                        color="#4633cb"
                                     />
-                                </View>
+                                {/* </View> */}
                                 <Text style={styles.buttonText}>{i18n.t('dietplan.mealplan')}</Text>
                             </View>
                         </TouchableOpacity>
@@ -251,15 +251,17 @@ const styles = StyleSheet.create({
         textAlign: 'justify'
     }, header: {
         flex: 1,
+
     }, footer: {
         flex: 6,
         // flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
         paddingRight: 10,
-        paddingTop: 10
+        paddingTop: 10,
+        marginTop:0
 
     }, button: {
 
@@ -275,15 +277,15 @@ const styles = StyleSheet.create({
         // marginVertical: 5,
         //  zIndex:5
     }, buttonText: {
-        fontSize: 15,
-        color: 'black',
-        padding: 8,
+        fontSize: 13,
+        color: '#4633cb',
+        padding: 2,
     }, buttonh: {
         backgroundColor: "#fff",
         padding: 5,
         borderRadius: 10,
         // marginTop: 18,
-        width: 170,
+        width: 100,
         elevation: 10,
         shadowColor: '#30C1DD',
         shadowOffset: { width: 0, height: 5 },

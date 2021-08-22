@@ -326,8 +326,8 @@ const styles = StyleSheet.create({
         // flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
         paddingRight: 10,
         paddingTop: 10
 

@@ -207,11 +207,11 @@ export class BreastFeeding extends Component {
 
                     {/* <View style={styles.header}> */}
                         <View style={{ flexDirection: 'row' }}>
-                            <View style={{ marginTop: 25, marginLeft: 20 }}>
-                                <View style={styles.brestposition3}>
+                            <View style={{ marginTop: 20, marginLeft: 20 }}>
+                                {/* <View style={styles.brestposition3}>
                                 </View>
                                 <View style={styles.brestposition4}>
-                                </View>
+                                </View> */}
                                 <View style={[styles.brestposition2, { backgroundColor: '#fce6d2' }]}>
                                     <Image source={IMAGE.ICON_BABY}
                                         style={{ height: 105, width: 110 }}>
@@ -225,7 +225,7 @@ export class BreastFeeding extends Component {
                                 <Text style={{ color: 'white', paddingTop: 5 }}>{i18n.t('bfeeding.gender')} : <Text style={{ fontWeight: 'bold', color: 'black' }}>{
                                     this.state._radiobuttonValue}
                                 </Text> </Text>
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'row',marginBottom:10 }}>
                                     <TouchableOpacity style={styles.button1} onPress={() => this.RBSheet.open()}>
                                         <Text style={styles.buttonText2}>{i18n.t('bfeeding.editbtn')}</Text>
                                     </TouchableOpacity>
@@ -313,11 +313,11 @@ export class BreastFeeding extends Component {
                             showsVerticalScrollIndicator={false}
                             contentInsetAdjustmentBehavior="automatic"
                             style={styles.scrollView}>
-                            <View style={{ justifyContent: 'center', padding: 10, marginTop: 40 }}>
+                            <View style={{ justifyContent: 'center', padding: 10, marginTop: 10 }}>
 
                                 <View style={{ marginTop: 0, marginLeft: 5, paddingBottom: 2 }}>
-                                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{i18n.t('bfeeding.subheding')} <Text style={{ color: 'gray', fontWeight: 'normal' }}>{i18n.t('bfeeding.akara')} </Text></Text>
-                                    <View style={{ borderTopWidth: 6, borderTopColor: "#f78a2c", borderRadius: 3, width: 45, marginTop: 10 }}></View>
+                                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{i18n.t('bfeeding.subheding')} <Text style={{ color: 'black', fontWeight: 'bold' }}>{i18n.t('bfeeding.akara')} </Text></Text>
+                                    {/* <View style={{ borderTopWidth: 6, borderTopColor: "#f78a2c", borderRadius: 3, width: 45, marginTop: 10 }}></View> */}
                                     {/* <Text style={{ color: 'gray',fontSize: 12,marginTop:-4 }}>Atachment</Text> */}
                                 </View>
                                 <View style={{}}>
@@ -473,7 +473,7 @@ export class BreastFeeding extends Component {
         backgroundColor: 'white',
         zIndex: -1
     }, header: {
-        flex: 2,
+        // flex: 2,
         backgroundColor: '#fbb146',
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
@@ -488,7 +488,8 @@ export class BreastFeeding extends Component {
         paddingTop: 5,
         paddingBottom: 15,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        marginTop:0
     }, button5: {
         shadowColor: 'rgba(0,0,0, .4)', // IOS
         shadowOffset: { height: 1, width: 1 }, // IOS
@@ -516,9 +517,9 @@ export class BreastFeeding extends Component {
         justifyContent: 'center',
     },
     button1: {
-        backgroundColor: "red",
-        padding: 5,
-        borderRadius: 25,
+        backgroundColor: "white",
+        padding: 0,
+        borderRadius: 10,
         marginTop: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -548,8 +549,8 @@ export class BreastFeeding extends Component {
         borderTopLeftRadius: 45,
         overflow: 'hidden',
     }, brestposition2: {
-        width: 108,
-        height: 108,
+        width: 100,
+        height: 100,
         marginLeft: 20,
         borderRadius: 55,
         overflow: 'hidden',
@@ -600,7 +601,7 @@ export class BreastFeeding extends Component {
     }, breadthPo1: {
         justifyContent: 'center',
         alignSelf: 'center',
-        position: 'absolute',
+        // position: 'absolute',
         backgroundColor: 'white',
         bottom: 20,
         zIndex: 5,
@@ -611,6 +612,7 @@ export class BreastFeeding extends Component {
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.8,
         shadowRadius: 5,
+        marginTop:15
     }, button: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -622,7 +624,8 @@ export class BreastFeeding extends Component {
     },
     buttonText2: {
         fontSize: 15,
-        color: '#fff',
-        padding: 3
+        color: '#4E3CCE',
+        padding: 3,
+        paddingHorizontal:10
     }
 });

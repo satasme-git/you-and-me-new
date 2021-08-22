@@ -84,6 +84,7 @@
     "react-native-push-notification": "^5.1.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^1.9.0",
+    "react-native-render-html": "^6.0.5",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",
     "react-native-segmented-control-tab": "^3.4.1",

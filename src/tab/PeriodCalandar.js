@@ -215,8 +215,26 @@ export class PeriodCalandar extends Component {
         } else {
             this.RBSheet.close();
         }
-        var _ovlDate = moment(this.state.pName).add(12, 'day').format('YYYY-MM-DD');
-        var _nextDate = moment(this.state.pName).add(28, 'day').format('YYYY-MM-DD');
+        var _ovlDate = moment(this.state.pName).add(10, 'day').format('YYYY-MM-DD');
+        var _nextDate = moment(this.state.pName).add(26, 'day').format('YYYY-MM-DD');
+
+
+        // let beforeVaccination = moment(nextVaaccination).subtract(2, 'day').format('YYYY-MM-DD');
+
+        let dataOvl = {
+            _title: "Your Ovulation start date is " + _ovlDate,
+            _bigText: "2 days more ",
+            date: _ovlDate
+        }
+        let datanextp = {
+            _title: "Your Next period date is " + _nextDate,
+            _bigText: "2 days more ",
+            date: _nextDate
+        }
+
+        cn.testPush(dataOvl);
+        cn.testPush(datanextp);
+        
         let data = {
             pName: this.state.pName,
             pDescription: "Period start ",

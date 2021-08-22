@@ -87,14 +87,14 @@ export class HealthDietChart extends Component {
     keyExtractor = (item, index) => index.toString()
     render() {
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: '#fbb146' }}>
-                <CustomHeader bgcolor='#fbb146' title=""  bcbuttoncolor='#ffc470'  navigation={this.props.navigation} bdcolor='#fbb146' />
-                <View style={styles.header}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('food.hedding')} bcbuttoncolor='#fff'  navigation={this.props.navigation} bdcolor='#fbb146' />
+                {/* <View style={styles.header}>
                     <View style={{ marginTop: 0, marginLeft: 20, marginBottom: -10 }}>
-                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>{i18n.t('food.hedding')}</Text>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>{i18n.t('food.hedding')}</Text> */}
                         {/* <Text style={{ color: 'white' }}>press on foot after kick</Text> */}
 
-                        <View style={{ height: 100, padding: 10 }}>
+                        {/* <View style={{ height: 100, padding: 10 }}>
                             <Image source={IMAGE.ICON_DIET_PLAN}
                                 style={{ height: 200, width: 320 }}
                             >
@@ -103,7 +103,7 @@ export class HealthDietChart extends Component {
                     </View>
 
 
-                </View>
+                </View> */}
 
                 <Animatable.View animation="fadeInUp" style={styles.footer}>
       
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     body: {
         // flex: 1,
         fontSize: 14,
-        color: '#606060',
+        // color: '#606060',
         lineHeight: 18,
         marginRight: -15,
         fontWeight: 'normal',
@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
         // flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
         paddingRight: 10,
         paddingTop: 10
 

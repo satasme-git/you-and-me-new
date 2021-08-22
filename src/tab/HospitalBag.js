@@ -155,44 +155,44 @@ export class HospitalBag extends Component {
                 <SafeAreaView style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
                     <CustomHeader style={{ zIndex: -5 }} gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bgcolor='#fbb146' bcbuttoncolor='#fff' title="" navigation={this.props.navigation} bdcolor='#fbb146' />
-                    <View style={styles.brestposition5}></View>
+                    {/* <View style={styles.brestposition5}></View>
                     <View style={styles.brestposition6}></View>
                     <View style={styles.brestposition3}></View>
-                    <View style={styles.brestposition4}></View>
+                    <View style={styles.brestposition4}></View> */}
                     <LinearGradient start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ backgroundColor: '#fbb146', height: 140, zIndex: -1, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}>
+                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ backgroundColor: '#fbb146', height: 120, zIndex: -1, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}>
 
                         <View style={{ marginTop: 0, marginLeft: 20 }}>
 
-                            <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('bag.headding')} {this.state.userName}</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('bag.headding2')} {this.state.userName}</Text>
                             <Text style={{ fontSize: 17, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('bag.subhed')}</Text>
 
                         </View>
                         <View style={{ flexDirection: 'row',  marginTop: 10,marginLeft:10 }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HospitalBagBaby')} style={[styles.buttonh, { backgroundColor: '#fff', width: 130 }]}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('HospitalBagBaby')} style={[styles.buttonh, { backgroundColor: '#fff', width: 110 }]}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
                                         <Icon
                                             name='suitcase'
                                             type='font-awesome'
                                             color='red'
-                                            iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'gray' }}
+                                            iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: '#4E3CCE' }}
                                         />
                                     </View>
-                                    <Text style={{ color: 'black', padding: 7 }}>{i18n.t('bag.babybag')}</Text>
+                                    <Text style={{ color: '#4E3CCE', padding: 7 }}>{i18n.t('bag.babybag')}</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('LabourRoomPacking')} style={[styles.buttonh, { backgroundColor: '#fff', width: 180 }]}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('LabourRoomPacking')} style={[styles.buttonh, { backgroundColor: '#fff', width: 160 }]}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
                                         <Icon
                                             name='shopping-bag'
                                             type='font-awesome'
                                             color='red'
-                                            iconStyle={{ fontSize: 13, color: 'gray' }}
+                                            iconStyle={{ fontSize: 13, color: '#4E3CCE' }}
                                         />
                                     </View>
-                                    <Text style={{ color: 'black', padding: 7 }}>{i18n.t('bag.laborropak')}</Text>
+                                    <Text style={{ color: '#4E3CCE', padding: 7 }}>{i18n.t('bag.laborropak')}</Text>
 
                                 </View>
                             </TouchableOpacity>
@@ -202,7 +202,7 @@ export class HospitalBag extends Component {
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         contentInsetAdjustmentBehavior="automatic"
-                        style={styles.scrollView}>
+                        style={{backgroundColor:'white'}}>
 
                         <View style={{ marginBottom: 30 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -315,9 +315,9 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
     }, buttonh: {
 
-        padding: 5,
+        padding: 0,
         borderRadius: 10,
-        marginTop: 18,
+        marginTop: 10,
         width: 120,
         elevation: 10,
         shadowColor: '#30C1DD',

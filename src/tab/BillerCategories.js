@@ -123,48 +123,13 @@ export class BillerCategories extends Component {
     this.setState({
       _billCode: billerCode,
     });
-    this.walletBalance();
+    AsyncStorage.setItem('billerCode', this.state._billCode).then(
+        this.props.navigation.navigate('BillPaymentInformation')
+    );
+    // this.walletBalance();
+    
   }
-  walletBalance() {
-    JSHmac("bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
-      .then(hash => {
-        fetch('https://dev.directpay.lk/v2/backend/external/api/getWalletBalance', {
-          method: 'post',
-          headers: {
-            'Authorization': 'Bearer ' + hash,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
-          }),
-        }).then((response) => response.json())
-          .then((responseJson) => {
-            // this.setState({
-            //   categoryData: responseJson.data.categoryData,
-            // });
 
-            if (responseJson.data.success == true) {
-              this.RBSheet.close();
-
-
-              setTimeout(() => {
-                AsyncStorage.setItem('billerCode', this.state._billCode).then(
-                  responseJson => {
-                    this.props.navigation.navigate('BillPaymentInformation');
-                  }
-                );
-
-              }, 100);
-              // this.props.navigation.navigate('BillPaymentInformation');
-
-            }
-          }).catch((error) => {
-            console.error(error);
-
-          })
-      })
-      .catch(e => console.log(e));
-  }
   render() {
     let { isLoading, loadin, loading } = this.state
     let lapsList2;
@@ -233,8 +198,9 @@ export class BillerCategories extends Component {
                           data.id + ".png",
                       }} style={{ width: 50, height: 50, overflow: 'hidden' }} />
                       <Text>{data.category}</Text>
-                    </View> : null
-              }
+                    </View> 
+                    : null
+              } 
             </TouchableOpacity>
             <RBSheet
 

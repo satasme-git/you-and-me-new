@@ -8,6 +8,8 @@ import Database from '../Database';
 import moment from 'moment' // 2.20.1
 import AsyncStorage from '@react-native-community/async-storage';
 
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import i18n from 'i18n-js';
@@ -156,23 +158,28 @@ export class WeightGainDetailsAdd extends Component {
 
             
                     <LinearGradient start={{ x: 0, y: 1 }}
-                        end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 140, zIndex: -1}}>
+                        end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 120, zIndex: -1}}>
                     {/* <View style={{ backgroundColor: 'red', height: 140, zIndex: -1, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}> */}
                         <View style={{ marginTop: 0, marginLeft: 20 }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('weightGain.heading')} {this.state.userName}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('weightGain.heading2')} {this.state.userName}</Text>
                             <Text style={{ fontSize: 17, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('weightGain.subheading')}</Text>
                         </View>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('WightGainBarchart')} style={styles.button}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ backgroundColor: 'gray', padding: 10, borderRadius: 35 }}>
-                                    <Icon
+                            <View style={{ flexDirection: 'row',alignItems:'center',paddingLeft:10 }}>
+                                {/* <View style={{ backgroundColor: 'gray', padding: 10, borderRadius: 35 }}> */}
+                                    {/* <Icon
                                         name='bar-chart'
                                         type='font-awesome'
                                         color='red'
                                         iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'white' }}
-                                    />
-                                </View>
-                                <Text style={{ color: 'black', padding: 7 }}>{i18n.t('weightGain.mainheading')}</Text>
+                                    /> */}
+                                <MaterialCommunityIcons
+                                    name="history"
+                                    size={20}
+                                    color="#4633cb"
+                                />
+                                {/* </View> */}
+                                <Text style={{ color: '#4633cb', padding: 7 }}>{i18n.t('weightGain.mainheading')}</Text>
 
                             </View>
 
@@ -184,22 +191,39 @@ export class WeightGainDetailsAdd extends Component {
 
                     <View style={styles.breadthPo1}>
 
-                    <Text style={{ marginVertical: 10 }} >{i18n.t('weightGain.sltdate')}</Text>
+                    {/* <Text style={{ marginVertical: 10 }} >{i18n.t('weightGain.sltdate')}</Text> */}
 
                         <TouchableOpacity onPress={this._showDatePicker} >
-                            <View style={{ borderColor: 'gray', height: 50, borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10, paddingTop: 15 }}>
+                            <View style={{ borderColor: 'gray', height: 50, borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingHorizontal: 15, paddingTop: 15,flexDirection:'row' ,justifyContent:'space-between'}}>
+                                        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                                        <Icon
+                                            name='calendar'
+                                            type='font-awesome'
+                                            color='#4633cb'
+                                            iconStyle={{ fontSize: 17, color: '#4633cb',paddingRight:10 }}
+                                        />
+                                        <Text>Date</Text>
+                                        </View>
+                                        <View style={{flexDirection:'row'}}>
                                 {
                                     this.state.DateText != '' ?
                                         <Text style={styles.datePickerText}>{this.state.DateText}</Text>
                                         :
                                         <Text style={styles.datePickerText}>{_today}</Text>
                                 }
+                                <Icon
+                                            name='chevron-down'
+                                            type='feather'
+                                            color='#4633cb'
+                                            iconStyle={{ fontSize: 20, color: 'gray',paddingLeft:10 }}
+                                        />
+                                        </View>
                             </View>
                         </TouchableOpacity>
 
-                        <Text style={{ marginVertical: 10 }}>{i18n.t('weightGain.waightval')} </Text>
+                        {/* <Text style={{ marginVertical: 10 }}>{i18n.t('weightGain.waightval')} </Text> */}
                         <TextInput
-                            keyboardType='numeric' style={{ height:45,borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 }}
+                            keyboardType='numeric' style={{ height:45,borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 , marginTop:10}}
                             autoFocus={false} onChangeText={TextInputValue => this.setState({ TextInpuPbValue: TextInputValue })}  placeholder={i18n.t('weightGain.waightvalinner')} />
                         <TouchableOpacity onPress={() => this.saveData()} activeOpacity={0.5} >
                             {/* <Text style={styles.buttonText}>Save Baby' Data</Text>
@@ -338,10 +362,10 @@ export class WeightGainDetailsAdd extends Component {
 
     }, button: {
         backgroundColor: "white",
-        padding: 7,
-        borderRadius: 15,
+        padding: 2,
+        borderRadius: 10,
         marginTop: 18,
-        width: 140,
+        width: 130,
         elevation: 10,
         shadowColor: '#30C1DD',
         shadowOffset: { width: 0, height: 5 },
@@ -351,10 +375,10 @@ export class WeightGainDetailsAdd extends Component {
 
     }, linearGradient: {
 
-        marginTop: 40,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 25,
+        marginTop: 30,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10,
         marginBottom: 20,
         elevation: 3,
         shadowColor: '#000',
@@ -362,13 +386,13 @@ export class WeightGainDetailsAdd extends Component {
         shadowOpacity: 0.7,
         shadowRadius: 8,
         padding: 1,
-
+        alignSelf:'center'
         // marginTop: 40,
         // paddingLeft: 15,
         // paddingRight: 15,
         // borderRadius: 25,
     }, buttonText: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'Gill Sans',
         textAlign: 'center',
         margin: 10,
@@ -391,7 +415,7 @@ export class WeightGainDetailsAdd extends Component {
         fontSize: 14,
         marginLeft: 5,
         borderWidth: 0,
-        color: '#000',
+        color: 'gray',
 
     },
 });

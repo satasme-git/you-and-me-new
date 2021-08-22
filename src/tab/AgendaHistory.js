@@ -78,7 +78,7 @@ export class AgendaHistory extends Component {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
                 <FlashMessage duration={1000} />
-                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('special_notes.historynote')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentInsetAdjustmentBehavior="automatic"
@@ -88,12 +88,12 @@ export class AgendaHistory extends Component {
                         <LinearGradient
                             start={{ x: 0, y: 1 }}
                             end={{ x: 1, y: 0.9 }}
-                            colors={['#4E3CCE', '#9A81FD']} style={[styles.gradient, { height: 120, zIndex: -1 }]}>
+                            colors={['#4E3CCE', '#9A81FD']} style={[styles.gradient, { height: 80, zIndex: -1 }]}>
 
                             {/* <View style={{ backgroundColor: '#fbb146', height: 120, zIndex: -1 }}> */}
                             <View style={{ marginTop: 0, marginLeft: 20 }}>
 
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('special_notes.historynote')}</Text>
+                                {/* <Text style={{ fontSize: 17, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('special_notes.historynote')}</Text> */}
 
                             </View>
                         </LinearGradient>
@@ -238,8 +238,8 @@ export class AgendaHistory extends Component {
         backgroundColor: 'white',
         bottom: 80,
         zIndex: 5,
-        width: '95%',
-        borderRadius: 10,
+        width: '100%',
+        // borderRadius: 0,
         elevation: 2,
         padding: 12,
         // shadowColor: '#30C1DD',

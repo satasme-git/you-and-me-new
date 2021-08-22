@@ -35,6 +35,7 @@ export class GetBiller extends Component {
       prodDesc: '',
       billers: [],
       _billCode: '',
+      _billerName:'',
       isLoading: true,
     };
   }
@@ -58,7 +59,7 @@ export class GetBiller extends Component {
         }).then((response) => response.json())
           .then((responseJson) => {
 
-// console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
+console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
             this.setState({
               billers: responseJson.data.billerData,
               isLoading: false,
@@ -80,9 +81,10 @@ export class GetBiller extends Component {
       .catch(e => console.log(e));
   }
 
-  paymentActions(billerCode) {
+  paymentActions(billerCode,billerName) {
     this.setState({
       _billCode: billerCode,
+      _billerName: billerName,
     });
     this.walletBalance();
   }
@@ -112,8 +114,7 @@ export class GetBiller extends Component {
               // setTimeout(() => {
                 AsyncStorage.setItem('billerCode', this.state._billCode).then(
                   responseJson => {
-
-
+                    AsyncStorage.setItem('billerName', this.state._billerName);
                     this.props.navigation.navigate('BillPaymentInformation');
                   }
                 );
@@ -145,17 +146,18 @@ export class GetBiller extends Component {
             <TouchableOpacity
               onPress={() =>
 
-                this.paymentActions(data.billerCode)
+                this.paymentActions(data.billerCode,data.billerName)
 
               }
             >
-              <View style={{ justifyContent: 'center', alignItems: 'center', padding: 10, width: deviceWidth / 3.6 }}>
+              <View style={{ justifyContent: 'center', alignItems: 'center', padding: 7, width: deviceWidth / 3.6 }}>
             
                 <Image source={{
                   uri: 'https://youandmenest.com/tr_reactnative/public/images/Mobile/' +
                     data.billerCode + ".png",
                 }} style={{ width: 80, height: 50, overflow: 'hidden' }} />
                 <Text>{data.billerName}</Text>
+                {/* <Text>{data.billerCode}</Text> */}
               </View>
 
             </TouchableOpacity>

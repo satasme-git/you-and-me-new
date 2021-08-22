@@ -363,13 +363,13 @@ export class EDDCalculator extends Component {
                 <LinearGradient start={{ x: 0, y: 1 }}
                     end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ flex: 1 }}>
                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
-                    <CustomHeader bgcolor='transparent' gradient1="transparent" gradient2="transparent" titleColor="white" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+                    <CustomHeader bgcolor='transparent' gradient1="transparent" gradient2="transparent" titleColor="white" title={i18n.t('edd.headding')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
 
                     <LinearGradient start={{ x: 0, y: 1 }}
                         end={{ x: 1, y: 0.9 }} colors={['transparent', 'transparent']} style={styles.header} >
 
-                        <View style={{ marginTop: 0, marginLeft: 20, }}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('edd.headding')}</Text>
+                        <View style={{ marginTop: 10, marginLeft: 20, }}>
+                            {/* <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('edd.headding')}</Text> */}
                             <Text style={{ color: 'white', marginTop: -3 }}>{i18n.t('edd.subheadding')}</Text>
                         </View>
                         {
@@ -383,10 +383,10 @@ export class EDDCalculator extends Component {
                                                     name='plus'
                                                     type='font-awesome'
                                                     color='red'
-                                                    iconStyle={{ fontSize: 15, paddingRight: 2, paddingLeft: 2, color: 'white' }}
+                                                    iconStyle={{ fontSize: 10, paddingRight: 2, paddingLeft: 2, color: 'white' }}
                                                 />
                                             </View>
-                                            <Text style={{ color: 'black', padding: 7 }}>{i18n.t('edd.button')}</Text>
+                                            <Text style={{ color: '#394694', padding: 5 ,fontSize:14}}>{i18n.t('edd.button')}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -400,10 +400,10 @@ export class EDDCalculator extends Component {
                                                         name='edit'
                                                         type='font-awesome'
                                                         color='red'
-                                                        iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'white' }}
+                                                        iconStyle={{ fontSize: 10, paddingRight: 0, paddingLeft: 0, color: 'white' }}
                                                     />
                                                 </View>
-                                                <Text style={{ color: 'black', padding: 7 }}>{i18n.t('edd.buttonup')}</Text>
+                                                <Text style={{ color: '#394694', padding: 5 ,fontSize:14}}>{i18n.t('edd.buttonup')}</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
@@ -675,10 +675,10 @@ export class EDDCalculator extends Component {
         marginVertical: 5
     }, footer: {
 
-        flex: 6,
+        flex: 8,
         backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
         // paddingVertical: 30,
         //  paddingHorizontal: 20
     }, header: {

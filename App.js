@@ -16,6 +16,7 @@ import { NotificationsScreen } from './src/drawer';
 import { RegisterScreen, LoginScreen, Login2Screen, SplashScreen } from './src/auth';
 import { FlatList } from 'react-native-gesture-handler';
 import { IMAGE } from './src/constants/image';
+import { CardAddWebView } from './src/tab/CardAddWebView';
 
 
 
@@ -360,20 +361,28 @@ export default class App extends React.Component {
             }
           }} component={midwifeConfirm} />
           <StackApp.Screen name="BillerCategories" options={{
-            headerShown: true, headerTintColor: 'white', headerStyle: {
+             title: 'Biller Categories',headerShown: true, headerTintColor: 'white', headerStyle: {
               backgroundColor: '#9A81FD',
             }, headerTitleStyle: {
               color: 'white'
             }
           }} component={BillerCategories} />
-          <StackApp.Screen name="GetBiller" options={{ headerShown: true }} component={GetBiller} />
-          <StackApp.Screen name="BillPaymentInformation" options={{
-            headerShown: true, headerTintColor: 'white', headerStyle: {
+          <StackApp.Screen name="GetBiller" options={{
+            title: 'Billers',headerShown: true, headerTintColor: 'white', headerStyle: {
               backgroundColor: '#9A81FD',
             }, headerTitleStyle: {
               color: 'white'
             }
+          }} component={GetBiller} />
+
+          <StackApp.Screen name="BillPaymentInformation"  options={{
+             title: 'Biller Information',headerShown: true, headerTintColor: 'white', headerStyle: {
+              backgroundColor: '#9A81FD',
+            }, headerTitleStyle: {
+              color: 'white'
+            },
           }} component={BillPaymentInformation} />
+                   <StackApp.Screen name="CardAddWebView" options={{ title: 'CardAddWebView', headerShown: true }} component={CardAddWebView} />
 
         </StackApp.Navigator>
       </NavigationContainer>

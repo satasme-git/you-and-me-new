@@ -109,45 +109,45 @@ export class AddMesurement extends Component {
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
           <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
         <FlashMessage duration={1000} />
-        <CustomHeader bgcolor='#fbb146' title="" gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+        <CustomHeader bgcolor='#fbb146' title={i18n.t('growth.subheading')} gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
         <ScrollView style={styles.container}>
 
         <LinearGradient start={{ x: 0, y: 1 }}
-                                end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 135, zIndex: -1 }}>
+                                end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 90, zIndex: -1 }}>
           {/* <View style={{ backgroundColor: '#fbb146', height: 135, zIndex: -1, borderBottomLeftRadius: 30, borderBottomRightRadius: 30 }}> */}
             <View style={{ marginTop: 0, marginLeft: 20 }}>
-              <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('growth.heading')} {this.state.userName}</Text>
-              <Text style={{ fontSize: 17, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('growth.subheading')}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('growth.heading2')} {this.state.userName}</Text>
+              {/* <Text style={{ fontSize: 17, fontWeight: 'bold', color: 'white', marginTop: 5 }}>{i18n.t('growth.subheading')}</Text> */}
 
             </View>
             <View style={{ flexDirection: 'row',  marginTop: 0 ,marginLeft:10}}>
 
               <TouchableOpacity onPress={() => this.props.navigation.navigate('AreaChart')} style={[styles.buttonh, { backgroundColor: 'white', }]}>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
+                <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
+                  <View style={{ backgroundColor: 'white', padding: 7, borderRadius: 35 }}>
                     <Icon
                       name='area-chart'
                       type='font-awesome'
                       color='red'
-                      iconStyle={{ fontSize: 13, color: 'gray' }}
+                      iconStyle={{ fontSize: 15, color: '#4E3CCE' }}
                     />
                   </View>
-                  <Text style={{ color: 'black', padding: 7 }}>{i18n.t('growth.chartbtn')}</Text>
+                  <Text style={{ color: '#4E3CCE', padding: 5 }}>{i18n.t('growth.chartbtn')}</Text>
 
 
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('GrowthWebView')} style={[styles.buttonh, { backgroundColor: 'white', }]}>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
+                <View style={{ flexDirection: 'row',alignItems:'center' }}>
+                  <View style={{ backgroundColor: 'white', padding: 7, borderRadius: 35 }}>
                     <Icon
-                      name='shopping-bag'
-                      type='font-awesome'
+                      name='info'
+                      type='feather'
                       color='red'
-                      iconStyle={{ fontSize: 13, color: 'gray' }}
+                      iconStyle={{ fontSize: 17, color: '#4E3CCE' }}
                     />
                   </View>
-                  <Text style={{ color: 'black', padding: 7 }}>{i18n.t('growth.moredetails')}</Text>
+                  <Text style={{ color: '#4E3CCE', padding: 5 }}>{i18n.t('growth.moredetails')}</Text>
 
                 </View>
               </TouchableOpacity>
@@ -156,14 +156,14 @@ export class AddMesurement extends Component {
           </LinearGradient>
 
           <View style={styles.breadthPo1}>
-            <Text style={{ marginVertical: 8 }}>{i18n.t('growth.weight')} </Text>
+            {/* <Text style={{ marginVertical: 8 }}>{i18n.t('growth.weight')} </Text> */}
             <TextInput
               keyboardType='numeric' style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 }}
               autoFocus={false} keyboardType='numeric' onEndEditing={this.clearFocus} onChangeText={TextInputValue => this.setState({ TextInpuPbValue: TextInputValue })} placeholder={i18n.t('growth.weightinner')} />
 
-            <Text style={{ marginVertical: 8, marginTop: 25 }}>{i18n.t('growth.month')} </Text>
+            {/* <Text style={{ marginVertical: 8, marginTop: 25 }}>{i18n.t('growth.month')} </Text> */}
             <TextInput
-              keyboardType='numeric' style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 }}
+              keyboardType='numeric' style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 5, backgroundColor: '#f2f2f2', paddingLeft: 10 , marginTop:10}}
               autoFocus={false} keyboardType='numeric' onEndEditing={this.clearFocus} onChangeText={TextInputValue => this.setState({ TextInpuLValue: TextInputValue })} placeholder={i18n.t('growth.monthinner')} />
             {/* </View> */}
 
@@ -230,19 +230,20 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.8,
     // shadowRadius: 5,
   }, linearGradient: {
-    marginTop: 30,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 25,
+    marginTop: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 10,
     marginBottom: 20,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.7,
     shadowRadius: 8,
-    padding: 3,
+    padding: 0,
+    alignSelf:'center'
   }, buttonText: {
-    fontSize: 18,
+    fontSize: 15,
     fontFamily: 'Gill Sans',
     textAlign: 'center',
     margin: 10,
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   }, buttonh: {
     backgroundColor: "#fff",
-    padding: 5,
+    paddingHorizontal: 10,
     borderRadius: 10,
     marginTop: 18,
     // width: 120

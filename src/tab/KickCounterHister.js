@@ -164,10 +164,10 @@ export class KickCounterHister extends Component {
 
             return (
 
-                <SafeAreaView style={{ flex: 1, backgroundColor: '#F2F2F2' }}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
                    <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
                     <FlashMessage duration={1000} />
-                    <CustomHeader bgcolor='#F2F2F2' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#F2F2F2' />
+                    <CustomHeader bgcolor='#F2F2F2' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('kick.kickchart')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#F2F2F2' />
                     {/* <View style={styles.brestposition3}></View>
                     <View style={styles.brestposition4}></View> */}
                     {/* <View style={styles.header}>
@@ -180,7 +180,7 @@ export class KickCounterHister extends Component {
 
                         <View style={{ marginTop: 0, marginLeft: 20,marginBottom:10 }}>
 
-                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>{i18n.t('kick.kickchart')}</Text>
+                            {/* <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>{i18n.t('kick.kickchart')}</Text> */}
                             
                         </View>
                         <ECharts

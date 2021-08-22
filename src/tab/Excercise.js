@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView, TouchableOpacity, StyleSheet, Image, ImageBackground, ScrollView, StatusBar } from 'react-native';
+import { Text, View, SafeAreaView, Dimensions  , StyleSheet, Image, ImageBackground, ScrollView, StatusBar } from 'react-native';
 import { IMAGE } from '../constants/image';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CustomHeader } from '../index';
@@ -18,27 +18,31 @@ export class Excercise extends Component {
       userName: myArray,
     });
   }
+  
   render() {
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#f2f2f2" />
-        <CustomHeader bgcolor='#f2f2f2' gradient1="#F2F2F2" gradient2="#F2F2F2" titleColor="white" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#f2f2f2' />
+        <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
+        <CustomHeader bgcolor='#f2f2f2' gradient1="#4633cb" gradient2="#7857fc" titleColor="white" title={i18n.t('excersice.subheadding')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#f2f2f2' />
 
-        <View style={styles.header}>
-          <View style={styles.backgroundImage} >
+        {/* <View style={styles.header}>
+          <View style={styles.backgroundImage} > */}
             {/* <Text>fdadadsadasd dsaasdasdad</Text>
             <Text>fdadadsadasd dsaasdasdad</Text>
             <Text>fdadadsadasd dsaasdasdad</Text>
             <Text>fdadadsadasd dsaasdasdad</Text>
             <Text>fdadadsadasd dsaasdasdad</Text> */}
-            <ImageBackground
-              source={IMAGE.ICON_EXCERCISE}
-              style={{ width: 300, height: 270, marginLeft: 15, alignItems: 'flex-start', resizeMode: 'cover', position: 'absolute' }}>
-              <View>
-              <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{i18n.t('excersice.headding')} {this.state.userName}</Text>
-              <Text>{i18n.t('excersice.subheadding')}</Text>
+            {/* <ImageBackground
+              source={IMAGE.ICON_EXCERCISE2}
+              imageStyle={{borderRadius:20,resizeMode:'cover'}}
+              style={{ width: windowWidth-60, height: windowWidth-60, alignSelf:'center',justifyContent:'flex-end',borderRadius:20}}>
+              <View style={{backgroundColor:'#4633cb',alignItems:'center',padding:7,borderBottomRightRadius:20,borderBottomLeftRadius:20}}> */}
+              {/* <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{i18n.t('excersice.headding')} {this.state.userName}</Text> */}
+              {/* <Text style={{color:'#fff'}}>{i18n.t('excersice.subheadding')}</Text>
               </View>
-            </ImageBackground>
+            </ImageBackground> */}
             {/* <Image style={{ width: 250, height: 270, marginLeft: 10, }}
               source={IMAGE.ICON_EXCERCISE}
               resizeMode="contain"
@@ -48,9 +52,19 @@ export class Excercise extends Component {
 
 
                     </TouchableOpacity> */}
-          </View>
-        </View>
+          {/* </View>
+        </View> */}
+      <ScrollView>
         <View style={styles.footer}>
+        <ImageBackground
+              source={IMAGE.ICON_EXCERCISE2}
+              imageStyle={{borderRadius:20,resizeMode:'cover'}}
+              style={{ width: windowWidth-60, height: windowWidth-60, alignSelf:'center',justifyContent:'flex-end',borderRadius:20}}>
+              <View style={{backgroundColor:'#4633cb',alignItems:'center',padding:7,borderBottomRightRadius:20,borderBottomLeftRadius:20}}>
+              {/* <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{i18n.t('excersice.headding')} {this.state.userName}</Text> */}
+              <Text style={{color:'#fff'}}>{i18n.t('excersice.subheadding')}</Text>
+              </View>
+            </ImageBackground>
           <View style={{ paddingLeft: 18, paddingTop: 15 }}>
           <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{i18n.t('excersice.subheadding')}</Text>
             <Text style={{ color: 'gray' }}>{i18n.t('excersice.subtopic')}</Text>
@@ -96,7 +110,7 @@ export class Excercise extends Component {
 
           </ScrollView>
         </View>
-
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -126,9 +140,10 @@ export class Excercise extends Component {
 
   }, footer: {
     flex: 1,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    marginTop:15
     // paddingVertical: 30,
     //  paddingHorizontal: 20
   }, header: {
@@ -137,9 +152,9 @@ export class Excercise extends Component {
     // alignItems: 'center',
   }, backgroundImage: {
     // height: height,
-    position: "absolute",
-
-    resizeMode: 'cover',
+    // position: "absolute",
+    marginTop:15,
+    // resizeMode: 'cover',
 
     // resizeMode: 'cover', // or 'stretch'
   }, container: {

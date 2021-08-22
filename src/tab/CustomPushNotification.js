@@ -4,7 +4,6 @@ export default class CustomPushNotification {
 
     testPush(data) {
 
-        console.log(">>>>>>>MMMM ::: "+data.date);
         // let { _title, _message, _ticker, _bigText, _subText} = this.props
         PushNotification.localNotificationSchedule({
             channelId:"test-channel",

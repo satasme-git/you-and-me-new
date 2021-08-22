@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Modal, StyleSheet, Text, Image, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList, Switch,StatusBar } from 'react-native';
+import { Modal, StyleSheet, Text, Image, View, SafeAreaView, ImageBackground, Dimensions, FlatList, Switch,StatusBar } from 'react-native';
 import { CustomHeader } from '../index';
 import { Icon } from 'react-native-elements';
 import { List, ListItem, Left, Body, Right } from 'native-base';
@@ -11,6 +11,7 @@ import i18n from 'i18n-js';
 import {
     BarIndicator,
 } from 'react-native-indicators';
+import { ScrollView } from 'react-native';
 const db = new Database();
 
 var ddd;
@@ -123,6 +124,8 @@ export class LabourRoomPacking extends Component {
     }
     keyExtractor = (item, index) => index.toString()
     render() {
+        const windowWidth = Dimensions.get('window').width;
+        const windowHeight = Dimensions.get('window').height;
         let { isLoading } = this.state
 
         if (isLoading) {
@@ -135,22 +138,40 @@ export class LabourRoomPacking extends Component {
 
             return (
 
-                <SafeAreaView style={{ flex: 1, }}>
-                      <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#F2F2F2" />
-                    <CustomHeader bgcolor='#F2F2F2'  gradient1="transparent" gradient2="transparent" titleColor="black" title={i18n.t('bag.Preparelabourbaghead')}  bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#F2F2F2' />
+                <SafeAreaView style={{ flex: 1,backgroundColor:'white' }}>
+                      <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
+                    <CustomHeader bgcolor='#fff' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('bag.Preparelabourbaghead')}  bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#F2F2F2' />
 
-                    <View style={styles.header}>
-                        <Image style={{ width: 400, height: 290, marginLeft: 0, }}
-                            source={IMAGE.ICON_LABOURROOMBAG}
+                    {/* <View style={styles.header}> */}
+                        {/* <Image style={{ width: 400, height: 290, marginLeft: 0, }}
+                            source={IMAGE.ICON_LABOURROOMBAG2}
                             resizeMode="contain"
-                        />
-  
-                    </View>
-                    <Animatable.View style={styles.footer} animation="fadeInUpBig">
-                    <View style={styles.brestposition5}></View>
+                        /> */}
+            {/* <ImageBackground
+              source={IMAGE.ICON_LABOURROOMBAG2}
+              imageStyle={{borderRadius:20,resizeMode:'cover'}}
+              style={{ width: windowWidth-60, height: windowWidth-60, alignSelf:'center',justifyContent:'flex-end',borderRadius:20}}>
+              <View style={{backgroundColor:'#4633cb',alignItems:'center',padding:7,borderBottomRightRadius:20,borderBottomLeftRadius:20}}> */}
+              {/* <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{i18n.t('excersice.headding')} {this.state.userName}</Text> */}
+              {/* <Text style={{color:'#fff'}}>{i18n.t('bag.Preparelabourbaghead')}</Text>
+              </View>
+            </ImageBackground> */}
+                    {/* </View> */}
+
+                    <Animatable.View style={[styles.footer,{marginTop:15}]} animation="fadeInUpBig">
+                        <ScrollView>
+                    {/* <View style={styles.brestposition5}></View>
                     <View style={styles.brestposition6}></View>
                     <View style={styles.brestposition3}></View>
-                    <View style={styles.brestposition4}></View>
+                    <View style={styles.brestposition4}></View> */}
+                    <ImageBackground
+              source={IMAGE.ICON_LABOURROOMBAG2}
+              imageStyle={{borderRadius:20,resizeMode:'cover'}}
+              style={{ width: windowWidth-60, height: windowWidth-60, alignSelf:'center',justifyContent:'flex-end',borderRadius:20}}>
+              <View style={{backgroundColor:'#4633cb',alignItems:'center',padding:7,borderBottomRightRadius:20,borderBottomLeftRadius:20}}>
+              <Text style={{color:'#fff'}}>{i18n.t('bag.Preparelabourbaghead')}</Text>
+              </View>
+            </ImageBackground>
                         <Text style={{ marginHorizontal: 20, fontSize: 18, fontWeight: "bold", marginTop: 15 }}>{i18n.t('bag.Preparelabourbag')}</Text>
                         <FlatList
 
@@ -206,7 +227,7 @@ export class LabourRoomPacking extends Component {
                             </ListItem>
                             } />
 
-
+</ScrollView>
                     </Animatable.View>
                 </SafeAreaView>
             );
@@ -239,12 +260,15 @@ const styles = StyleSheet.create({
         marginLeft: 19,
 
     }, footer: {
-        flex: 2,
+        // flex: 2,
         backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
     }, header: {
         flex: 1,
+        marginTop:15,
+        marginBottom:10,
+        backgroundColor:'white'
     }, switchEnableBorder: {
         borderColor: 'blue',
         borderWidth: 1

@@ -15,9 +15,10 @@ import { BarIndicator } from 'react-native-indicators';
 import { List, ListItem, Left, Body, Right } from 'native-base';
 import { FlatList } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
+import { Picker } from '@react-native-community/picker';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 const options = {
     title: 'Select Avatar',
     takePhotoButtonTitle: 'Take a photo',
@@ -31,44 +32,47 @@ export class UserProfile extends Component {
             scroll: new Animated.Value(0),
             isLoading: true,
 
-
             isVisible3: false,
             isVisible4: false,
             isVisible6: true,
+            isVisible7: false,
 
             TextInputPhone: '',
-
             TextInputName: '',
             TextInputEmail: '',
             TextInputpassword: '',
             TextInputAddress: '',
             TextInputNIC: '',
+            TextInputRoleName: '',
+            TextInputRoleId: '',
             TextInputRefNic: '',
             nview: false,
             pview: false,
             abc: '',
             lan: '',
             data: [],
+            dataSource1: [],
+            PickerValueHolder: '',
         };
-
-
     }
     state = {
         scroll: new Animated.Value(0)
     }
-    
+    showRoleDropDown() {
+        this.setState({
+            isVisible7: true,
+
+        });
+    }
     async componentDidMount() {
-       
         this.setState({
             lan: await AsyncStorage.getItem('lang'),
             isVisible6: true,
         });
         const { scroll } = this.state
         scroll.addListener(({ value }) => (this._value = value))
-
-
         const myArray = await AsyncStorage.getItem('member_email');
-
+        const memberRole = await AsyncStorage.getItem('memberId');
 
         fetch('https://youandmenest.com/tr_reactnative/api/ge_member_byid', {
             method: 'post',
@@ -82,8 +86,6 @@ export class UserProfile extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
-
 
                 id = "";
                 member_name = "";
@@ -93,24 +95,17 @@ export class UserProfile extends Component {
                 member_address = "";
                 member_nic = "";
                 abc = "";
-
-                // for (var i = 0; i < responseJson.length; i++) {
-
+                role = "";
                 id = responseJson.id
-
-
                 member_name = responseJson.member_name
                 member_email = responseJson.member_email
                 member_mobilenumber = responseJson.member_mobilenumber
                 member_password = responseJson.member_password
-
                 member_address = responseJson.member_address
                 member_nic = responseJson.member_nic
-                // member_image = responseJson[i].member_image
-
                 abc = responseJson.member_image;
-
-                // }
+                role = responseJson.role_name;
+                roleid = responseJson.member_role;
 
                 this.setState({
                     isLoading: false,
@@ -123,21 +118,42 @@ export class UserProfile extends Component {
                     TextInputpassword: member_password,
                     TextInputAddress: member_address,
                     TextInputNIC: member_nic,
+                    TextInputRoleName: role,
+                    TextInputRoleId: roleid,
                     abc: abc,
-
                 })
-
-
-  
                 this.loadRefferalData();
-
-    
             }).catch((error) => {
                 console.error(error);
             })
-
-
-           
+        this.memberRole();
+    }
+    memberRole() {
+        fetch('https://youandmenest.com/tr_reactnative/api/view_role', {
+            method: 'get',
+            header: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                for (var i = 0; i < responseJson.length; i++) {
+                    role_id = responseJson[i].id
+                    role_name = responseJson[i].role_name
+                    console.warn(role_id);
+                }
+                this.setState({
+                    isLoading: false,
+                    dataSource1: responseJson,
+                });
+            }).catch((error) => {
+                console.error(error);
+            })
+    }
+    handleChangeOption(itemValue) {
+        if (itemValue !== 0) {
+            this.setState({ PickerValueHolder: itemValue });
+        }
     }
     renderContent = (label) => (
         <View style={styles.content}>
@@ -147,7 +163,6 @@ export class UserProfile extends Component {
     selectPhoto() {
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
-
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             } else if (response.error) {
@@ -155,13 +170,11 @@ export class UserProfile extends Component {
             } else {
                 const source = { uri: response.uri };
                 const imdata = response.data;
-
                 this.setState({
                     isLoading: false,
                     imageSource: source,
                     abc: '',
                     dataa: imdata
-
                 });
 
                 this.uploadPhoto();
@@ -185,16 +198,14 @@ export class UserProfile extends Component {
         }).catch((err) => {
             console.log(err);
         });
-
         this.setState({
             isLoading: false,
-
             dataa: ''
-
         });
     }
     InputUsers() {
 
+        const memberRole = AsyncStorage.getItem('memberId');
         this.setState({
             isLoading: true,
         });
@@ -202,13 +213,12 @@ export class UserProfile extends Component {
         const { TextInputName } = this.state;
         const { TextInputEmail } = this.state;
         const { TextInputPhone } = this.state;
-
         const { TextInputpassword } = this.state;
         const { TextInputAddress } = this.state;
         const { TextInputNIC } = this.state;
+        const { TextInputRoleId } = this.state;
 
-
-
+        AsyncStorage.setItem('memberId', TextInputRoleId);
         fetch('https://youandmenest.com/tr_reactnative/api/update_member', {
             method: 'post',
             headers: {
@@ -221,15 +231,14 @@ export class UserProfile extends Component {
                 member_email: TextInputEmail,
                 member_mobilenumber: TextInputPhone,
                 member_password: TextInputpassword,
-
                 member_address: TextInputAddress,
                 member_nic: TextInputNIC,
+                member_role: TextInputRoleId,
             }),
 
         }).then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
-
+                // console.log(responseJson);
                 showMessage({
                     message: "Successfuly Updated ",
                     // description: "successfuly deleted ",
@@ -238,25 +247,16 @@ export class UserProfile extends Component {
                 this.setState({
                     isLoading: false,
                 });
-
-
-
             }).catch((error) => {
                 console.error(error);
             })
-
-
-
-
     }
     addRefferal() {
-
         this.setState({
             isLoading: true,
         });
         const { TextInputRefNic } = this.state;
         const { TextInputID } = this.state;
-
         fetch('https://youandmenest.com/tr_reactnative/api/addrefferal', {
             method: 'post',
             headers: {
@@ -266,13 +266,9 @@ export class UserProfile extends Component {
             body: JSON.stringify({
                 id: TextInputID,
                 ref_nic: TextInputRefNic,
-
             }),
-
         }).then((response) => response.json())
             .then((responseJson) => {
-
-                // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : nic inner " + responseJson);
                 this.setState({
                     isLoading: false,
                 });
@@ -280,10 +276,10 @@ export class UserProfile extends Component {
                 console.error(error);
             })
     }
-   async loadRefferalData() {
+    async loadRefferalData() {
         // const myArray = await AsyncStorage.getItem('memberId');
 
-        fetch('https://youandmenest.com/tr_reactnative/api/refferal/'+this.state.TextInputID, {
+        fetch('https://youandmenest.com/tr_reactnative/api/refferal/' + this.state.TextInputID, {
             method: 'get',
             header: {
                 Accept: 'application/json',
@@ -292,8 +288,6 @@ export class UserProfile extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-
-                console.log("reffreadls L : " + responseJson);
                 this.setState({
                     isLoading: false,
                     data: responseJson,
@@ -319,7 +313,6 @@ export class UserProfile extends Component {
             </View>
         );
     };
-
     renderItem = ({ item }) => {
         return (
             <Animatable.View animation="flipInX">
@@ -342,20 +335,16 @@ export class UserProfile extends Component {
                     <Left style={{ paddingLeft: 10 }}>
                         <View>
                             <Image
-                                // source={
-                                //     require('../images/profiled.png')
-                                // }
-
                                 source={
                                     item.member_image != ""
-                                      ? {
-                                        uri:
-                                          'https://youandmenest.com/tr_reactnative/public/images/Members/' +
-                                          item.member_image,
-                                      }
-                                      :  require('../images/images1.jpg')
-                                  }
-                                style={{ width: 50, height: 50,overflow: 'hidden',borderRadius:150/2 }}
+                                        ? {
+                                            uri:
+                                                'https://youandmenest.com/tr_reactnative/public/images/Members/' +
+                                                item.member_image,
+                                        }
+                                        : require('../images/images1.jpg')
+                                }
+                                style={{ width: 50, height: 50, overflow: 'hidden', borderRadius: 150 / 2 }}
                             />
                         </View>
                     </Left>
@@ -369,43 +358,64 @@ export class UserProfile extends Component {
                             <Text style={{ color: 'black', fontSize: 17, fontWeight: 'bold' }}>
                                 {item.member_name}
                             </Text>
-
                         </View>
-
                         <Text
                             numberOfLines={2}
                             ellipsizeMode="tail"
                             style={{ fontSize: 10, color: 'gray' }}>
-                              {item.member_nic}
+                            {item.member_nic}
                         </Text>
-            
-                            <Text
-                                numberOfLines={2}
-                                ellipsizeMode="tail"
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 'bold',
-                                    color: 'gray',
-                                    marginTop: 5,
-                                }}>
-                                {item.member_email}
-                            </Text>
-                   
-
-                       
-
-                       
-                        
+                        <Text
+                            numberOfLines={2}
+                            ellipsizeMode="tail"
+                            style={{
+                                fontSize: 13,
+                                fontWeight: 'bold',
+                                color: 'gray',
+                                marginTop: 5,
+                            }}>
+                            {item.member_email}
+                        </Text>
                     </Body>
                 </ListItem>
             </Animatable.View>
         );
     };
+    setRoleData(id, roleName) {
 
+        this.setState({
+            isVisible7: false,
+            TextInputRoleName: roleName,
+            TextInputRoleId: id
+        })
+    }
+    renderItemRole = ({ item }) => {
+        return (
+            <Animatable.View animation="flipInX">
+                <ListItem
+                    style={{
+                        // backgroundColor: 'rgba(255,255,255,0.9)',
+                        marginLeft: 0,
+                        paddingLeft: 15,
+                        marginVertical: -7
+                    }}
+                    onPress={() => {
+                        this.setRoleData(item.id, item.role_name);
+                    }}
+                >
+                    <View>
+                        <Text style={{ color: 'black', fontSize: 17, fontWeight: 'normal' }}>
+                            {item.role_name}
+                        </Text>
+                    </View>
+                </ListItem>
+            </Animatable.View>
+        );
+    };
     keyExtractor = (item, index) => index.toString();
+    keyExtractor1 = (item, index) => index.toString();
     renderForeground = () => {
-        const { scroll, isVisible4, isVisible6, isLoading } = this.state
-
+        const { scroll, isVisible4, isVisible6, isLoading, isVisible7 } = this.state
         const titleOpacity = scroll.interpolate({
             inputRange: [0, 106, 154],
             outputRange: [1, 1, 0],
@@ -417,13 +427,12 @@ export class UserProfile extends Component {
                     <Image
                         source={
                             this.state.abc != "" ? { uri: "https://youandmenest.com/tr_reactnative/public/images/Members/" + this.state.abc } :
-                                (this.state.imageSource !=null  ? this.state.imageSource : require('../images/images1.jpg'))
+                                (this.state.imageSource != null ? this.state.imageSource : require('../images/images1.jpg'))
                         }
                         style={[
                             { width: 90, height: 90, borderRadius: 25.5, backgroundColor: '#f78a2c' },
                         ]}
                     />
-
                     <Avatar
                         rounded
                         showEditButton
@@ -438,12 +447,7 @@ export class UserProfile extends Component {
                     />
                     <Text style={styles.message}>{this.state.TextInputName}</Text>
                     <Text style={{ color: 'white', marginBottom: 15, marginTop: -10 }}>{this.state.TextInputEmail}</Text>
-
-
                 </Animated.View>
-
-
-
                 <Modal
                     isVisible={isVisible4}
                     // isVisible={true}
@@ -472,7 +476,6 @@ export class UserProfile extends Component {
                                     color={'white'}
                                     style={{ alignSelf: 'center', paddingRight: 10 }}
                                 />
-
                                 <Text style={{ color: 'white' }}>Add Reffaral Nic number</Text>
                             </View>
                             <View
@@ -503,7 +506,6 @@ export class UserProfile extends Component {
                                 }}
                             />
                         </View>
-
                         <View
                             style={{
                                 backgroundColor: 'white',
@@ -511,7 +513,6 @@ export class UserProfile extends Component {
                                 paddingTop: 40,
                                 borderRadius: 5,
                             }}>
-
                             <Text
                                 style={{
                                     color: 'black',
@@ -556,8 +557,6 @@ export class UserProfile extends Component {
                                     <Validation text={'Phone Number is Required'} />
                                 ) : null}
                             </View>
-
-
                             <View
                                 style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                                 <Button
@@ -603,24 +602,17 @@ export class UserProfile extends Component {
                                     }}
                                 />
                             </View>
-
-
                         </View>
                     </View>
                 </Modal>
-
-
-
                 <Modal
                     isVisible={isVisible6}
                     // isVisible={isLoading}
                     transparent={true}
                     backdropOpacity={0.5}
-
                     animationIn={'bounceIn'}
                 >
                     <View>
-
                         <View
                             style={{
                                 backgroundColor: 'white',
@@ -633,19 +625,76 @@ export class UserProfile extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}>
-
                             <BarIndicator style={{ marginTop: -20 }} color='#fbb146' />
                             <Text>loading ....</Text>
-
                         </View>
-
                     </View>
                 </Modal>
+                <Modal
+                    isVisible={isVisible7}
+                    // isVisible={isLoading}
+                    transparent={true}
+                    backdropOpacity={0.5}
+                    animationIn={'bounceIn'}
+                >
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
 
+                        <View
+                            style={{
+                                backgroundColor: 'white',
+                                height: 220,
+                                width: windowWidth - 100,
+                                borderRadius: 5,
+                                opacity: 0.9,
+                            }}>
+
+                            <Text style={{}}>{i18n.t('SignUp.pickerheading')}</Text>
+                            <FlatList
+                                initialScrollIndex={0}
+                                nestedScrollEnabled={true}
+                                contentContainerStyle={{
+
+                                    paddingTop: StatusBar.currentHeight || 0,
+                                    width: windowWidth - 25
+                                }}
+                                scrollEnabled={true}
+                                keyExtractor={this.keyExtractor1}
+                                data={this.state.dataSource1}
+                                renderItem={this.renderItemRole}
+                            />
+                            <View
+                                style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10 }}>
+                                <Button
+                                    title="Cancel"
+                                    titleStyle={{ color: 'black', fontSize: 17 }}
+                                    buttonStyle={{
+                                        alignSelf: 'flex-end',
+                                        marginTop: 0,
+                                        paddingVertical: 5,
+                                        borderColor: 'red',
+                                        paddingHorizontal: 20,
+                                        backgroundColor: 'white',
+                                        borderWidth: 1,
+                                        borderRadius: 10,
+                                        marginRight: 10,
+                                    }}
+                                    onPress={() =>
+                                        this.setState({
+                                            isVisible7: false,
+                                        })
+                                    }
+                                />
+
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         )
     }
-
     renderHeader = () => {
         const { scroll } = this.state
         let { navigation } = this.props
@@ -688,24 +737,18 @@ export class UserProfile extends Component {
                                 { width: 30, height: 30, borderRadius: 50, marginLeft: -40 },
                             ]}
                         />
-
-
                     </Animated.View>
                 </View>
 
             </View>
         )
     }
-
     render() {
         let { navigation } = this.props
-
-
         const { scroll } = this.state
         return (
             <StickyParallaxHeader
                 foreground={this.renderForeground()}
-
                 header={this.renderHeader()}
                 parallaxHeight={200}
                 headerHeight={50}
@@ -764,53 +807,59 @@ export class UserProfile extends Component {
                                             ]}
                                             autoFocus={false} value={this.state.TextInputAddress} onChangeText={TextInputValue => this.setState({ TextInputAddress: TextInputValue })} placeholder={i18n.t('profile.enteraddress')} label={i18n.t('profile.address')}
                                         />
+                                        <Text style={styles.labelText}>{i18n.t('profile.address')}</Text>
+                                        <TouchableOpacity onPress={() =>
+                                            this.showRoleDropDown()
+                                        } >
+                                            <View style={[
+                                                styles.labelTextContainer,
+                                                { padding: 10, width: windowWidth - 65, marginBottom: 5 },
+                                            ]}>
+                                                <Text
 
+                                                    label={i18n.t('profile.address')}>{this.state.TextInputRoleName}</Text>
+                                            </View>
+                                        </TouchableOpacity>
 
                                     </View>
                                 </View>
 
-                                    {this.state.lan=="en"?
-                                        <Button
+                                {this.state.lan == "en" ?
+                                    <Button
                                         title={i18n.t('profile.button')}
                                         titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
                                         buttonStyle={{
                                             backgroundColor: 'red',
                                             borderRadius: 25,
                                             width: 80,
-                                            paddingHorizontal:10,
+                                            paddingHorizontal: 10,
                                             padding: 9,
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}
                                         onPress={() =>
-
-
                                             this.InputUsers()
 
                                         }
-                                    />:
-                                        <Button
-                                    title={i18n.t('profile.button')}
-                                    titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
-                                    buttonStyle={{
-                                        backgroundColor: 'red',
-                                        borderRadius: 25,
-                                        width: 160,
-                                        paddingHorizontal:10,
-                                        padding: 9,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}
-                                    onPress={() =>
+                                    /> :
+                                    <Button
+                                        title={i18n.t('profile.button')}
+                                        titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
+                                        buttonStyle={{
+                                            backgroundColor: 'red',
+                                            borderRadius: 25,
+                                            width: 160,
+                                            paddingHorizontal: 10,
+                                            padding: 9,
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                        onPress={() =>
+                                            this.InputUsers()
 
-
-                                        this.InputUsers()
-
-                                    }
+                                        }
                                     />
-                                    }
-                          
-
+                                }
                             </View>
                         </View>)
                     },
@@ -900,10 +949,15 @@ export class UserProfile extends Component {
             >
             </StickyParallaxHeader>
         )
-
     }
 }
-
+class RedPickerItem extends Component {
+    render() {
+        return (
+            <Picker.Item {...this.props} style={{ color: '#fff', placeholderTextColor: '#fff' }} />
+        )
+    }
+}
 
 const styles = StyleSheet.create({
     content: {

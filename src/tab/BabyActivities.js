@@ -265,7 +265,7 @@ export class BabyActivities extends Component {
                 <SafeAreaView style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
                     <FlashMessage duration={1000} />
-                    <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title="" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
+                    <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('babyactivity.heading')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
 
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -273,74 +273,74 @@ export class BabyActivities extends Component {
                         style={styles.scrollView}>
 
                         <View>
-                            <LinearGradient start={{ x: 0, y: 1 }}
+                            {/* <LinearGradient start={{ x: 0, y: 1 }}
                                 end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 100, zIndex: -1 }}>
 
-                                <View style={{ marginTop: 0, marginLeft: 20 }}>
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('babyactivity.heading')}</Text>
+                                <View style={{ marginTop: 0, marginLeft: 20 }}> */}
+                                    {/* <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('babyactivity.heading')}</Text> */}
 
-                                </View>
-                            </LinearGradient>
+                                {/* </View>
+                            </LinearGradient> */}
 
 
                             <View style={styles.container}>
 
-                                <Card style={[styles.card, { backgroundColor: '#d5cdfe' }]} >
+                                <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('FeedingTimeChart', {
                                         data: ''
                                     })}>
-                                        <View style={{ alignItems: "center" }} >
-                                            <View style={{ height: 50, padding: 10 }}>
+                                        <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
+                                            <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
                                                 <Image source={IMAGE.ICON_FEEDING}
-                                                    style={{ height: 40, width: 40 }}
+                                                    style={{ height: 50, width: 50 }}
                                                 >
                                                 </Image>
                                             </View>
 
-                                            <Text style={{ marginTop: 0, fontSize: 12 }}>{i18n.t('babyactivity.feeding')} </Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.feeding')} </Text>
 
                                         </View>
                                     </TouchableOpacity>
                                 </Card>
 
 
-                                <Card style={[styles.card, { backgroundColor: '#cbf2fe' }]} >
+                                <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('UrinationTime')}>
-                                        <View style={{ alignItems: "center" }} >
-                                            <View style={{ height: 50, padding: 10 }}>
+                                    <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
+                                        <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
                                                 <Image source={IMAGE.ICON_URINATION}
                                                     style={{ height: 40, width: 40 }}
                                                 >
                                                 </Image>
                                             </View>
-                                            <Text style={{ marginTop: 0, fontSize: 12, textAlign: 'center' }}>{i18n.t('babyactivity.urine')}</Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.urine')}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </Card>
-                                <Card style={[styles.card, { backgroundColor: '#fcd7d3' }]} >
+                                <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('EliminationChart')}>
-                                        <View style={{ alignItems: "center" }} >
-                                            <View style={{ height: 50, padding: 10 }}>
+                                    <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
+                                        <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
                                                 <Image source={IMAGE.ICON_ELIMINATION}
                                                     style={{ height: 40, width: 40 }}
                                                 >
                                                 </Image>
                                             </View>
-                                            <Text style={{ marginTop: 0, fontSize: 12, textAlign: 'center' }}>{i18n.t('babyactivity.elimi')}</Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.elimi')}</Text>
 
                                         </View>
                                     </TouchableOpacity>
                                 </Card>
-                                <Card style={[styles.card, { backgroundColor: '#fce6d2' }]} >
+                                <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('BathTracking')}>
-                                        <View style={{ alignItems: "center" }} >
-                                            <View style={{ height: 50, padding: 10 }}>
+                                    <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
+                                        <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
                                                 <Image source={IMAGE.ICON_BATHTIME}
                                                     style={{ height: 40, width: 40 }}
                                                 >
                                                 </Image>
                                             </View>
-                                            <Text style={{ marginTop: 0, fontSize: 12 }}>{i18n.t('babyactivity.bath')}</Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.bath')}</Text>
 
                                         </View>
                                     </TouchableOpacity>
@@ -353,12 +353,12 @@ export class BabyActivities extends Component {
                             {/* </View> */}
 
                             <View style={{ flex: 1, paddingHorizontal: 10, marginTop: -50 }}>
-                                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                     <Image source={IMAGE.ICON_BABY_ACTIVITY}
                                         style={{ height: 250, width: 250 }}
                                     >
                                     </Image>
-                                </View>
+                                </View> */}
                                 <Text style={{ paddingBottom: 5, fontSize: 18, fontWeight: 'bold' }}>{i18n.t('babyactivity.historyact')}</Text>
                                 <FlatList
 
@@ -502,14 +502,15 @@ export class BabyActivities extends Component {
         // justifyContent: 'center',
         // alignItems: 'center',
     }, container: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+        // flex: 1,
+        // flexDirection: 'row',
+        // flexWrap: 'wrap',
         paddingTop: 5,
         paddingLeft: 10,
         paddingRight: 10,
         bottom: 70,
         zIndex: 5,
+        marginTop:70
     }, button5: {
         shadowColor: 'rgba(0,0,0, .4)', // IOS
         shadowOffset: { height: 1, width: 1 }, // IOS
@@ -570,10 +571,11 @@ export class BabyActivities extends Component {
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.5,
         shadowRadius: 5,
-        alignItems: 'center',
+        alignItems: 'flex-start',
 
 
-        margin: 5
+        margin: 5,
+        justifyContent:'center'
     }, button: {
         backgroundColor: "red",
         padding: 12,

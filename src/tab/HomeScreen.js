@@ -225,8 +225,8 @@ export class HomeScreen extends Component {
         <LinearGradient colors={['#4E3CCE', '#9A81FD']} style={{marginBottom:50}}>
              <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#F2F2F2" />
      
-          <View style={styles.brprestposition5}></View>
-          <View style={styles.brestposition6}></View>
+          {/* <View style={styles.brprestposition5}></View> */}
+          {/* <View style={styles.brestposition6}></View> */}
           {/* <View style={styles.brestposition3}></View>
           <View style={styles.brestposition4}></View> */}
 
@@ -238,15 +238,15 @@ export class HomeScreen extends Component {
             bgcolor="#fbb146"
             gradient1="#F2F2F2"
             gradient2="#F2F2F2"
-            titleColor="black"
+            titleColor="#394694"
             title={i18n.t('MainMenu.mainmenu')}
             isHome={true}
             navigation={this.props.navigation}
             bdcolor="#fbb146"
           />
           <ScrollView style={{backgroundColor: '#F2F2F2'}}>
-            <View style={styles.brestposition5}></View>
-            <View style={styles.brestposition6}></View>
+            {/* <View style={styles.brestposition5}></View>
+            <View style={styles.brestposition6}></View> */}
             {/* <CustomHeader bgcolor='white' title="Home" isHome={true} navigation={this.props.navigation}   bdcolor='#f2f2f2'/> */}
 
             <View style={{flexDirection: 'row',marginBottom:10}}>
@@ -273,7 +273,7 @@ export class HomeScreen extends Component {
                 ]}
               />
               <View>
-                <Text style={{paddingLeft:12,bottom:-5}}>{morningmassage}</Text>
+                <Text style={{paddingLeft:12,bottom:-5,fontSize:10,color:'#4633cb'}}>{morningmassage}</Text>
                 <View style={styles.container}>
                   <Text
                     style={{
@@ -281,6 +281,7 @@ export class HomeScreen extends Component {
                       fontWeight: 'bold',
                       marginLeft: 2,
                       marginTop: 0,
+                      color:'#394694'
                     }}>
                     {i18n.t('MainMenu.hellow')} {this.state._member_name}
                   </Text>
@@ -290,41 +291,59 @@ export class HomeScreen extends Component {
 
             {this.state._member_id != 2 ? (
               <View style={{flex: 1, flexDirection: 'column'}}>
+                <Text style={{paddingLeft:20,color:'#394694'}}>{i18n.t('MainMenu.RecommendedHeading')}</Text>
                 <ScrollView
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}>
                   <View style={styles.container}>
                     {/* <Card > */}
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                       onPress={() =>
                         this.props.navigation.navigate('VerticleYearChart')
-                      }>
+                      }> */}
                       <LinearGradient
                         style={styles.cardHorizontal}
-                        colors={['#fbb146', '#f78a2c']}
+                        colors={['#4633cb', '#7857fc']}
                         start={{x: 0, y: 1}}
                         end={{x: 1, y: 0.9}}>
                         <View
                           style={{
                             flexDirection: 'row',
-                            justifyContent: 'space-between',
+                            justifyContent: 'space-evenly',
                           }}>
+                            {/* <View
+                            style={{
+                              height: 105,
+                              width:105,
+                              // marginLeft: 110,
+                              // paddingTop: 15,
+                              zIndex: 1,
+                              position: 'absolute',
+                              // backgroundColor:'red',
+                              
+                              
+                            }}> */}
+                            <Image
+                              source={IMAGE.ICON_DIET_PLAN2}
+                              style={{height: 100, width: 100,backgroundColor:'#aa9eec',borderRadius:100}}></Image>
+                          {/* </View> */}
                           <View
                             style={{
                               flexDirection: 'column',
-                              justifyContent: 'space-between',
+                              justifyContent: 'space-around',
                               zIndex: 5,
+                              // backgroundColor:'white'
                             }}>
-                            <View style={{flexDirection: 'column'}}>
+                            <View style={{flexDirection: 'column',}}>
                               <Text
                                 style={{
-                                  marginTop: 5,
-                                  fontSize: 15,
-                                  fontWeight: 'bold',
+                                  marginTop: 10,
+                                  fontSize: 16,
+                                  color:'#fff'
                                 }}>
                                 {i18n.t('MainMenu.healthidiet')}
                               </Text>
-                              <Text
+                              {/* <Text
                                 style={{
                                   marginTop: 5,
                                   fontSize: 16,
@@ -332,34 +351,119 @@ export class HomeScreen extends Component {
                                   marginTop: -3,
                                 }}>
                                 {i18n.t('MainMenu.diet2')}
-                              </Text>
+                              </Text> */}
                             </View>
-                            <Text style={{paddingTop: 65, fontSize: 12}}>
-                              {i18n.t('food.hedding')}
+                            <TouchableHighlight 
+                            underlayColor={'#aa9eec'}
+                            style={{marginTop: 35,backgroundColor:'white',padding:5,alignSelf:'flex-end',borderRadius:10}}
+                            onPress={() =>
+                              this.props.navigation.navigate('VerticleYearChart')
+                            }
+                            >
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <Text style={{fontSize: 10,fontWeight:'bold',color:'#4633cb',paddingLeft:10}}>
+                              {i18n.t('MainMenu.healthidiet')}
                             </Text>
+                            <Icon
+                                name='chevron-right'
+                                type='evilicon'
+                                color='#517fa4'
+                                size={20}
+                              />
+                            </View>
+                              
+                            </TouchableHighlight>
+                            
                           </View>
-                          <View
-                            style={{
-                              height: 70,
-                              marginLeft: 110,
-                              paddingTop: 15,
-                              zIndex: 1,
-                              position: 'absolute',
-                            }}>
-                            <Image
-                              source={IMAGE.ICON_DIET_PLAN}
-                              style={{height: 120, width: 190}}></Image>
-                          </View>
+                          
                         </View>
                       </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* </TouchableOpacity> */}
+                    {/* <TouchableOpacity
                       onPress={() =>
                         this.props.navigation.navigate('Investigation')
-                      }>
+                      }> */}
                       <LinearGradient
                         style={styles.cardHorizontal}
-                        colors={['#b6fb96', '#71f3da']}
+                        colors={['#4633cb', '#7857fc']}
+                        start={{x: 0, y: 1}}
+                        end={{x: 1, y: 0.9}}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                          }}>
+                            {/* <View
+                            style={{
+                              height: 105,
+                              width:105,
+                              // marginLeft: 110,
+                              // paddingTop: 15,
+                              zIndex: 1,
+                              position: 'absolute',
+                              // backgroundColor:'red',
+                              
+                              
+                            }}> */}
+                            <Image
+                              source={IMAGE.ICON_INVESTIGATION}
+                              style={{height: 100, width: 100,resizeMode:'center'}}></Image>
+                          {/* </View> */}
+                          <View
+                            style={{
+                              flexDirection: 'column',
+                              justifyContent: 'space-around',
+                              zIndex: 5,
+                              // backgroundColor:'white'
+                            }}>
+                            <View style={{flexDirection: 'column',}}>
+                              <Text
+                                style={{
+                                  marginTop: 10,
+                                  fontSize: 16,
+                                  color:'#fff'
+                                }}>
+                                {i18n.t('MainMenu.invest')}
+                              </Text>
+                              {/* <Text
+                                style={{
+                                  marginTop: 5,
+                                  fontSize: 16,
+                                  fontWeight: 'bold',
+                                  marginTop: -3,
+                                }}>
+                                {i18n.t('MainMenu.diet2')}
+                              </Text> */}
+                            </View>
+                            <TouchableHighlight 
+                            underlayColor={'#aa9eec'}
+                            style={{marginTop: 35,backgroundColor:'white',padding:5,alignSelf:'flex-end',borderRadius:10}}
+                            onPress={() =>
+                              this.props.navigation.navigate('Investigation')
+                            }
+                            >
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <Text style={{fontSize: 10,fontWeight:'bold',color:'#4633cb',paddingLeft:10}}>
+                              {i18n.t('MainMenu.invest')}
+                            </Text>
+                            <Icon
+                                name='chevron-right'
+                                type='evilicon'
+                                color='#517fa4'
+                                size={20}
+                              />
+                            </View>
+                              
+                            </TouchableHighlight>
+                            
+                          </View>
+                          
+                        </View>
+                      </LinearGradient>
+
+                      {/* <LinearGradient
+                        style={styles.cardHorizontal}
+                        colors={['#4633cb', '#7857fc']}
                         start={{x: 0, y: 1}}
                         end={{x: 1, y: 0.9}}>
                         <View
@@ -394,9 +498,88 @@ export class HomeScreen extends Component {
                               style={{height: 134, width: 169}}></Image>
                           </View>
                         </View>
+                      </LinearGradient> */}
+                    {/* </TouchableOpacity> */}
+
+                    <LinearGradient
+                        style={styles.cardHorizontal}
+                        colors={['#4633cb', '#7857fc']}
+                        start={{x: 0, y: 1}}
+                        end={{x: 1, y: 0.9}}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                          }}>
+                            {/* <View
+                            style={{
+                              height: 105,
+                              width:105,
+                              // marginLeft: 110,
+                              // paddingTop: 15,
+                              zIndex: 1,
+                              position: 'absolute',
+                              // backgroundColor:'red',
+                              
+                              
+                            }}> */}
+                            <Image
+                             source={IMAGE.ICON_EXCERCISE}
+                              style={{height: 100, width: 100,resizeMode:'center'}}></Image>
+                          {/* </View> */}
+                          <View
+                            style={{
+                              flexDirection: 'column',
+                              justifyContent: 'space-around',
+                              zIndex: 5,
+                              // backgroundColor:'white'
+                            }}>
+                            <View style={{flexDirection: 'column',}}>
+                              <Text
+                                style={{
+                                  marginTop: 10,
+                                  fontSize: 16,
+                                  color:'#fff'
+                                }}>
+                                {i18n.t('MainMenu.excer')}
+                              </Text>
+                              {/* <Text
+                                style={{
+                                  marginTop: 5,
+                                  fontSize: 16,
+                                  fontWeight: 'bold',
+                                  marginTop: -3,
+                                }}>
+                                {i18n.t('MainMenu.diet2')}
+                              </Text> */}
+                            </View>
+                            <TouchableHighlight 
+                            underlayColor={'#aa9eec'}
+                            style={{marginTop: 35,backgroundColor:'white',padding:5,alignSelf:'flex-end',borderRadius:10}}
+                            onPress={() =>
+                              this.props.navigation.navigate('Excercise')
+                            }
+                            >
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <Text style={{fontSize: 10,fontWeight:'bold',color:'#4633cb',paddingLeft:10}}>
+                              {i18n.t('MainMenu.excer')}
+                            </Text>
+                            <Icon
+                                name='chevron-right'
+                                type='evilicon'
+                                color='#517fa4'
+                                size={20}
+                              />
+                            </View>
+                              
+                            </TouchableHighlight>
+                            
+                          </View>
+                          
+                        </View>
                       </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+
+                    {/* <TouchableOpacity
                       onPress={() =>
                         this.props.navigation.navigate('Excercise')
                       }>
@@ -438,14 +621,14 @@ export class HomeScreen extends Component {
                           </View>
                         </View>
                       </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 </ScrollView>
-                <Text style={{fontSize: 15, paddingLeft: 15, paddingTop: 5}}>
+                <Text style={{fontSize: 15, paddingLeft: 15, paddingTop: 5,color:'#394694'}}>
                   {' '}
                   {i18n.t('MainMenu.pregnancyp')}
                 </Text>
-                <View
+                {/* <View
                   style={{
                     borderTopWidth: 6,
                     borderTopColor: '#f78a2c',
@@ -453,8 +636,8 @@ export class HomeScreen extends Component {
                     marginHorizontal: 16,
                     width: 45,
                     marginTop: 8,
-                  }}></View>
-                <View style={styles.container}>
+                  }}></View> */}
+                <View style={styles.container2}>
                   <Card style={styles.card}>
                     {/* <TouchableOpacity style={styles.touchableopacity} onPress={() => this.props.navigation.navigate('PeriodCalandar', { */}
                     <TouchableOpacity
@@ -465,25 +648,20 @@ export class HomeScreen extends Component {
                         })
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#ffe98c',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_EDD_DATE}
-                            style={{height: 47, width: 50}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
 
                         <Text
-                          style={{
-                            marginTop: 0,
-                            color: 'black',
-                            fontWeight: '700',
-                            textAlign: 'center',
-                          }}>
+                          style={styles.iconText}>
                           {' '}
                           {i18n.t('MainMenu.edd')}{' '}
                         </Text>
@@ -503,31 +681,26 @@ export class HomeScreen extends Component {
                           {alignItems: 'center'},
                           styles.touchableopacity,
                         ]}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#fee8b6',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_CLINICK_MANAGEMENT}
-                            style={{height: 53, width: 50}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
                         <Text
-                          style={{
-                            marginTop: 0,
-                            color: 'black',
-                            fontWeight: '700',
-                            textAlign: 'center',
-                          }}>
+                          style={styles.iconText}>
                           {i18n.t('MainMenu.clinic')}
                         </Text>
                       </View>
                     </TouchableOpacity>
                   </Card>
-                </View>
-                <View style={styles.container}>
+                {/* </View>
+                <View style={styles.container}> */}
                   <Card style={[styles.card]}>
                     <TouchableOpacity
                       onPress={() =>
@@ -539,30 +712,27 @@ export class HomeScreen extends Component {
                           {alignItems: 'center'},
                           styles.touchableopacity,
                         ]}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#fbc1ff',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_WEIGHT_SCALE}
-                            style={{height: 42, width: 52}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
                         <Text
-                          style={{
-                            marginTop: 0,
-                            color: 'black',
-                            fontWeight: '700',
-                            textAlign: 'center',
-                          }}>
+                          style={styles.iconText}>
                           {i18n.t('MainMenu.weightgain')}
                         </Text>
                       </View>
                     </TouchableOpacity>
                   </Card>
+                  </View>
 
+                  <View style={styles.container2}>
                   <Card style={styles.card}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
@@ -570,31 +740,26 @@ export class HomeScreen extends Component {
                         this.props.navigation.navigate('BloodPresureDetailsAdd')
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#ffd6bc',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_BLOOD_PRESURE}
-                            style={{height: 55, width: 50}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
                         <Text
-                          style={{
-                            marginTop: 0,
-                            color: 'black',
-                            fontWeight: '700',
-                            textAlign: 'center',
-                          }}>
+                          style={styles.iconText}>
                           {i18n.t('MainMenu.blood')}
                         </Text>
                       </View>
                     </TouchableOpacity>
                   </Card>
-                </View>
-                <View style={styles.container}>
+                {/* </View>
+                <View style={styles.container}> */}
                   <Card style={styles.card}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
@@ -602,23 +767,19 @@ export class HomeScreen extends Component {
                         this.props.navigation.navigate('HospitalBag')
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#c2d2ff',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_HOSPITAL_BAG}
-                            style={{height: 50, width: 50}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
                         <Text
-                          style={{
-                            marginTop: 0,
-                            color: 'black',
-                            fontWeight: '700',
-                          }}>
+                          style={styles.iconText}>
                           {i18n.t('MainMenu.bag')}
                         </Text>
                       </View>
@@ -632,23 +793,19 @@ export class HomeScreen extends Component {
                         this.props.navigation.navigate('KickCounter')
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#c7febe',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_BABY_FOOT}
-                            style={{height: 55, width: 53}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
                         <Text
-                          style={{
-                            marginTop: 0,
-                            fontWeight: '700',
-                            textAlign: 'center',
-                          }}>
+                          style={styles.iconText}>
                           {i18n.t('MainMenu.kick')}
                         </Text>
                       </View>
@@ -656,10 +813,10 @@ export class HomeScreen extends Component {
                   </Card>
                 </View>
 
-                <Text style={{fontSize: 15, paddingLeft: 15, paddingTop: 3}}>
+                <Text style={{fontSize: 15, paddingLeft: 15, paddingTop: 3,color:'#394694'}}>
                   {i18n.t('MainMenu.after')}
                 </Text>
-                <View
+                {/* <View
                   style={{
                     borderTopWidth: 6,
                     borderTopColor: '#f78a2c',
@@ -667,9 +824,9 @@ export class HomeScreen extends Component {
                     marginHorizontal: 16,
                     width: 45,
                     marginTop: 8,
-                  }}></View>
+                  }}></View> */}
 
-                <View style={styles.container}>
+                <View style={styles.container2}>
                   <Card style={styles.card}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
@@ -679,19 +836,19 @@ export class HomeScreen extends Component {
                         })
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#dffda7',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_FEEDING}
-                            style={{height: 55, width: 52}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
 
-                        <Text style={{marginTop: 0, fontWeight: '700'}}>
+                        <Text style={styles.iconText}>
                           {i18n.t('MainMenu.breast')}
                         </Text>
                       </View>
@@ -705,27 +862,26 @@ export class HomeScreen extends Component {
                         this.props.navigation.navigate('VerticleYearChart2')
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#fee5ad',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_VACCINE}
-                            style={{height: 55, width: 52}}>
+                            style={styles.iconImage}>
                             {/* ffe4e1 */}
                           </Image>
-                        </View>
-                        <Text style={{marginTop: 0, fontWeight: '700'}}>
+                        {/* </View> */}
+                        <Text style={styles.iconText}>
                           {i18n.t('MainMenu.vacc')}
                         </Text>
                       </View>
                     </TouchableOpacity>
                   </Card>
-                </View>
-                <View style={[styles.container, {marginBottom: 20}]}>
+                
                   <Card style={styles.card}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
@@ -735,24 +891,26 @@ export class HomeScreen extends Component {
                         })
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#e5fff9',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_BABY_ACTIVITY_MENU}
-                            style={{height: 65, width: 55}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
 
-                        <Text style={{marginTop: 0, fontWeight: '700'}}>
+                        <Text style={styles.iconText}>
                           {i18n.t('MainMenu.babyac')}
                         </Text>
                       </View>
                     </TouchableOpacity>
                   </Card>
+                  </View>
+                <View style={[styles.container3, {marginBottom: 10}]}>
 
                   <Card style={styles.card}>
                     <TouchableOpacity
@@ -763,19 +921,19 @@ export class HomeScreen extends Component {
                         })
                       }>
                       <View style={{alignItems: 'center'}}>
-                        <View
+                        {/* <View
                           style={{
                             height: 80,
                             padding: 15,
                             backgroundColor: '#f5ffe2',
                             borderRadius: 50,
-                          }}>
+                          }}> */}
                           <Image
                             source={IMAGE.ICON_GROUTH_CHART_1}
-                            style={{height: 55, width: 55}}></Image>
-                        </View>
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
 
-                        <Text style={{marginTop: 0, fontWeight: '700'}}>
+                        <Text style={styles.iconText}>
                           {i18n.t('MainMenu.growth')}
                         </Text>
                       </View>
@@ -798,12 +956,14 @@ export class HomeScreen extends Component {
                     {i18n.t('MainMenu.hellow')} {this.state._member_name}
                   </Text>
                 </View> */}
-
+              <Text style={{paddingLeft:20,color:'#394694'}}>{i18n.t('MainMenu.RecommendedHeading')}</Text>
                 <ScrollView
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}>
                   <View style={styles.container}>
-                    <TouchableOpacity
+                    
+                    
+                    {/* <TouchableOpacity
                       onPress={() =>
                         this.props.navigation.navigate('IdentifyPregnancy')
                       }>
@@ -852,9 +1012,164 @@ export class HomeScreen extends Component {
                           </View>
                         </View>
                       </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <LinearGradient
+                        style={styles.cardHorizontal}
+                        colors={['#4633cb', '#7857fc']}
+                        start={{x: 0, y: 1}}
+                        end={{x: 1, y: 0.9}}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                          }}>
+                            {/* <View
+                            style={{
+                              height: 105,
+                              width:105,
+                              // marginLeft: 110,
+                              // paddingTop: 15,
+                              zIndex: 1,
+                              position: 'absolute',
+                              // backgroundColor:'red',
+                              
+                              
+                            }}> */}
+                            <Image
+                              source={IMAGE.ICON_IDENTY_PREGNANCY2}
+                              style={{height: 100, width: 100,backgroundColor:'#aa9eec',borderRadius:100}}></Image>
+                          {/* </View> */}
+                          <View
+                            style={{
+                              flexDirection: 'column',
+                              justifyContent: 'space-around',
+                              zIndex: 5,
+                              // backgroundColor:'white'
+                            }}>
+                            <View style={{flexDirection: 'column',}}>
+                              <Text
+                                style={{
+                                  marginTop: 10,
+                                  fontSize: 16,
+                                  color:'#fff'
+                                }}>
+                                {i18n.t('MainMenu.idetify_preg')}{' '}
+                              </Text>
+                              {/* <Text
+                                style={{
+                                  marginTop: 5,
+                                  fontSize: 16,
+                                  fontWeight: 'bold',
+                                  marginTop: -3,
+                                }}>
+                                {i18n.t('MainMenu.diet2')}
+                              </Text> */}
+                            </View>
+                            <TouchableHighlight 
+                            underlayColor={'#aa9eec'}
+                            style={{marginTop: 35,backgroundColor:'white',padding:5,alignSelf:'flex-end',borderRadius:10}}
+                            onPress={() =>
+                              this.props.navigation.navigate('IdentifyPregnancy')
+                            }
+                            >
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <Text style={{fontSize: 10,fontWeight:'bold',color:'#4633cb',paddingLeft:10}}>
+                              {i18n.t('MainMenu.idetify_preg')}{' '}
+                            </Text>
+                            <Icon
+                                name='chevron-right'
+                                type='evilicon'
+                                color='#517fa4'
+                                size={20}
+                              />
+                            </View>
+                              
+                            </TouchableHighlight>
+                            
+                          </View>
+                          
+                        </View>
+                      </LinearGradient>
+                      <LinearGradient
+                        style={styles.cardHorizontal}
+                        colors={['#4633cb', '#7857fc']}
+                        start={{x: 0, y: 1}}
+                        end={{x: 1, y: 0.9}}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                          }}>
+                            {/* <View
+                            style={{
+                              height: 105,
+                              width:105,
+                              // marginLeft: 110,
+                              // paddingTop: 15,
+                              zIndex: 1,
+                              position: 'absolute',
+                              // backgroundColor:'red',
+                              
+                              
+                            }}> */}
+                            <Image
+                              source={IMAGE.ICON_MENSTRUAION}
+                              style={{height: 100, width: 100,backgroundColor:'#aa9eec',borderRadius:100}}></Image>
+                          {/* </View> */}
+                          <View
+                            style={{
+                              flexDirection: 'column',
+                              justifyContent: 'space-around',
+                              zIndex: 5,
+                              // backgroundColor:'white'
+                            }}>
+                            <View style={{flexDirection: 'column',}}>
+                              <Text
+                                style={{
+                                  marginTop: 10,
+                                  fontSize: 16,
+                                  color:'#fff'
+                                }}>
+                                {i18n.t('MainMenu.regualr_mn')} {i18n.t('MainMenu.regualr_pr')}
+                              </Text>
+                              {/* <Text
+                                style={{
+                                  marginTop: 5,
+                                  fontSize: 16,
+                                  fontWeight: 'bold',
+                                  marginTop: -3,
+                                }}>
+                                {i18n.t('MainMenu.diet2')}
+                              </Text> */}
+                            </View>
+                            <TouchableHighlight 
+                            underlayColor={'#aa9eec'}
+                            style={{marginTop: 35,backgroundColor:'white',padding:5,alignSelf:'flex-end',borderRadius:10}}
+                            onPress={() =>
+                              this.props.navigation.navigate('RegularMenstruation')
+                            }
+                            >
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <Text style={{fontSize: 10,fontWeight:'bold',color:'#4633cb',paddingLeft:10}}>
+                              {i18n.t('MainMenu.regualr_mn')} {i18n.t('MainMenu.regualr_pr')}
+                            </Text>
+                            <Icon
+                                name='chevron-right'
+                                type='evilicon'
+                                color='#517fa4'
+                                size={20}
+                              />
+                            </View>
+                              
+                            </TouchableHighlight>
+                            
+                          </View>
+                          
+                        </View>
+                      </LinearGradient>
 
-                    <TouchableOpacity
+
+                    {/* <TouchableOpacity
                       onPress={() =>
                         this.props.navigation.navigate('RegularMenstruation')
                       }>
@@ -905,20 +1220,22 @@ export class HomeScreen extends Component {
                           </View>
                         </View>
                       </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 </ScrollView>
 
-                <Text
+                {/* <Text
                   style={{
                     fontWeight: 'bold',
                     fontSize: 18,
                     paddingLeft: 15,
                     paddingTop: 10,
+                    marginTop:10
                   }}>
                   {i18n.t('MainMenu.menu')}
-                </Text>
-                <View
+                </Text> */}
+                <Text style={{paddingLeft:20,color:'#394694'}}>{i18n.t('MainMenu.menu')}</Text>
+                {/* <View
                   style={{
                     borderTopWidth: 6,
                     borderTopColor: '#f78a2c',
@@ -926,9 +1243,37 @@ export class HomeScreen extends Component {
                     marginHorizontal: 16,
                     width: 45,
                     marginTop: 8,
-                  }}></View>
+                  }}></View> */}
                 <View style={styles.container}>
-                  <Card style={[styles.card, {backgroundColor: '#fff'}]}>
+                <Card style={styles.card}>
+                <TouchableOpacity
+                      style={styles.touchableopacity}
+                      onPress={() =>
+                        this.props.navigation.navigate('PeriodCalandar', {
+                          data: '',
+                        })
+                      }>
+                      <View style={{alignItems: 'center'}}>
+                        {/* <View
+                          style={{
+                            height: 80,
+                            padding: 15,
+                            backgroundColor: '#f5ffe2',
+                            borderRadius: 50,
+                          }}> */}
+                          <Image
+                            source={IMAGE.ICON_PERIOD_CLANDAR2}
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
+
+                        <Text style={styles.iconText}>
+                        {i18n.t('MainMenu.period')}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </Card>
+
+                  {/* <Card style={[styles.card, {backgroundColor: '#fff',height:120}]}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
                       onPress={() =>
@@ -953,9 +1298,38 @@ export class HomeScreen extends Component {
                         </Text>
                       </View>
                     </TouchableOpacity>
+                  </Card> */}
+
+              <Card style={styles.card}>
+                <TouchableOpacity
+                      style={styles.touchableopacity}
+                      onPress={() =>
+                        this.props.navigation.navigate('BMICalculator', {
+                          data: '',
+                        })
+                      }>
+                      <View style={{alignItems: 'center'}}>
+                        {/* <View
+                          style={{
+                            height: 80,
+                            padding: 15,
+                            backgroundColor: '#f5ffe2',
+                            borderRadius: 50,
+                          }}> */}
+                          <Image
+                            source={IMAGE.ICON_SPEED_METER2}
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
+
+                        <Text style={styles.iconText}>
+                        {i18n.t('MainMenu.bmi')}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   </Card>
 
-                  <Card
+                  
+                  {/* <Card
                     opacity={0.5}
                     style={[styles.card, {backgroundColor: '#fff'}]}>
                     <TouchableOpacity
@@ -982,10 +1356,36 @@ export class HomeScreen extends Component {
                         </Text>
                       </View>
                     </TouchableOpacity>
-                  </Card>
+                  </Card> */}
                 </View>
                 <View style={styles.container}>
-                  <Card style={[styles.card, {backgroundColor: '#fff'}]}>
+                <Card style={styles.card}>
+                <TouchableOpacity
+                      style={styles.touchableopacity}
+                      onPress={() =>
+                        this.props.navigation.navigate('ClinicManagement')
+                      }>
+                      <View style={{alignItems: 'center'}}>
+                        {/* <View
+                          style={{
+                            height: 80,
+                            padding: 15,
+                            backgroundColor: '#f5ffe2',
+                            borderRadius: 50,
+                          }}> */}
+                          <Image
+                             source={IMAGE.ICON_BET_NOTES}
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
+
+                        <Text style={styles.iconText}>
+                        {i18n.t('MainMenu.notes')}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </Card>
+
+                  {/* <Card style={[styles.card, {backgroundColor: '#fff'}]}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
                       onPress={() =>
@@ -1007,9 +1407,35 @@ export class HomeScreen extends Component {
                         </Text>
                       </View>
                     </TouchableOpacity>
+                  </Card> */}
+                  <Card style={styles.card}>
+                <TouchableOpacity
+                      style={styles.touchableopacity}
+                      onPress={() =>
+                        this.props.navigation.navigate('HealthDietChart')
+                      }>
+                      <View style={{alignItems: 'center'}}>
+                        {/* <View
+                          style={{
+                            height: 80,
+                            padding: 15,
+                            backgroundColor: '#f5ffe2',
+                            borderRadius: 50,
+                          }}> */}
+                          <Image
+                            source={IMAGE.ICON_DIET2}
+                            style={styles.iconImage}></Image>
+                        {/* </View> */}
+
+                        <Text style={styles.iconText}>
+                        {i18n.t('MainMenu.diet')}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   </Card>
 
-                  <Card style={[styles.card, {backgroundColor: '#fff'}]}>
+
+                  {/* <Card style={[styles.card, {backgroundColor: '#fff'}]}>
                     <TouchableOpacity
                       style={styles.touchableopacity}
                       onPress={() =>
@@ -1031,7 +1457,7 @@ export class HomeScreen extends Component {
                         </Text>
                       </View>
                     </TouchableOpacity>
-                  </Card>
+                  </Card> */}
                 </View>
               </View>
             ) : (
@@ -1059,9 +1485,9 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    height: 130,
+    height: 100,
     backgroundColor: 'rgba(255, 255, 255,1)',
-    borderRadius: 15,
+    borderRadius: 10,
     // padding: 10,
     elevation: 1,
     // shadowColor: '#fff',
@@ -1071,12 +1497,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     margin: 5,
+    // width: Dimensions.get('window').width /3
   },
   cardHorizontal: {
-    height: 150,
+    height: 120,
     backgroundColor: 'white',
     // width: 300,
-    width: Dimensions.get('window').width - 55,
+    width: Dimensions.get('window').width - 30,
     // width: "90%",
     // backgroundColor: "white",
     borderRadius: 15,
@@ -1089,6 +1516,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
 
     margin: 5,
+    marginRight:2.5
   },
   scrollContainer: {
     flex: 1,
@@ -1100,6 +1528,24 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingLeft: 10,
     paddingRight: 10,
+  }, 
+  container2: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+  }, 
+  container3: {
+    // flex: 1,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    width:Dimensions.get('window').width/2.7,
+    // backgroundColor:'red'
   },
   touchableopacity: {
     alignItems: 'center',
@@ -1191,4 +1637,16 @@ const styles = StyleSheet.create({
     padding: 10,
     // width: "90%",
   },
+  iconImage:{
+    height: 50, 
+    width: 50,
+    resizeMode:'contain'
+  },
+  iconText:{
+    marginTop: 0,
+    color:'#394694',
+    fontWeight: '700',
+    textAlign: 'center',
+    fontSize:12
+  }
 });

@@ -100,7 +100,7 @@ export class PeriodAgenda extends Component {
         let markedDates = {}
         let updatedMarkedDates = '';
         let products = [];
-        let _pdate = '';
+        let _pdate,_pcatId,_pDescription,_pTime = '';
         let marked = true;
         let deletedMarkeDates = 0;
         db.listProduct(this.state.dbs).then((data) => {
@@ -135,9 +135,9 @@ export class PeriodAgenda extends Component {
                         _bigText: "this is subtitle",
                     }
                     let nestPeriod = moment(_pdate).subtract(2, 'day').format('YYYY-MM-DD');
-                    if (_today == nestPeriod) {
-                        cn.testPush(data);
-                    }
+                    // if (_today == nestPeriod) {
+                    //     cn.testPush(data);
+                    // }
                     markedDates = { ...markedDates, ...{ selected }, selectedColor: "#50cebb", marked: false };
                     updatedMarkedDates = { ...this.state._markedDates, ...{ [_pdate]: markedDates } }
                     this.setState({
@@ -156,9 +156,9 @@ export class PeriodAgenda extends Component {
                         _bigText: "this is subtitle",
                     }
                     let nestPeriod = moment(_pdate).subtract(2, 'day').format('YYYY-MM-DD');
-                    if (_today == nestPeriod) {
-                        cn.testPush(data);
-                    }
+                    // if (_today == nestPeriod) {
+                    //     cn.testPush(data);
+                    // }
 
                     markedDates = { ...markedDates, ...{ selected }, selectedColor: "pink", marked: false };
                     updatedMarkedDates = { ...this.state._markedDates, ...{ [_pdate]: markedDates } }
@@ -216,10 +216,10 @@ export class PeriodAgenda extends Component {
                         }
                         let beforeVaccination = moment(nextVaaccination).subtract(2, 'day').format('YYYY-MM-DD');
 
-                        if (_today == beforeVaccination) {
+                        // if (_today == beforeVaccination) {
 
-                            cn.testPush(data);
-                        }
+                        //     cn.testPush(data);
+                        // }
                         markedDates = { ...markedDates, ...{ selected }, selectedColor: "#ffc107", };
                         updatedMarkedDates = { ...this.state._markedDates, ...{ [nextVaaccination]: markedDates } }
 

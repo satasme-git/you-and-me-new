@@ -130,8 +130,8 @@ export class ClinicManagement extends Component {
         let nestPeriod = moment(formattedDate).subtract(2, 'day').format('YYYY-MM-DD');
 
         let datanotf = {
-            _title: " " + TextInputNoteValue + "" + formattedDate,
-            _bigText: "this is subtitle",
+            _title: " " + TextInputNoteValue + " " + formattedDate,
+            _bigText: "custom note",
             date: nestPeriod
         }
         cn.testPush(datanotf);
