@@ -17,6 +17,7 @@ import { BarIndicator, } from 'react-native-indicators';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import LinearGradient from 'react-native-linear-gradient';
 import Swipeout from 'react-native-swipeout';
+import AsyncStorage from '@react-native-community/async-storage';
 const db = new Database();
 var j = 0;
 const _formatTime = 'hh:mm:ss';
@@ -39,6 +40,7 @@ export class BabyActivities extends Component {
             _updateRbSheet: 0,
             _updateId: '',
             dbs: '',
+            userName:''
         }
         db.initDB().then((result) => {
             this.loadDbVarable(result);
@@ -51,11 +53,17 @@ export class BabyActivities extends Component {
         });
         this.getaAllClickData();
     }
-    componentDidMount() {
+
+    async componentDidMount() {
+        const myArray = await AsyncStorage.getItem('memberNames');
+        this.setState({
+            userName: myArray,
+         
+        });
 
     }
     saveData() {
-       
+
 
 
         this.RBSheet.close();
@@ -258,7 +266,7 @@ export class BabyActivities extends Component {
         let { isLoading } = this.state
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         } else {
             return (
@@ -266,38 +274,145 @@ export class BabyActivities extends Component {
                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
                     <FlashMessage duration={1000} />
                     <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('babyactivity.heading')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
-
+                    <LinearGradient
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 0.9 }}
+                        colors={['#4E3CCE', '#9A81FD']} style={[styles.gradient, { height: 40, zIndex: -1 }]}>
+                        <View style={{ marginTop: 5, marginLeft: 20 }}>
+                            <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('special_notes.hedding')} {this.state.userName}</Text>
+                         
+                            {/* <Text style={{ color: 'white' }}>Yesterday remaining 12 kg</Text> */}
+                        </View>
+                    </LinearGradient>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
                         contentInsetAdjustmentBehavior="automatic"
                         style={styles.scrollView}>
 
                         <View>
-                            {/* <LinearGradient start={{ x: 0, y: 1 }}
-                                end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 100, zIndex: -1 }}>
 
-                                <View style={{ marginTop: 0, marginLeft: 20 }}> */}
-                                    {/* <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('babyactivity.heading')}</Text> */}
+                            <View style={styles.container2}>
+                                <Card style={[styles.card2,]}>
 
-                                {/* </View>
-                            </LinearGradient> */}
+                                    <TouchableOpacity
+
+                                        style={styles.touchableopacity}
+                                        onPress={() => {
+                                            
+                                            this.props.navigation.navigate('FeedingTimeChart', {
+                                                data: '',
+                                            })
+                                        }
+                                        }>
+                                        <View style={{ alignItems: 'center' }}>
+
+                                            <Image
+                                                source={IMAGE.ICON_FEEDING}
+                                                style={styles.iconImage}></Image>
+
+                                            <Text
+                                                style={styles.iconText}>
+                                                {' '}
+                                                {i18n.t('babyactivity.feeding')}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Card>
+
+                                <Card style={[styles.card2]}>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            this.props.navigation.navigate('UrinationTime')
+                                        }>
+
+                                        <View
+                                            style={[
+                                                { alignItems: 'center' },
+                                                styles.touchableopacity,
+                                            ]}>
+
+                                            <Image
+                                                source={IMAGE.ICON_URINATION}
+                                                style={styles.iconImage}></Image>
+
+                                            <Text
+                                                style={styles.iconText}>
+                                                {i18n.t('babyactivity.urine')}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Card>
 
 
-                            <View style={styles.container}>
+                            </View>
+
+                            <View style={styles.container2}>
+                                <Card style={styles.card2}>
+
+                                    <TouchableOpacity
+                                        style={styles.touchableopacity}
+                                        onPress={() =>
+                                            this.props.navigation.navigate('EliminationChart', {
+                                                data: '',
+                                            })
+                                        }>
+                                        <View style={{ alignItems: 'center' }}>
+
+                                            <Image
+                                                source={IMAGE.ICON_ELIMINATION}
+                                                style={styles.iconImage}></Image>
+
+                                            <Text
+                                                style={styles.iconText}>
+                                                {' '}
+                                                {i18n.t('babyactivity.elimi')}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Card>
+
+                                <Card style={[styles.card2]}>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            this.props.navigation.navigate('BathTracking')
+                                        }>
+
+                                        <View
+                                            style={[
+                                                { alignItems: 'center' },
+                                                styles.touchableopacity,
+                                            ]}>
+
+                                            <Image
+                                                source={IMAGE.ICON_BATHTIME}
+                                                style={styles.iconImage}></Image>
+
+                                            <Text
+                                                style={styles.iconText}>
+                                                {i18n.t('babyactivity.bath')}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Card>
+
+
+                            </View>
+
+                            {/* <View style={styles.container}>
 
                                 <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('FeedingTimeChart', {
                                         data: ''
                                     })}>
-                                        <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
-                                            <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                                        <View style={{ alignItems: "center", justifyContent: 'center', flexDirection: 'row' }} >
+                                            <View style={{ height: 70, padding: 0, backgroundColor: 'white', width: 70, elevation: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
                                                 <Image source={IMAGE.ICON_FEEDING}
                                                     style={{ height: 50, width: 50 }}
                                                 >
                                                 </Image>
                                             </View>
 
-                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.feeding')} </Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14, color: 'white' }}>{i18n.t('babyactivity.feeding')} </Text>
 
                                         </View>
                                     </TouchableOpacity>
@@ -306,60 +421,51 @@ export class BabyActivities extends Component {
 
                                 <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('UrinationTime')}>
-                                    <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
-                                        <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                                        <View style={{ alignItems: "center", justifyContent: 'center', flexDirection: 'row' }} >
+                                            <View style={{ height: 70, padding: 0, backgroundColor: 'white', width: 70, elevation: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
                                                 <Image source={IMAGE.ICON_URINATION}
                                                     style={{ height: 40, width: 40 }}
                                                 >
                                                 </Image>
                                             </View>
-                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.urine')}</Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14, color: 'white' }}>{i18n.t('babyactivity.urine')}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </Card>
                                 <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('EliminationChart')}>
-                                    <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
-                                        <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                                        <View style={{ alignItems: "center", justifyContent: 'center', flexDirection: 'row' }} >
+                                            <View style={{ height: 70, padding: 0, backgroundColor: 'white', width: 70, elevation: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
                                                 <Image source={IMAGE.ICON_ELIMINATION}
                                                     style={{ height: 40, width: 40 }}
                                                 >
                                                 </Image>
                                             </View>
-                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.elimi')}</Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14, color: 'white' }}>{i18n.t('babyactivity.elimi')}</Text>
 
                                         </View>
                                     </TouchableOpacity>
                                 </Card>
                                 <Card style={[styles.card, { backgroundColor: '#4633cb' }]} >
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('BathTracking')}>
-                                    <View style={{ alignItems: "center" ,justifyContent:'center',flexDirection:'row'}} >
-                                        <View style={{ height: 70, padding: 0,backgroundColor:'white',width:70 ,elevation:1,borderRadius:10,alignItems:'center',justifyContent:'center'}}>
+                                        <View style={{ alignItems: "center", justifyContent: 'center', flexDirection: 'row' }} >
+                                            <View style={{ height: 70, padding: 0, backgroundColor: 'white', width: 70, elevation: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center' }}>
                                                 <Image source={IMAGE.ICON_BATHTIME}
                                                     style={{ height: 40, width: 40 }}
                                                 >
                                                 </Image>
                                             </View>
-                                            <Text style={{ marginLeft: 20, fontSize: 14,color:'white' }}>{i18n.t('babyactivity.bath')}</Text>
+                                            <Text style={{ marginLeft: 20, fontSize: 14, color: 'white' }}>{i18n.t('babyactivity.bath')}</Text>
 
                                         </View>
                                     </TouchableOpacity>
                                 </Card>
 
-
-
-
                             </View>
-                            {/* </View> */}
+                           */}
 
-                            <View style={{ flex: 1, paddingHorizontal: 10, marginTop: -50 }}>
-                                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <Image source={IMAGE.ICON_BABY_ACTIVITY}
-                                        style={{ height: 250, width: 250 }}
-                                    >
-                                    </Image>
-                                </View> */}
-                                <Text style={{ paddingBottom: 5, fontSize: 18, fontWeight: 'bold' }}>{i18n.t('babyactivity.historyact')}</Text>
+                            <View style={{ flex: 1, paddingHorizontal: 10, marginTop: 0 }}>
+                                <Text style={{ paddingBottom: 10, fontSize: 18, fontWeight: 'bold' }}>{i18n.t('babyactivity.historyact')}</Text>
                                 <FlatList
 
                                     style={{
@@ -446,10 +552,8 @@ export class BabyActivities extends Component {
                                     <View style={{ flex: 1 }}>
                                         <CalendarStrip
                                             selectedDate={this.state.update_date}
-
                                             onPressDate={(date) => {
                                                 this.setState({ selectedDate: date });
-
                                             }}
                                             onPressGoToday={(today) => {
                                                 this.setState({ selectedDate: today });
@@ -459,7 +563,6 @@ export class BabyActivities extends Component {
                                             }}
                                             markedDate={[]}
                                         />
-
                                         {/* <TextInput /> */}
                                         <TextInput autoFocus={false} value={this.state.TextInputdaValue} onChangeText={TextInputValue => this.setState({ TextInputdaValue: TextInputValue })} style={{ backgroundColor: '#f2f2f2', marginTop: 0 }} label={i18n.t('special_notes.enter_comment')} />
                                         <View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -510,7 +613,7 @@ export class BabyActivities extends Component {
         paddingRight: 10,
         bottom: 70,
         zIndex: 5,
-        marginTop:70
+        marginTop: 70
     }, button5: {
         shadowColor: 'rgba(0,0,0, .4)', // IOS
         shadowOffset: { height: 1, width: 1 }, // IOS
@@ -575,7 +678,7 @@ export class BabyActivities extends Component {
 
 
         margin: 5,
-        justifyContent:'center'
+        justifyContent: 'center'
     }, button: {
         backgroundColor: "red",
         padding: 12,
@@ -596,5 +699,41 @@ export class BabyActivities extends Component {
         alignItems: 'center',
         marginTop: 0,
         margin: 20,
+    }, container2: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingTop: 5,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    card2: {
+        height: 150,
+        backgroundColor: 'rgba(255, 255, 255,1)',
+        borderRadius: 13,
+        // padding: 10,
+        elevation: 1,
+        shadowColor: '#9A81FD',
+        shadowOffset: { width: 5, height: 10 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        alignItems: 'center',
+        paddingTop: 13,
+        margin: 14,
+        borderColor: '#9A81FD',
+        borderWidth: 1
+        // width: Dimensions.get('window').width /3
+    }, touchableopacity: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
+    }, iconImage: {
+        height: 70,
+        width: 70,
+
+        resizeMode: 'contain'
     }
 });

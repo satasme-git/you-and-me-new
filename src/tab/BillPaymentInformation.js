@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 import { IMAGE } from '../constants/image';
 import { JSHash, JSHmac, CONSTANTS } from "react-native-hash";
 import AsyncStorage from '@react-native-community/async-storage';
-import RNDirectPayCardPayment from 'react-native-direct-pay-card-payment';
+// import RNDirectPayCardPayment from 'react-native-direct-pay-card-payment';
 const hashAlgorithm = CONSTANTS.HashAlgorithms.sha256;
 const hmacAlgorithm = CONSTANTS.HmacAlgorithms.HmacSHA512;
 const EventName = CONSTANTS.Events.onBatchReccieved;
@@ -56,7 +56,7 @@ export class BillPaymentInformation extends Component {
             _transactionReferance: '',
             loading: false,
             isVisible2: false,
-            
+            errorMessage:""
         };
 
     }
@@ -113,16 +113,16 @@ export class BillPaymentInformation extends Component {
     walletBalance() {
         const { TextInputAmount } = this.state;
 
-        JSHmac("bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+        JSHmac("a1840a1b-986d-4c22-b16d-e3d9db64db46", "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
             .then(hash => {
-                fetch('https://dev.directpay.lk/v2/backend/external/api/getWalletBalance', {
+                fetch('https://prod.directpay.lk/v2/backend/external/api/getWalletBalance', {
                     method: 'post',
                     headers: {
                         'Authorization': 'Bearer ' + hash,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+                        "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
                     }),
                 }).then((response) => response.json())
                     .then((responseJson) => {
@@ -133,6 +133,7 @@ export class BillPaymentInformation extends Component {
                         if (responseJson.data.success == true) {
                             if (parseFloat(responseJson.data.balance) > parseFloat(TextInputAmount)) {
                                 // this.cardListSignatureGenerate();
+                                console.log(">>>>>>>>>>>>>>>>>>>>>> 1. error account : " )
                                 this.validateAccount();
                             } else {
                                 console.log(">>>>>>>>>>>>>>>>>>>>>> 1. walert balance : " + responseJson.data.balance + " amount : " + TextInputAmount)
@@ -153,10 +154,16 @@ export class BillPaymentInformation extends Component {
     async cardListSignatureGenerate() {
         const billerName = await AsyncStorage.getItem('billerName');
         const { TextInputName } = this.state;
-        const ref = await AsyncStorage.getItem('memberId');
 
-        const reffrence=parseFloat(_today+ref);
-        fetch('http://youandmenest.com/tr_reactnative/opnssl_key_generate.php?ref=' + reffrence, {
+
+        var reffreancenic = await AsyncStorage.getItem('member_nic');
+        reffreancenic = reffreancenic.slice(0, -1);
+
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+reffreancenic);
+
+
+        // const reffrence=parseFloat(_today+ref);
+        fetch('http://youandmenest.com/tr_reactnative/opnssl_key_generate.php?ref=' + reffreancenic, {
             method: 'get',
             header: {
                 'Accept': 'application/json',
@@ -178,19 +185,19 @@ export class BillPaymentInformation extends Component {
         this.RBSheet.open();
     }
     async getCardList(signature) {
-        const ref = await AsyncStorage.getItem('memberId');
-        const reffrence=parseFloat(_today+ref);
+        var reffreancenic = await AsyncStorage.getItem('member_nic');
+        reffreancenic = reffreancenic.slice(0, -1);
 
-        fetch('https://dev.directpay.lk/v1/mpg/api/external/cardManagement', {
+        fetch('https://prod.directpay.lk/v1/mpg/api/external/cardManagement', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': '7c62d2fdd3d4edf99e97be9838dd2fd7bac316578bffc37ef68100d516fa7409',
+                'x-api-key': 'b8b05983596e0a837979a1107f6e3094',
                 'Signature': signature,
             },
             body: JSON.stringify({
-                "merchantId": "II07510",
-                "reference": "987654321",
+                "merchantId": "SY10716",
+                "reference": reffreancenic,
                 "type": "LIST_CARD"
             }),
         }).then((response) => response.json())
@@ -210,6 +217,8 @@ export class BillPaymentInformation extends Component {
     
                     });
                     console.log(">>>>>>>>>>>>>>>>>>>>>> 3. signature generate card empty : "+responseJson.cardList)
+                    console.log(">>>>>>>>>>>>>>>>>>>>>> 3.1. signature : "+signature)
+                    console.log(">>>>>>>>>>>>>>>>>>>>>> 3.2. signature : "+reffreancenic)
                 }
                 
 
@@ -220,10 +229,13 @@ export class BillPaymentInformation extends Component {
     }
     async generateSignaature() {
         const { TextInputName } = this.state;
-        const ref = await AsyncStorage.getItem('memberId');
+   
+        
+        var reffreancenic = await AsyncStorage.getItem('member_nic');
+        reffreancenic = reffreancenic.slice(0, -1);
  
-        const reffrence=parseFloat(_today+ref);
-        fetch('http://youandmenest.com/tr_reactnative/opnssl_key_generate.php?ref=' + reffrence, {
+  
+        fetch('http://youandmenest.com/tr_reactnative/opnssl_key_generate.php?ref=' + reffreancenic, {
             method: 'get',
             header: {
                 'Accept': 'application/json',
@@ -244,9 +256,9 @@ export class BillPaymentInformation extends Component {
         const billercode = await AsyncStorage.getItem('billerCode');
 
 
-        JSHmac(TextInputAccount + billercode + "bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+        JSHmac(TextInputAccount + billercode + "a1840a1b-986d-4c22-b16d-e3d9db64db46", "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
             .then(hash => {
-                fetch('https://dev.directpay.lk/v2/backend/external/api/validateAccountAction', {
+                fetch('https://prod.directpay.lk/v2/backend/external/api/validateAccountAction', {
                     method: 'post',
                     headers: {
                         'Authorization': 'Bearer ' + hash,
@@ -255,15 +267,23 @@ export class BillPaymentInformation extends Component {
                     body: JSON.stringify({
                         "accountNumber": TextInputAccount,
                         "billerCode": billercode,
-                        "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+                        "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
                     }),
+                   
                 }).then((response) => response.json())
                     .then((responseJson) => {
+                        console.log(">>>>"+hash);
+                        console.log(">>>>"+TextInputAccount);
+                        console.log(">>>>"+billercode);
                         if (responseJson.data.success == true) {
                             console.log(">>>>>>>>>>>>>>>>>>>>>> 2. Validate Acount: " + billercode + " acount : " + TextInputAccount + " res : " + responseJson.data.success);
                             this.cardListSignatureGenerate();
                         } else {
                             console.log("account validation error");
+                            this.setState({
+                                isVisible:true,
+                                errorMessage: responseJson.data.message
+                            });
                         }
                         console.log(responseJson.data);
                     }).catch((error) => {
@@ -275,9 +295,9 @@ export class BillPaymentInformation extends Component {
     }
     getWaletBalance() {
         const cat_id = category;
-        JSHmac(cat_id + "bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+        JSHmac(cat_id + "a1840a1b-986d-4c22-b16d-e3d9db64db46", "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
             .then(hash => {
-                fetch('https://dev.directpay.lk/v2/backend/external/api/retrieveBillers', {
+                fetch('https://prod.directpay.lk/v2/backend/external/api/retrieveBillers', {
                     method: 'post',
                     headers: {
                         'Authorization': 'Bearer ' + hash,
@@ -285,7 +305,7 @@ export class BillPaymentInformation extends Component {
                     },
                     body: JSON.stringify({
                         "categoryId": cat_id,
-                        "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+                        "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
                     }),
 
                 }).then((response) => response.json())
@@ -319,9 +339,13 @@ export class BillPaymentInformation extends Component {
         });
 
         const { TextInputName } = this.state;
-        const ref = await AsyncStorage.getItem('memberId');
-        const reffrence=parseFloat(_today+ref);
-        fetch('http://youandmenest.com/tr_reactnative/selected_card_key_generate.php?ref=' + reffrence + "&cardid=" + card_id + "&nic=" + 982073428 + "&amount=" + TextInputAmount, {
+
+
+        var reffreancenic = await AsyncStorage.getItem('member_nic');
+        var email = await AsyncStorage.getItem('member_email');
+
+        reffreancenic = reffreancenic.slice(0, -1);
+        fetch('http://youandmenest.com/tr_reactnative/selected_card_key_generate.php?ref=' + reffreancenic + "&cardid=" + card_id + "&nic=" + 982073428 + "&amount=" + TextInputAmount+"&email="+email, {
             method: 'get',
             header: {
                 'Accept': 'application/json',
@@ -331,8 +355,6 @@ export class BillPaymentInformation extends Component {
             .then((responseJson) => {
                 // this.selectedCardPayment(responseJson);
                 console.log(">>>>>>>>>>>>>>>>>>>>>> 4. signature selected card  : "+responseJson.signature)
-                // console.log("signatures  ssssdd d d UUUUUUUUUUUUUUUUUUUUUUUUUU  : " + responseJson.signature);
-                // console.log("signatures  ssssdd d d UUUUUUUUUUUUUUUUUUUUUUUUUU valu  : " + responseJson.value);
 
                 this.setState({
                     _signature: responseJson.signature,
@@ -344,37 +366,42 @@ export class BillPaymentInformation extends Component {
                 console.error(error);
             })
     }
-    selectedCardPayment() {
-
+   async selectedCardPayment() {
+        var reffreancenic = await AsyncStorage.getItem('member_nic');
+        var email = await AsyncStorage.getItem('member_email');
+        reffreancenic = reffreancenic.slice(0, -1);
         this.setState({
             loading: true,
         })
         const { TextInputAmount } = this.state;
-        fetch('https://dev.directpay.lk/v1/mpg/api/external/cardManagement', {
+        fetch('https://prod.directpay.lk/v1/mpg/api/external/cardManagement', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
                 'Signature': this.state._signature,
-                'x-api-key': '7c62d2fdd3d4edf99e97be9838dd2fd7bac316578bffc37ef68100d516fa7409',
+                'x-api-key': 'b8b05983596e0a837979a1107f6e3094',
 
             },
             body: JSON.stringify({
                 "amount": TextInputAmount,
                 "cardId": this.state._card_id,
                 "currency": "LKR",
-                "merchantId": "II07510",
-                "refCode": 987654321,
-                "reference": "982073428V",
+                "merchantId": "SY10716",
+                "refCode": parseFloat(reffreancenic),
+                "reference": email,
                 "type": "CARD_PAY"
             }),
         }).then((response) => response.json())
             .then((responseJson) => {
-                console.log(">>>>>>>>ref code L 2: " + responseJson.data.status);
+                // console.log(">>>>>>>>ref code L 2: " + responseJson.data.status);
+                // console.log(">>>>>>>>ref code card id: " +this.state._card_id);
+                // console.log(">>>>>>>>ref code ref code: " + reffreancenic);
                 if (responseJson.data.status == "FAILED") {
                     this.setState({
                         isVisible: true,
+                        errorMessage: responseJson.data.description
                     });
-                    console.log(">>>>>>>>>>>>>>>>>>>>>> 5. selected card payment fail  : "+responseJson.data.status)
+                    console.log(">>>>>>>>>>>>>>>>>>>>>> 5. selected card payment fail  : "+responseJson.data.description)
                     this.RBSheet.close();
                 } else if (responseJson.data.status == "SUCCESS") {
                     // console.log(">>>>>>>>ref code L: " + responseJson.data.reference);
@@ -395,9 +422,9 @@ export class BillPaymentInformation extends Component {
         const { TextInputAmount } = this.state;
         const billercode = await AsyncStorage.getItem('billerCode');
         let referance = this.state._transactionReferance
-        JSHmac(TextInputAccount + TextInputAmount + billercode + "bcaad5b1-bafa-4527-83b6-a3b7119dbd76" + referance, "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+        JSHmac(TextInputAccount + TextInputAmount + billercode + "a1840a1b-986d-4c22-b16d-e3d9db64db46" + referance, "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
             .then(hash => {
-                fetch('https://dev.directpay.lk/v2/backend/external/api/payBillAction', {
+                fetch('https://prod.directpay.lk/v2/backend/external/api/payBillAction', {
                     method: 'post',
                     headers: {
                         'Authorization': 'Bearer ' + hash,
@@ -407,7 +434,7 @@ export class BillPaymentInformation extends Component {
                         "accountNumber": TextInputAccount,
                         "amount": TextInputAmount,
                         "billerCode": billercode,
-                        "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+                        "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
                         "reference": referance
                     }),
                 }).then((response) => response.json())
@@ -419,7 +446,7 @@ export class BillPaymentInformation extends Component {
                                 loading: false,
                                 isVisible2: true
                             });
-                            
+                            this.checkPayment();
                         } else {
                             console.log(">>>>>>>>>>>>>>>>>>>>>> 6. do bil payment fail  : "+responseJson.status)
                             this.setState({
@@ -434,6 +461,45 @@ export class BillPaymentInformation extends Component {
                     })
             })
             .catch(e => console.log(e));
+    }
+    checkPayment(){
+        let referance = this.state._transactionReferance
+        JSHmac("a1840a1b-986d-4c22-b16d-e3d9db64db46" + referance, "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
+        .then(hash => {
+            fetch('https://prod.directpay.lk/v2/backend/external/api/payBillAction', {
+                method: 'post',
+                headers: {
+                    'Authorization': 'Bearer ' + hash,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
+                    "reference": referance
+                }),
+            }).then((response) => response.json())
+                .then((responseJson) => {
+    
+                    if (responseJson.data.success == true) {
+                        console.log(">>>>>>>>>>>>>>>>>>>>>> 7. check payment : "+responseJson.status)
+                        this.setState({
+                            loading: false,
+                            // isVisible2: true
+                        });
+                        this.checkPayment();
+                    } else {
+                        console.log(">>>>>>>>>>>>>>>>>>>>>> 7. check payment  : "+responseJson.status)
+                        this.setState({
+                            // isVisible1: true,
+                            loading: false,
+                        });
+                    }
+                    console.log(responseJson.data);
+                }).catch((error) => {
+                    console.error(error);
+
+                })
+        })
+        .catch(e => console.log(e));
     }
     renderItem = ({ item }) => {
         return (
@@ -502,7 +568,7 @@ export class BillPaymentInformation extends Component {
     };
     keyExtractor = (item, index) => index.toString();
     render() {
-        let { isLoading, isSelectedCard, isVisible, isVisible1, loading, isVisible2 } = this.state
+        let { isLoading, isSelectedCard, isVisible, isVisible1, loading, isVisible2,TextInputAmount } = this.state
 
         // if (this.state.isLoading) {
         //     return (
@@ -563,12 +629,13 @@ export class BillPaymentInformation extends Component {
                             titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
                             buttonStyle={{
                                 backgroundColor: 'orange',
-                                borderRadius: 5,
+                                borderRadius: 8,
                                 // width: 100,
                                 paddingHorizontal: 10,
-                                padding: 9,
+                                padding: 11,
                                 alignItems: 'center',
                                 justifyContent: 'center',
+                               
                             }}
                             onPress={() =>
 
@@ -660,7 +727,7 @@ export class BillPaymentInformation extends Component {
                             }
                             <View style={{ paddingLeft: 20, paddingRight: 20 }}>
                                 <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-                                    <Text>You will be Paying Rs 100 via seleted</Text>
+                                    <Text>You will be Paying Rs {TextInputAmount} via seleted</Text>
                                     <Text>payment method to</Text>
                                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{this.state._billerName}</Text>
                                 </View>
@@ -771,7 +838,8 @@ export class BillPaymentInformation extends Component {
                                 borderRadius: 5,
                             }}>
                             <Text style={{ fontSize: 14 }}>
-                                Something went wrong, Please try again later
+                              {this.state.errorMessage}
+                                , Please try again later
                             </Text>
                             <View
                                 style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
@@ -792,6 +860,7 @@ export class BillPaymentInformation extends Component {
                                     onPress={() => {
                                         this.setState({
                                             isVisible: false,
+                                            loading:false
                                         });
                                         {
                                             // this.deleteCartItemByModal();

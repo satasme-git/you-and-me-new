@@ -356,7 +356,7 @@ export class EDDCalculator extends Component {
         let { isLoading } = this.state
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         } else {
             return (
@@ -376,9 +376,9 @@ export class EDDCalculator extends Component {
 
                             this.state._estimatedDate == '' ?
                                 <View style={{ flexDirection: 'row' }}>
-                                    <TouchableOpacity onPress={() => this.RBSheet.open()} style={[styles.buttonh, { backgroundColor: 'white', }]}>
+                                    <TouchableOpacity onPress={() => this.RBSheet.open()} style={[styles.buttonh, { backgroundColor: '#1ED35A', }]}>
                                         <View style={{ flexDirection: 'row' }}>
-                                            <View style={{ backgroundColor: 'red', padding: 10, borderRadius: 40 }}>
+                                            <View style={{ backgroundColor: '#1ED35A', padding: 10, borderRadius: 40 }}>
                                                 <Icon
                                                     name='plus'
                                                     type='font-awesome'
@@ -386,7 +386,7 @@ export class EDDCalculator extends Component {
                                                     iconStyle={{ fontSize: 10, paddingRight: 2, paddingLeft: 2, color: 'white' }}
                                                 />
                                             </View>
-                                            <Text style={{ color: '#394694', padding: 5 ,fontSize:14}}>{i18n.t('edd.button')}</Text>
+                                            <Text style={{ color: '#fff', padding: 5 ,fontSize:14}}>{i18n.t('edd.button')}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -727,7 +727,7 @@ export class EDDCalculator extends Component {
         height: 50,
         marginLeft: 0
     }, button: {
-        backgroundColor: "#f78a2c",
+        backgroundColor: "#4E3CCE",
         padding: 10,
         borderRadius: 25,
         // marginTop: 5,
@@ -761,7 +761,7 @@ export class EDDCalculator extends Component {
         // width: "90%",
     }, buttonh: {
         backgroundColor: "white",
-        padding: 5,
+        // padding: 5,
         borderRadius: 10,
         marginTop: 10,
         marginLeft: 15,
@@ -772,6 +772,9 @@ export class EDDCalculator extends Component {
         shadowOpacity: 0.8,
         shadowRadius: 8,
         marginHorizontal: 20,
+
+        paddingHorizontal:3,
+        paddingVertical:4
 
 
     }

@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Modal, StyleSheet, Text, Dimensions, View, SafeAreaView, ImageBackground, ScrollView,StatusBar, FlatList, Switch } from 'react-native';
+import { Modal, StyleSheet, Text, Dimensions, View, SafeAreaView, ImageBackground, ScrollView, StatusBar, FlatList, Switch } from 'react-native';
 
 import { CustomHeader } from '../index';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
@@ -44,7 +44,7 @@ export class HospitalBagBaby extends Component {
         });
         this.getData();
     }
-  
+
     componentDidMount() {
         var that = this;
         var date = new Date().getDate(); //Current Date
@@ -69,7 +69,7 @@ export class HospitalBagBaby extends Component {
         let int;
         let result;
         if (value != null) {
-            db.updateStatusBaby(this.state.dbs, data,this.state.lan).then((result) => {
+            db.updateStatusBaby(this.state.dbs, data, this.state.lan).then((result) => {
                 console.log(result);
                 this.setState({
                     isLoading: false,
@@ -101,7 +101,7 @@ export class HospitalBagBaby extends Component {
     viewListData() {
         let baby_bag = [];
 
-        db.listBabyBagItems(this.state.dbs,this.state.lan).then((data) => {
+        db.listBabyBagItems(this.state.dbs, this.state.lan).then((data) => {
 
 
             if (data != null) {
@@ -135,97 +135,102 @@ export class HospitalBagBaby extends Component {
 
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         } else {
 
             return (
 
-                <SafeAreaView style={{ flex: 1,backgroundColor:'white' }}>
-                     <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
-              
-                    <CustomHeader bgcolor='#F2F2F2'gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white"  title={i18n.t('bag.Preparebabybaghead')} bcbuttoncolor='#fff'  navigation={this.props.navigation} bdcolor='#F2F2F2' />
+                <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+                    <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
+
+                    <CustomHeader bgcolor='#F2F2F2' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('bag.Preparebabybaghead')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#F2F2F2' />
                     {/* <View style={styles.brestposition3}></View>
                     <View style={styles.brestposition4}></View> */}
                     {/* <View style={styles.header}> */}
-                        {/* <Image style={{ width: 380, height: 290, marginLeft: 0, }}
+                    {/* <Image style={{ width: 380, height: 290, marginLeft: 0, }}
                             source={IMAGE.ICON_BABYBAG}
                             resizeMode="contain"
                         /> */}
-              
+
                     {/* </View> */}
-                    <Animatable.View style={[styles.footer,{marginTop:0}]} animation="fadeInUpBig">
-                    <ImageBackground
-              source={IMAGE.ICON_BABYBAG2}
-              imageStyle={{borderRadius:20,resizeMode:'cover'}}
-              style={{ width: windowWidth-60, height: windowWidth-60, alignSelf:'center',justifyContent:'flex-end',borderRadius:20}}>
-              <View style={{backgroundColor:'#4633cb',alignItems:'center',padding:7,borderBottomRightRadius:20,borderBottomLeftRadius:20}}>
-              <Text style={{color:'#fff'}}>{i18n.t('bag.Preparebabybaghead')}</Text>
-              </View>
-            </ImageBackground>
-                        {/* <View style={styles.brestposition5}></View>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentInsetAdjustmentBehavior="automatic"
+                        style={{ backgroundColor: 'white' }}>
+                        <Animatable.View style={[styles.footer, { marginTop: 0 }]} animation="fadeInUpBig">
+                            <ImageBackground
+                                source={IMAGE.ICON_BABYBAG2}
+                                imageStyle={{ borderRadius: 20, resizeMode: 'cover' }}
+                                style={{ width: windowWidth - 60, height: windowWidth - 60, alignSelf: 'center', justifyContent: 'flex-end', borderRadius: 20 }}>
+                                <View style={{ backgroundColor: '#4633cb', alignItems: 'center', padding: 7, borderBottomRightRadius: 20, borderBottomLeftRadius: 20 }}>
+                                    <Text style={{ color: '#fff' }}>{i18n.t('bag.Preparebabybaghead')}</Text>
+                                </View>
+                            </ImageBackground>
+                            {/* <View style={styles.brestposition5}></View>
                         <View style={styles.brestposition6}></View> */}
 
-                        <Text style={{ marginHorizontal: 20, fontSize: 18, fontWeight: "bold" }}>{i18n.t('bag.Preparebabybag')}</Text>
-                        <FlatList
+                            <Text style={{ marginHorizontal: 20,marginTop:10, fontSize: 18, fontWeight: "bold" }}>{i18n.t('bag.Preparebabybag')}</Text>
 
 
-                            keyExtractor={this.keyExtractor}
-                            data={this.state._baby_bag}
-                            // renderItem={this.renderItem}
+                            <FlatList
+                                keyExtractor={this.keyExtractor}
+                                data={this.state._baby_bag}
+                                // renderItem={this.renderItem}
 
-                            renderItem={({ item }) => <ListItem
-                                style={{  paddingTop: 10,paddingBottom:10 }}
-                                onPress={() => {
-                                    this.getData(item.bId, item.bStatus);
-  
-                                }}
-                            >
-                                {
-                                    item.bStatus == "true" ?
-                                        <Left >
-                                            <Icon
-                                                name='check-circle'
-                                                type='font-awesome'
-                                                color='#9A81FD'
-                                                iconStyle={{ fontSize: 25, paddingTop: 5, paddingBottom: 5, paddingLeft: 5, paddingRight: 5, backgroundColor: '#4E3CCE', borderRadius: 8, }}
-                                                onPress={() => console.log('hello')} />
-                                        </Left> : <Left>
-                                            <Icon
-                                                name='check-circle'
-                                                type='font-awesome'
-                                                color='#fff'
-                                                iconStyle={{ fontSize: 25, paddingTop: 5, paddingBottom: 5, paddingLeft: 5, paddingRight: 5, backgroundColor: '#eceff1', borderRadius: 8, }}
-                                                onPress={() => console.log('hello')} />
-                                        </Left>
-                                }
+                                renderItem={({ item }) => <ListItem
+                                    style={{ paddingTop: 10, paddingBottom: 10 }}
+                                    onPress={() => {
+                                        this.getData(item.bId, item.bStatus);
 
-                                <Body style={{ marginLeft: -190 }}>
-
-                                    <Text>{item.bName}</Text>
-                                    <Text style={styles.dateText}>{
+                                    }}
+                                >
+                                    {
                                         item.bStatus == "true" ?
-                                            item.bDate : ''
-                                    }</Text>
-                                </Body>
-                                <Right>
+                                            <Left >
+                                                <Icon
+                                                    name='check-circle'
+                                                    type='font-awesome'
+                                                    color='#9A81FD'
+                                                    iconStyle={{ fontSize: 25, paddingTop: 5, paddingBottom: 5, paddingLeft: 5, paddingRight: 5, backgroundColor: '#4E3CCE', borderRadius: 8, }}
+                                                    onPress={() => console.log('hello')} />
+                                            </Left> : <Left>
+                                                <Icon
+                                                    name='check-circle'
+                                                    type='font-awesome'
+                                                    color='#fff'
+                                                    iconStyle={{ fontSize: 25, paddingTop: 5, paddingBottom: 5, paddingLeft: 5, paddingRight: 5, backgroundColor: '#eceff1', borderRadius: 8, }}
+                                                    onPress={() => console.log('hello')} />
+                                            </Left>
+                                    }
 
-                                    <Switch
-                                        disabled={true}
-                                        trackColor={{ true: '#4E3CCE', false: 'grey' }}
-                                        thumbColor={'white'}
-                                        value={item.bStatus == "true" ? true : false}
-                                    />
+                                    <Body style={{ marginLeft: -190 }}>
 
-                                </Right>
-                            </ListItem>
+                                        <Text>{item.bName}</Text>
+                                        <Text style={styles.dateText}>{
+                                            item.bStatus == "true" ?
+                                                item.bDate : ''
+                                        }</Text>
+                                    </Body>
+                                    <Right>
+
+                                        <Switch
+                                            disabled={true}
+                                            trackColor={{ true: '#4E3CCE', false: 'grey' }}
+                                            thumbColor={'white'}
+                                            value={item.bStatus == "true" ? true : false}
+                                        />
+
+                                    </Right>
+                                </ListItem>
 
 
 
-                            } />
+                                } />
 
 
-                    </Animatable.View>
+                        </Animatable.View>
+                    </ScrollView>
                 </SafeAreaView>
             );
         }
@@ -267,7 +272,7 @@ const styles = StyleSheet.create({
         //  paddingHorizontal: 20
     }, header: {
         flex: 1,
-        marginTop:15
+        marginTop: 15
         // justifyContent: 'center',
         // alignItems: 'center',
     }, brestposition5: {

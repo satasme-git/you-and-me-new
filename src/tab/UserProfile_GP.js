@@ -16,6 +16,8 @@ import { List, ListItem, Left, Body, Right } from 'native-base';
 import { FlatList } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 import { Picker } from '@react-native-community/picker';
+
+import Context from '../../Context/context';
 import RNDirectPayCardPayment from 'react-native-direct-pay-card-payment';
 
 
@@ -27,7 +29,8 @@ const options = {
     chooseFromLibraryButtonTitle: 'choose from galary',
     quality: 1
 }
-export class UserProfile extends Component {
+export class UserProfile_GP extends Component {
+    static contextType = Context;
     constructor(props) {
         super(props);
         this.state = {
@@ -70,8 +73,9 @@ export class UserProfile extends Component {
     componentDidMount() {
         this.loadMemberDataById()
     }
+
     async loadMemberDataById() {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> iiiii");
+
         this.setState({
             lan: await AsyncStorage.getItem('lang'),
             isVisible6: true,
@@ -114,6 +118,7 @@ export class UserProfile extends Component {
                 abc = responseJson.member_image;
                 role = responseJson.role_name;
                 roleid = responseJson.member_role;
+
 
                 this.setState({
                     isLoading: false,
@@ -204,7 +209,14 @@ export class UserProfile extends Component {
             { name: 'member_email', data: member_email }
         ]).then((resp) => {
             console.log(resp.text());
-            // this.loadMemberDataById();
+           
+
+
+            AsyncStorage.setItem('member_image',  resp.text());
+            this.context.addCart(resp.text());
+
+
+
         }).catch((err) => {
             console.log(err);
         });
@@ -401,7 +413,7 @@ export class UserProfile extends Component {
             TextInputRoleId: id
         })
     }
-    card() {
+     card() {
         // var reffreancenic = await AsyncStorage.getItem('member_nic');
 
         var reffreancenic = this.state.TextInputNIC;
@@ -423,7 +435,6 @@ export class UserProfile extends Component {
             // 'pathirana', // lastname of the user
             // 'chamiljay88@mail.com', // email of the user
             // '0716460440', // phone number of the user
-            
             (_err, _r) => {
                 if (_err) {//failed
 
@@ -436,9 +447,7 @@ export class UserProfile extends Component {
                     console.log('reference: ' + _r.reference); // unique user id as the reference
                     console.log('brand: ' + _r.brand); // brand of the card (Visa / Mastercared)
                 }
-                
             },
-            
         )
     }
     renderItemRole = ({ item }) => {
@@ -928,11 +937,11 @@ export class UserProfile extends Component {
 
                     {
 
-                        title: i18n.t("profile.addbankcard"),
+                        title: i18n.t("profile.addbankcard2"),
                         content: this.renderContent(
                             <View style={{ padding: 10, width: windowWidth }}>
                                 <View style={{ marginLeft: 10, marginTop: 10, justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={styles.mainText}>{i18n.t("profile.currnetReffral")}</Text>
+                                    <Text style={styles.mainText}>{i18n.t("profile.addbankcard2")}</Text>
                                     <Button
                                         title="Add Card"
                                         titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
@@ -953,85 +962,10 @@ export class UserProfile extends Component {
                                 </View>
 
                             </View>
-                            )
+                        )
 
-                    },
-                    {
-                        title: i18n.t("profile.tabreffral"),
-                        content: this.renderContent(<View style={{ padding: 10 }}>
-                            <View style={{ marginLeft: 10, marginTop: 10, justifyContent: 'space-between', flexDirection: 'row' }}>
-                                <Text style={styles.mainText}>{i18n.t("profile.currnetReffral")}</Text>
-                                <Button
-                                    title="Add new"
-                                    titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        // marginTop: 10,
-                                        paddingVertical: 6,
-                                        borderColor: 'white',
-                                        paddingHorizontal: 10,
-                                        backgroundColor: 'green',
-                                        borderWidth: 0.6,
-                                        borderRadius: 6,
-                                    }}
-                                    onPress={() =>
-                                        this.setState({
-                                            isVisible4: true,
-                                        })
-                                    }
-                                />
-                            </View>
-                            {/* <View
-                                style={[styles.cardcontainer, { width: windowWidth - 25 }]}
-                                activeOpacity={0.95}> */}
-                            {/* <View style={styles.labelContainer}>
-                                    <View>
-                                        <View>
-                                            <Text style={styles.mainText}>Current reffrels</Text>
-                                        </View>
-
-                                    </View>
-                                </View> */}
-
-                            <FlatList
-                                initialScrollIndex={0}
-                                nestedScrollEnabled={true}
-                                contentContainerStyle={{
-                                    // padding: 15,
-                                    paddingTop: StatusBar.currentHeight || 0,
-                                    width: windowWidth - 25
-                                }}
-                                //   ListEmptyComponent={this.emptyComponent}
-                                scrollEnabled={true}
-                                keyExtractor={this.keyExtractor}
-                                data={this.state.data}
-                                renderItem={this.renderItem}
-                            />
-
-                            {/* </View> */}
-                        </View>)
-                    },
-                    {
-                        title: i18n.t("profile.tabrerning"),
-                        content: this.renderContent(<View style={{ padding: 10 }}>
-                            <View style={{ marginLeft: 10, marginTop: 10, justifyContent: 'space-between', flexDirection: 'row' }}>
-                                <Text style={styles.mainText}>Earnings</Text>
-
-                            </View>
-                            <View
-                                style={[styles.cardcontainer, { width: windowWidth - 25 }]}
-                                activeOpacity={0.95}>
-                                <View style={styles.labelContainer}>
-                                    <View>
-                                        <View>
-                                            <Text style={styles.mainText}>Earnings last month</Text>
-                                        </View>
-
-                                    </View>
-                                </View>
-                            </View>
-                        </View>)
                     }
+
 
                 ]}
                 tabTextStyle={styles.tabText}

@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+                    <html lang="en">
+                        <head>
+                            <meta charset="UTF-8" />
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                            <title>Directpay|RecurringPayment</title>
+
+                            
+                        </head>
+                        <div id="card_container"></div>
+                        <style>
+                            .hidden{
+                                display:none;
+                            }
+                            </style>
+                        <body>
+                            <script src="https://cdn.directpay.lk/dev/v1/directpayCardPayment.js?v=1"></script>
+                            <script>
+                                DirectPayCardPayment.init({
+                                    container: "card_container", //<div id="card_container"></div>
+                                    merchantId: "II07510", //your merchant_id
+                                    amount: "300.00",
+                                    refCode: "DP12345", //unique referance code form merchant
+                                    currency: "LKR",
+                                    type: "RECURRING",
+                                    recurring: {
+                                        startPaymentDate: "2050-07-18",
+                                        lastPaymentDate: "2050-07-19",
+                                        interval: "MONTHLY",
+                                        isRetry: true,
+                                        retryAttempts: 2,
+                                        recurringAmount: "300.00",
+                                        doFirstPayment: true,
+                                    },
+                                    customerEmail: "abc@mail.com",
+                                    customerMobile: "+94712345467",
+                                    description: "test products", //product or service description
+                                    debug: true,
+                                    responseCallback: responseCallback,
+                                    errorCallback: errorCallback,
+                                    logo: "https://test.com/directpay_logo.png",
+                                    apiKey: "7c62d2fdd3d4edf99e97be9838dd2fd7bac316578bffc37ef68100d516fa7409",
+                                });
+                                //response callback.
+                                function responseCallback(result) {
+                                    document.getElementById("click").style.display ="inline-flex";
+                                    console.log("successCallback-Client", result);
+                                    // alert(JSON.stringify(result));
+
+                                    // alert(result['data'].status);
+                                    var request = new XMLHttpRequest();
+                                            
+                                    var data = new FormData();
+                                    data.append('member', '${memberid}');
+                                    data.append('status', result['data'].status);
+                                    data.append('json', JSON.stringify(result));
+                                    
+                                    request.open('POST', 'https://youandmenest.com/tr_reactnative/api/subscription', true);
+                                    request.send(data);
+                                    request.onload = ()=>{
+                                        // alert(request.response);
+                                        setModalVisible(true);
+                                   
+
+                                        
+                                        $("click").removeClass("hidden")
+
+                                        // var para = document.createElement("P");
+
+                                        // var t = document.createTextNode(" fgff");
+                                        // para.appendChild(t);
+                                        // document.getElementById("click").appendChild(para);
+
+                                    }
+                                }
+                    
+                                //error callback
+                                function errorCallback(result) {
+                                    console.log("successCallback-Client", result);
+                                    alert(JSON.stringify(result));
+                                }
+                            </script>
+                            <center>
+                            <div id="click" style="margin-top:-20px;align-self:center;display:none"><button id="scan" type="button" style="padding:10px"> Go Back </button></div>
+                        </center>
+                            </body>
+                    </html>

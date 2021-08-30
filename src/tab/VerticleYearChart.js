@@ -136,7 +136,7 @@ export class VerticleYearChart extends Component {
                             <Text style={styles.buttonText}>{i18n.t('dietplan.mealplan')}</Text>
                         </TouchableOpacity> */}
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('MealPlan')} style={[styles.buttonh, { backgroundColor: 'white', }]}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('MealPlan')} style={[styles.buttonh, { backgroundColor: '#FF4C58', }]}>
                             <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
                                 {/* <View style={{ backgroundColor: 'red', padding: 8, borderRadius: 40 }}> */}
                                   
@@ -144,7 +144,7 @@ export class VerticleYearChart extends Component {
                                         name="fast-food-outline"
                                         style={{paddingHorizontal:5}}
                                         size={15}
-                                        color="#4633cb"
+                                        color="#fff"
                                     />
                                 {/* </View> */}
                                 <Text style={styles.buttonText}>{i18n.t('dietplan.mealplan')}</Text>
@@ -278,19 +278,21 @@ const styles = StyleSheet.create({
         //  zIndex:5
     }, buttonText: {
         fontSize: 13,
-        color: '#4633cb',
+        color: '#fff',
         padding: 2,
     }, buttonh: {
-        backgroundColor: "#fff",
+        // backgroundColor: "#fff",
         padding: 5,
         borderRadius: 10,
         // marginTop: 18,
-        width: 100,
+        width: 140,
         elevation: 10,
         shadowColor: '#30C1DD',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.8,
         shadowRadius: 8,
         marginHorizontal: 10,
+        paddingHorizontal:3,
+        paddingVertical:6
     }
 });

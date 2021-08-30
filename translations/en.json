@@ -62,6 +62,7 @@
     "regualr_pr": "Period",
     "healthidiet": "Normal Healthy",
     "diet2": "Diet",
+    "RecommendedHeading": "Recommended for You",
     "invest": "Investigation",
     "excer": "Excercise",
     "kick":"Kick Counter",
@@ -115,6 +116,7 @@
   },
   "special_notes": {
     "hedding": "Hello",
+    "hedding2": "Hi,",
     "subheadding": "Special Notes",
     "history": "History",
     "calandar": "Calendar",
@@ -199,6 +201,7 @@
   "weightGain": {
     "mainheading": "Weight Gain",
     "heading": "Hello",
+    "heading2": "Hi,",
     "subheading": "It's time to check your Weight level",
     "sltdate": "Select date",
     "waightval": "Weight Value ",
@@ -212,6 +215,7 @@
   },
   "blood": {
     "heading": "Hello",
+    "heading2": "Hi,",
     "subheading": "It's time to check your Blood Presure level",
     "sltdate": "Select date",
     "sostolic": "Systolic Value",
@@ -274,6 +278,7 @@
   },
   "growth": {
     "heading": "Hello",
+    "heading2": "Hi,",
     "subheading": "Growth chart",
     "chartbtn": "Chart View",
     "weight": " Weight Value",
@@ -336,8 +341,10 @@
   },
   "profile": {
     "headding": "User Profile",
-    "username": "User Name",
-    "enterusername": "Enter User Name",
+    "username": "User First Name",
+    "enterusername": "Enter User First Name",
+    "userlastname": "User Last Name",
+    "enterlastusername": "Enter User Last Name",
     "email":"Email Address",
     "enteremail": "Enter Email Address",
     "mobile": "Mobile Number",
@@ -348,12 +355,16 @@
     "enterpassword": "Enter Password",
     "address": "Address",
     "enteraddress": "Enter Address",
+    "role": "Role",
     "button": "Save",
-    "tabprofile": "Profile",
+    "tabprofile": "User Profile",
     "tabreffral": "Referral management",
     "tabrerning": "My earnings",
     "userinfo": "User informations",
-    "currnetReffral": "Current Referral"
+    "currnetReffral": "Current Referral",
+    "addbankcard": "Add Bank Cards",
+    "addbankcard2": "Add Bank Cards"
+    
 
   },
   "mealPlan": {
@@ -388,6 +399,7 @@
     "laborropak":"Labor room bag",
     "subhed": "it is time to prepare your bag",
     "headding": "Hello",
+    "headding2": "Hi,",
     "Preparebabybag":"Prepare a bag for baby",
     "Preparelabourbag":"Prepare labor room bag",
     "Preparelabourbaghead":"Labor room bag",

@@ -332,7 +332,7 @@ export class EliminationChart extends Component {
 
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         } else {
             return (
@@ -564,7 +564,7 @@ export class EliminationChart extends Component {
         alignItems: 'center',
         margin: 5
     }, button: {
-        backgroundColor: "red",
+        backgroundColor: "#9A81FD",
         padding: 12,
         borderRadius: 25,
         width: '95%',

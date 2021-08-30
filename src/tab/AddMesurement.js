@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { StyleSheet, Image, Text, SafeAreaView, ScrollView,StatusBar, TouchableOpacity, ActivityIndicator, View, TextInput, DrawerLayoutAndroidBase } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -7,6 +6,7 @@ import { CustomHeader } from '../index';
 import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FlashMessage, { showMessage } from "react-native-flash-message";
+import AsyncStorage from '@react-native-community/async-storage';
 
 import i18n from 'i18n-js';
 const db = new Database();
@@ -122,32 +122,32 @@ export class AddMesurement extends Component {
             </View>
             <View style={{ flexDirection: 'row',  marginTop: 0 ,marginLeft:10}}>
 
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('AreaChart')} style={[styles.buttonh, { backgroundColor: 'white', }]}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('AreaChart')} style={[styles.buttonh, { backgroundColor: '#FF4C58', }]}>
                 <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
-                  <View style={{ backgroundColor: 'white', padding: 7, borderRadius: 35 }}>
+                  <View style={{ backgroundColor: '#FF4C58', padding: 7, borderRadius: 35 }}>
                     <Icon
                       name='area-chart'
                       type='font-awesome'
                       color='red'
-                      iconStyle={{ fontSize: 15, color: '#4E3CCE' }}
+                      iconStyle={{ fontSize: 15, color: '#fff' }}
                     />
                   </View>
-                  <Text style={{ color: '#4E3CCE', padding: 5 }}>{i18n.t('growth.chartbtn')}</Text>
+                  <Text style={{ color: '#fff', padding: 5 }}>{i18n.t('growth.chartbtn')}</Text>
 
 
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('GrowthWebView')} style={[styles.buttonh, { backgroundColor: 'white', }]}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('GrowthWebView')} style={[styles.buttonh, { backgroundColor: '#15D354', }]}>
                 <View style={{ flexDirection: 'row',alignItems:'center' }}>
-                  <View style={{ backgroundColor: 'white', padding: 7, borderRadius: 35 }}>
+                  <View style={{ backgroundColor: '#15D354', padding: 7, borderRadius: 35 }}>
                     <Icon
                       name='info'
                       type='feather'
                       color='red'
-                      iconStyle={{ fontSize: 17, color: '#4E3CCE' }}
+                      iconStyle={{ fontSize: 17, color: '#fff' }}
                     />
                   </View>
-                  <Text style={{ color: '#4E3CCE', padding: 5 }}>{i18n.t('growth.moredetails')}</Text>
+                  <Text style={{ color: '#fff', padding: 5 }}>{i18n.t('growth.moredetails')}</Text>
 
                 </View>
               </TouchableOpacity>
@@ -261,6 +261,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 8,
     marginHorizontal: 10,
+
+    paddingHorizontal:3,
+    paddingVertical:4
+
+
   }, breadthPo1: {
     zIndex: 5,
     padding: 18,

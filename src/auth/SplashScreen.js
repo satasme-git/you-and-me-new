@@ -14,8 +14,8 @@ export class SplashScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="light-content" hidden={false} backgroundColor="#fbb448" />
-                <LinearGradient colors={['#fbb448', '#f78a2c']} style={styles.gradient}>
+                <StatusBar barStyle="light-content" hidden={false} backgroundColor="#9A81FD" />
+                <LinearGradient colors={['#9A81FD', '#4E3CCE']} style={styles.gradient}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',marginTop:-20 }}>
                         <Image style={{ width: 190,   }}
                             source={IMAGE.ICON_LOGO2}

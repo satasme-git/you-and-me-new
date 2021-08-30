@@ -127,11 +127,11 @@ export class ClinicManagement extends Component {
 
         var time = this.state.timeb;
 
-        let nestPeriod = moment(formattedDate).subtract(2, 'day').format('YYYY-MM-DD');
+        let nestPeriod = moment(formattedDate).subtract(1, 'day').format('YYYY-MM-DD');
 
         let datanotf = {
             _title: " " + TextInputNoteValue + " " + formattedDate,
-            _bigText: "custom note",
+            _bigText: "One day more..",
             date: nestPeriod
         }
         cn.testPush(datanotf);
@@ -183,30 +183,30 @@ export class ClinicManagement extends Component {
                             {/* <Text style={{ color: 'white' }}>Yesterday remaining 12 kg</Text> */}
                         </View>
                         <View style={{ flexDirection: 'row', marginTop: 0 }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('AgendaHistory')} style={[styles.buttonh, { backgroundColor: 'white', width: 120 }]}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('AgendaHistory')} style={[styles.buttonh, { backgroundColor: '#FF4C58' }]}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
+                                    <View style={{ backgroundColor: '#FF4C58', padding: 10, borderRadius: 35 }}>
                                         <Icon
                                             name='bar-chart'
                                             type='font-awesome'
                                             color='red'
-                                            iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'gray' }}
+                                            iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: '#fff' }}
                                         />
                                     </View>
-                                    <Text style={{ color: 'black', padding: 7 }}>{i18n.t('special_notes.history')}</Text>
+                                    <Text style={{ color: '#fff', padding: 7 }}>{i18n.t('special_notes.history')}</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('PeriodAgenda')} style={[styles.buttonh, { backgroundColor: 'white', width: 130 }]}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('PeriodAgenda')} style={[styles.buttonh, { backgroundColor: '#15D354'}]}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
+                                    <View style={{ backgroundColor: '#15D354', padding: 10, borderRadius: 35 }}>
                                         <Icon
                                             name='calendar'
                                             type='font-awesome'
                                             color='red'
-                                            iconStyle={{ fontSize: 13, color: 'gray' }}
+                                            iconStyle={{ fontSize: 13, color: '#fff' }}
                                         />
                                     </View>
-                                    <Text style={{ color: 'black', padding: 7 }}>{i18n.t('special_notes.calandar')}</Text>
+                                    <Text style={{ color: '#fff', padding: 7 }}>{i18n.t('special_notes.calandar')}</Text>
 
                                 </View>
                             </TouchableOpacity>
@@ -415,17 +415,20 @@ export class ClinicManagement extends Component {
         color: '#000',
 
     }, buttonh: {
-        backgroundColor: "#AF1E8F",
+        // backgroundColor: "#AF1E8F",
         padding: 2,
         borderRadius: 12,
         marginTop: 18,
-        width: 120,
+        // width: 120,
         elevation: 10,
         shadowColor: '#30C1DD',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.8,
         shadowRadius: 8,
-        marginLeft: 20
+        marginLeft: 20,
+
+        paddingHorizontal:5,
+        paddingVertical:4
 
 
     }

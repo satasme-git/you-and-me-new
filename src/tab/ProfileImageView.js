@@ -5,10 +5,11 @@ import { Button } from 'react-native-elements';
 import Database from '../Database';
 import ImageZoom from 'react-native-image-pan-zoom';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import Context from '../../Context/context';
 const db = new Database();
 
 export class ProfileImageView extends Component {
+    static contextType = Context;
     static navigationOptions = {
         title: 'Add Product',
     };
@@ -114,7 +115,7 @@ export class ProfileImageView extends Component {
                         imageWidth={420}
                         imageHeight={420}>
                         <Image style={{ height: 400 }}
-                            source={{ uri: "https://youandmenest.com/tr_reactnative/public/images/Members/" + this.state.abc }} />
+                            source={{ uri: "https://youandmenest.com/tr_reactnative/public/images/Members/" + this.context.catVal }} />
                     </ImageZoom>
                 </View>
             </View>

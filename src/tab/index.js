@@ -34,7 +34,6 @@ export * from './FeedingTimeChart';
 export * from './UrinationTime';
 export * from './EliminationChart';
 export * from './SleepingTimeChart';
-export * from './TestMail';
 export * from './WeightChart';
 export * from './HealthDietChart';
 export * from './LabourRoomPacking';
@@ -69,6 +68,8 @@ export * from './midwifeConfirm';
 export * from './BillerCategories';
 export * from './GetBiller';
 export * from './BillPaymentInformation';
+export * from './UserProfile_GP';
+
 
 
 

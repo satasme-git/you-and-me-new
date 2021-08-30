@@ -15,7 +15,9 @@ import i18n from 'i18n-js';
 
 import en from '../../translations/en.json';
 import fr from '../../translations/zh.json';
-
+import moment from 'moment' // 2.20.1
+const _format = 'YYYYMMDDHmm'
+const _today = moment().format(_format)
 export class LoginScreen extends Component {
 
   constructor(props) {
@@ -23,20 +25,22 @@ export class LoginScreen extends Component {
     this.checkToken();
     this.state = {
       lan: '',
-      defaultval:0,
-      isVisible:false,
+      defaultval: 0,
+      isVisible: false,
+      isModalVisible: false,
+      isLoading: true
     }
     this.loadDbVarable();
   }
 
   state = {
     currentLanguage: RNLanguages.language,
-    
- 
+
+
   };
   async loadDbVarable() {
     this.setState({
-        lan: await AsyncStorage.getItem('lang'),
+      lan: await AsyncStorage.getItem('lang'),
     });
     var language = await AsyncStorage.getItem('lang');
     if (language != "") {
@@ -44,11 +48,11 @@ export class LoginScreen extends Component {
 
         this.changelanguage("en")
         this.setState({
-          defaultval:0
+          defaultval: 0
         });
-       
+
       } else if (language == "fr") {
-      
+
         this.changelanguage("fr")
         this.setState({
           defaultval: 1
@@ -58,20 +62,20 @@ export class LoginScreen extends Component {
     }
 
 
-}
+  }
   async componentDidMount() {
-  
+
     var language = await AsyncStorage.getItem('lang');
     if (language != "") {
       if (language == "en") {
 
         this.changelanguage("en")
         this.setState({
-          defaultval:0
+          defaultval: 0
         });
-       
+
       } else if (language == "fr") {
-      
+
         this.changelanguage("fr")
         this.setState({
           defaultval: 1
@@ -80,7 +84,7 @@ export class LoginScreen extends Component {
       }
     }
 
-   
+
   }
 
   changelanguage(value) {
@@ -98,61 +102,127 @@ export class LoginScreen extends Component {
 
   }
 
+
+  // manoj
   checkToken = async () => {
+
+
+
     const token = await AsyncStorage.getItem('memberNames');
-    const role_id = await AsyncStorage.getItem('memberId');
     const email = await AsyncStorage.getItem('member_email');
-    
+
     if (token) {
 
-      if(role_id!=3){
-        this.props.navigation.navigate('HomeApp');
-      }else{
+      const formData = new FormData()
 
-        this.setState({
-          isVisible: true,
+      formData.append('email', email);
+
+      fetch('https://youandmenest.com/tr_reactnative/api/getStatus', {
+        method: 'POST', // or 'PUT'
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          // setIsLogged(data)
+          // setData(data)
+          var d = JSON.stringify(data)
+          console.log(data[0].subscription);
+          data[0].subscription == "SUCCESS" ?
+            this.checkSubscription()
+            :
+            this.toggleModal()
+
+        })
+        .catch((error) => {
         });
 
 
-        fetch('https://youandmenest.com/tr_reactnative/api/checkConfirm', {
-          method: 'post',
-          headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              member_email: email,
-          }),
-      })
-          .then((response) => response.json())
-          .then((responseJson) => {
-             
+    }
 
-              if(responseJson==null){
-                this.setState({
-                  isVisible: false,
-                });
-                this.props.navigation.navigate('HomeApp');
-              }else{
-                this.setState({
-                  isVisible: false,
-                });
-                this.props.navigation.navigate('midwifeConfirm');
-              }
-      
-         
-          }).catch((error) => {
-              console.error(error);
-          })
+    else {
+      this.setState({
+        isLoading: false,
+      });
+      this.props.navigation.navigate('Login');
 
-      }
-     
-    } else {
-      this.props.navigation.navigate('Login')
+      console.log("data");
     }
   }
+
+
+  checkSubscription = async () => {
+
+    const role_id = await AsyncStorage.getItem('memberId');
+    const email = await AsyncStorage.getItem('member_email');
+
+    if (role_id != 3) {
+      this.props.navigation.navigate('HomeApp');
+      this.setState({
+        isLoading: false,
+      });
+    } else {
+
+      this.setState({
+        isVisible: true,
+        isLoading: false,
+      });
+
+
+      fetch('https://youandmenest.com/tr_reactnative/api/checkConfirm', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          member_email: email,
+        }),
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+
+
+          if (responseJson == null) {
+            this.setState({
+              isVisible: false,
+            });
+            this.props.navigation.navigate('HomeApp');
+          } else {
+            this.setState({
+              isVisible: false,
+            });
+            this.props.navigation.navigate('midwifeConfirm');
+          }
+
+
+        }).catch((error) => {
+          console.error(error);
+        })
+
+    }
+  }
+  toggleModal = () => {
+    this.setState({
+      isModalVisible: true,
+      isLoading: false
+    });
+  };
+
+  gotoSubscribe = async () => {
+
+    const email = await AsyncStorage.getItem('member_email');
+    // const nic = await AsyncStorage.getItem('member_nic');
+    
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+nic);
+    this.props.navigation.navigate('Subscription', { email: email,ref_code:_today });
+
+  };
+
+  // end of manoj
+
+
   render() {
-    const {isVisible } = this.state
+    const { isVisible, isModalVisible, isLoading } = this.state
     i18n.locale = this.state.currentLanguage;
     i18n.fallbacks = true;
     i18n.translations = { en, fr };
@@ -166,8 +236,8 @@ export class LoginScreen extends Component {
 
 
       <View style={styles.container}>
-        <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#fbb448" />
-        <LinearGradient colors={['#fbb448', '#f78a2c']} style={styles.gradient}>
+        <StatusBar barStyle="light-content" hidden={false} backgroundColor="#9A81FD" />
+        <LinearGradient colors={['#9A81FD', '#4E3CCE']} style={styles.gradient}>
 
 
           <ScrollView
@@ -195,37 +265,45 @@ export class LoginScreen extends Component {
                 </View>
 
               </View>
-              <Animatable.View animation="fadeInLeft">
 
-              <Button
-                    title= {i18n.t('welcome.signin')}
+              {/* manoj */}
+              {isLoading == true ?
+                <View>
+                  <BarIndicator style={{ marginTop: 0 }} color='#fff' />
+                </View>
+                :
+
+                <Animatable.View animation="fadeInLeft">
+
+                  <Button
+                    title={i18n.t('welcome.signin')}
                     titleStyle={{ color: 'black', fontSize: 17 }}
-                 
+
                     buttonStyle={{
-                      width:'100%',
-                      backgroundColor:'#e2e1e1',
+                      width: '100%',
+                      backgroundColor: '#e2e1e1',
                       alignSelf: 'flex-end',
                       paddingLeft: 15,
                       paddingRight: 15,
                       borderRadius: 25,
                       marginBottom: 20,
                       marginTop: 30,
-                      paddingVertical:11,
+                      paddingVertical: 11,
                       elevation: 3,
                       shadowColor: '#000',
                       shadowOffset: { width: 0, height: 3 },
                       shadowOpacity: 0.7,
                       shadowRadius: 8,
                       overflow: 'hidden',
-        
+
                     }}
                     onPress={() => this.props.navigation.navigate('Login2')}
                   >
-                     
+
                   </Button>
 
 
-                {/* <TouchableOpacity style={{}} onPress={() => this.props.navigation.navigate('Login2')}>
+                  {/* <TouchableOpacity style={{}} onPress={() => this.props.navigation.navigate('Login2')}>
 
                   <LinearGradient colors={['#fff', '#F2F2F2']}
                     start={{ x: 0, y: 1 }}
@@ -236,63 +314,115 @@ export class LoginScreen extends Component {
                     </Text>
                   </LinearGradient>
                 </TouchableOpacity> */}
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={{ paddingVertical: 15 }}>{i18n.t('welcome.newaccount1')} <Text style={{ color: 'white' }}>{i18n.t('welcome.newaccount2')} </Text> </Text>
-                </View>
+                  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ paddingVertical: 15, color: 'orange' }}>{i18n.t('welcome.newaccount1')} <Text style={{ color: 'white' }}>{i18n.t('welcome.newaccount2')} </Text> </Text>
+                  </View>
 
-                <Button
-                  title={i18n.t('welcome.signup')}
-                  type="outline"
-                  titleStyle={{ color: 'white' }}
-                  buttonStyle={styles.submitText, { borderRadius: 25, borderColor: 'white', color: '#ccc', padding: 12, borderWidth: 1, marginBottom: 40 }}
-                  onPress={() => this.props.navigation.navigate('Register')}
+                  <Button
+                    title={i18n.t('welcome.signup')}
+                    type="outline"
+                    titleStyle={{ color: 'white' }}
+                    buttonStyle={styles.submitText, { borderRadius: 25, borderColor: 'white', color: '#ccc', padding: 12, borderWidth: 1, marginBottom: 40 }}
+                    onPress={() => this.props.navigation.navigate('Register')}
 
-                />
+                  />
 
-                <SwitchSelector
-                  textColor={'red'} //'#7a44cf'
-                  selectedColor={'#fff'}
-                  buttonColor={'green'}
-                  borderColor={'#fff'}
-                  height={52}
-                  initial={this.state.defaultval}
-                  borderWidth={0.2}
-                  hasPadding
-                  options={options} onPress={value => this.changelanguage(value)} />
-              </Animatable.View>
+                  <SwitchSelector
+                    textColor={'red'} //'#7a44cf'
+                    selectedColor={'#fff'}
+                    buttonColor={'green'}
+                    borderColor={'#fff'}
+                    height={52}
+                    initial={this.state.defaultval}
+                    borderWidth={0.2}
+                    hasPadding
+                    options={options} onPress={value => this.changelanguage(value)} />
+                </Animatable.View>
+              }
+              {/* end of manoj */}
 
             </View>
 
             <Modal
-                    isVisible={isVisible}
-                    // isVisible={true}
-                    transparent={true}
-                    backdropOpacity={0.5}
+              isVisible={isVisible}
+              // isVisible={true}
+              transparent={true}
+              backdropOpacity={0.5}
 
-                    animationIn={'bounceIn'}
-                >
-                    <View>
+              animationIn={'bounceIn'}
+            >
+              <View>
 
-                        <View
-                            style={{
-                                backgroundColor: 'white',
-                                height: 120,
-                                marginHorizontal: 120,
-                                padding: 15,
-                                paddingTop: 40,
-                                borderRadius: 5,
-                                opacity: 0.9,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    height: 120,
+                    marginHorizontal: 120,
+                    padding: 15,
+                    paddingTop: 40,
+                    borderRadius: 5,
+                    opacity: 0.9,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
 
-                            <BarIndicator style={{ marginTop: -20 }} color='#fbb146' />
-                            <Text>loading ....</Text>
+                  <BarIndicator style={{ marginTop: -20 }} color='#4E3CCE' />
+                  <Text>loading ....</Text>
 
-                        </View>
+                </View>
 
-                    </View>
-                </Modal>
+              </View>
+            </Modal>
+            {/* manoj */}
+            <Modal
+              isVisible={isModalVisible}
+              // isVisible={true}
+              transparent={true}
+              backdropOpacity={0.5}
+
+              animationIn={'bounceIn'}
+            >
+              <View>
+
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    height: 120,
+                    width: '100%',
+                    marginHorizontal: 0,
+                    padding: 15,
+                    borderRadius: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+
+                  {/* <BarIndicator style={{ marginTop: -20 }} color='#fbb146' /> */}
+                  <Text>Your Subscription is not Valid. Please Add Valid Payment Details to Subscribe</Text>
+                  <Button
+                    title="Subscribe Now                 "
+                    titleStyle={{ color: 'black', textAlign: 'center' }}
+                    buttonStyle={{
+                      width: '100%',
+                      backgroundColor: '#e2e1e1',
+                      borderRadius: 25,
+                      marginBottom: 20,
+                      marginTop: 10,
+                      paddingVertical: 11,
+                      elevation: 3,
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: 3 },
+                      shadowOpacity: 0.7,
+                      shadowRadius: 8,
+                    }}
+
+                    onPress={() => { this.gotoSubscribe(); this.setState({ isModalVisible: false }) }}
+
+                  />
+                </View>
+
+              </View>
+            </Modal>
+            {/* end of manoj */}
           </ScrollView>
 
 
@@ -349,6 +479,7 @@ const styles = StyleSheet.create({
   },
   gradient: {
     flex: 1,
+    marginBottom: 0
   }
 
 });

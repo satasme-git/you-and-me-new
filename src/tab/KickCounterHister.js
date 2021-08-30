@@ -158,7 +158,7 @@ export class KickCounterHister extends Component {
 
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         } else {
 

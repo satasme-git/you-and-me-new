@@ -350,7 +350,7 @@ export class WightGainBarchart extends Component {
                         name='bar-chart'
                         type='font-awesome'
                         color='#009688'
-                        iconStyle={{ fontSize: 20, paddingTop: 15, paddingBottom: 15, paddingLeft: 10, paddingRight: 10, backgroundColor: '#e0f2f1', borderRadius: 8, }}
+                        iconStyle={{ fontSize: 20, paddingLeft: 10, paddingRight: 10,backgroundColor: '#e0f2f1', borderRadius: 8, }}
                         onPress={() => console.log('hello')} />
                     </Left>
 

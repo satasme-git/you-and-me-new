@@ -12,13 +12,10 @@ const db = new Database();
 export class AgendaHistory extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-
             _list_wgData: [],
             dbs: '',
             lan: '',
-
         }
         db.initDB().then((result) => {
             this.loadDbVarable(result);
@@ -172,14 +169,9 @@ export class AgendaHistory extends Component {
                                 </ListItem>
                                 }
                             />
-
                         </View>
-
                     </View>
                 </ScrollView>
-
-
-
             </SafeAreaView>
         );
     }

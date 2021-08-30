@@ -19,7 +19,6 @@ import org.pgsqlite.SQLitePluginPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.tkporter.sendsms.SendSMSPackage;
 
-import com.reactlibrary.RNSmtpMailerPackage;
 
 
 

@@ -113,7 +113,7 @@ export class BloodPresureDetailsAdd extends Component {
                             <View style={{ flexDirection: 'row' }}>
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('BloodPresureBarChart')} style={styles.button}>
                                     <View style={{ flexDirection: 'row' ,alignItems:'center'}}>
-                                        <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
+                                        <View style={{ backgroundColor: '#FF4C58', padding: 10, borderRadius: 35 }}>
                                             {/* <Icon
                                                 name='bar-chart'
                                                 type='font-awesome'
@@ -123,10 +123,10 @@ export class BloodPresureDetailsAdd extends Component {
                                             <MaterialCommunityIcons
                                                 name="history"
                                                 size={20}
-                                                color="#4633cb"
+                                                color="#fff"
                                             />
                                         </View>
-                                        <Text style={{ color: 'black', padding: 7 }}>{i18n.t('blood.buttonhis')}</Text>
+                                        <Text style={{ color: '#fff', padding: 7 }}>{i18n.t('blood.buttonhis')}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -274,7 +274,7 @@ export class BloodPresureDetailsAdd extends Component {
 
 
     }, button: {
-        backgroundColor: "white",
+        backgroundColor: "#FF4C58",
         padding: 0,
         paddingHorizontal:10,
         borderRadius: 10,

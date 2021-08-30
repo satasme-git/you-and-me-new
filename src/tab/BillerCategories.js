@@ -93,19 +93,21 @@ export class BillerCategories extends Component {
     // this.RBSheet.open()
   }
   componentDidMount() {
-    JSHmac("bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+    JSHmac("a1840a1b-986d-4c22-b16d-e3d9db64db46", "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
       .then(hash => {
-        fetch('https://dev.directpay.lk/v2/backend/external/api/billCategories', {
+        fetch('https://prod.directpay.lk/v2/backend/external/api/billCategories', {
           method: 'post',
           headers: {
             'Authorization': 'Bearer ' + hash,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+            "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
           }),
         }).then((response) => response.json())
           .then((responseJson) => {
+
+            console.log(">>>>>>>>>>>>>>>>>>>>>> dddddd  d d d  d hash message is : "+hash);
             this.setState({
               categoryData: responseJson.data.categoryData,
               isLoading: false,
@@ -182,6 +184,8 @@ export class BillerCategories extends Component {
       lapsList = this.state.categoryData.map((data) => {
         return (
           <View key={data.id} style={{ margin: 5, borderRadius: 15, backgroundColor: 'white' }}>
+
+            {data.id!=""?
             <TouchableOpacity
               onPress={() =>
 
@@ -190,7 +194,7 @@ export class BillerCategories extends Component {
               }>
               {
                 data.id <= 10 ?
-                  data.id == 6 ? null :
+              
                     <View style={{ justifyContent: 'center', alignItems: 'center', padding: 10, width: deviceWidth / 3.5 }}>
 
                       <Image source={{
@@ -201,7 +205,8 @@ export class BillerCategories extends Component {
                     </View> 
                     : null
               } 
-            </TouchableOpacity>
+            </TouchableOpacity>:null
+            }
             <RBSheet
 
               ref={ref => {

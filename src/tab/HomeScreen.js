@@ -28,6 +28,7 @@ import Database from '../Database';
 import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-community/async-storage';
 import i18n from 'i18n-js';
+import Context from '../../Context/context';
 import {
   BallIndicator,
   BarIndicator,
@@ -56,6 +57,7 @@ let morningmassage="";
 
 import {CustomHeader} from '../index';
 export class HomeScreen extends Component {
+  static contextType = Context;
   initialState = {
     [_today]: {disabled: false},
   };
@@ -173,6 +175,7 @@ export class HomeScreen extends Component {
   }
 
   async componentDidMount() {
+    
     this.setState({
       lan: await AsyncStorage.getItem('lang'),
     });
@@ -180,6 +183,9 @@ export class HomeScreen extends Component {
     const myArray = await AsyncStorage.getItem('memberNames');
     const role_id = await AsyncStorage.getItem('memberId');
     const memberemail = await AsyncStorage.getItem('member_email');
+    const member_image = await AsyncStorage.getItem('member_image');
+    
+    this.context.addCart(member_image);
     db.initDB();
 
     this.setState({
@@ -215,7 +221,7 @@ export class HomeScreen extends Component {
   render() {
     let {isLoading} = this.state;
     if (isLoading) {
-      return <BarIndicator color="#fbb146" />;
+      return <BarIndicator color="#4E3CCE" />;
     } else {
       // const miniCardStyle = {
       //   padding: 5, margin: 5, elevation: 3,
@@ -252,11 +258,11 @@ export class HomeScreen extends Component {
             <View style={{flexDirection: 'row',marginBottom:10}}>
               <Image
                 source={
-                  this.state.abc != ''
+                  this.context.catVal != null
                     ? {
                         uri:
                           'https://youandmenest.com/tr_reactnative/public/images/Members/' +
-                          this.state.abc,
+                          this.context.catVal,
                       }
                     : this.state.imageSource != null
                     ? this.state.imageSource
@@ -268,7 +274,7 @@ export class HomeScreen extends Component {
                     height: 52,
                     borderRadius: 15,
                     marginLeft: 20,
-                    backgroundColor: '#f78a2c',
+                    // backgroundColor: '#f78a2c',
                   },
                 ]}
               />

@@ -340,7 +340,7 @@ export class PeriodAgenda extends Component {
         let { isLoading } = this.state
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         } else {
             return (

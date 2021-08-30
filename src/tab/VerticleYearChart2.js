@@ -280,7 +280,7 @@ export class VerticleYearChart2 extends Component {
                             <Button
                                 title={i18n.t('edd.moredetailsbtn')}
                                 titleStyle={{ color: 'white' }}
-                                buttonStyle={{ borderRadius: 25, backgroundColor: '#e91e63', borderColor: '#e91e63', color: '#e91e63', padding: 12, borderWidth: 1, marginBottom: 20, marginTop: 15 }}
+                                buttonStyle={{ borderRadius: 25, backgroundColor: '#4E3CCE', borderColor: '#4E3CCE', color: '#e91e63', padding: 12, borderWidth: 1, marginBottom: 20, marginTop: 15 }}
                                 onPress={() => this.props.navigation.navigate('Vaccine details')}
                             />
 

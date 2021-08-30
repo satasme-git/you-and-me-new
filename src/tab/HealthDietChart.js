@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView, TouchableOpacity, StyleSheet, FlatList, ListView, Image } from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, StyleSheet, StatusBar, FlatList, ListView, Image } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import { CustomHeader } from '../index';
 import { IMAGE } from '../constants/image';
@@ -39,62 +39,63 @@ export class HealthDietChart extends Component {
 
             data: [
                 {
-                  title: '5 % ',
-        
-                  body:
-                    i18n.t('food.5'),
-                  src: IMAGE.ICON_DIET_5,
-        
-        
+                    title: '5 % ',
+
+                    body:
+                        i18n.t('food.5'),
+                    src: IMAGE.ICON_DIET_5,
+
+
                 },
                 {
-                  title: '20 %',
-        
-                  body:
-                    i18n.t('food.20'),
-                  src: IMAGE.ICON_DIET_20,
-        
+                    title: '20 %',
+
+                    body:
+                        i18n.t('food.20'),
+                    src: IMAGE.ICON_DIET_20,
+
                 },
                 {
-                  title: '35 %',
-        
-                  body:
-                    i18n.t('food.35'),
-                  src: IMAGE.ICON_DIET_35,
-        
+                    title: '35 %',
+
+                    body:
+                        i18n.t('food.35'),
+                    src: IMAGE.ICON_DIET_35,
+
                 },
                 {
-                  title: '40 %',
-        
-                  body:
-                    i18n.t('food.40'),
-                  src: IMAGE.ICON_DIET_40,
-        
+                    title: '40 %',
+
+                    body:
+                        i18n.t('food.40'),
+                    src: IMAGE.ICON_DIET_40,
+
                 }
-        
-              ]
+
+            ]
         };
         this.viewabilityConfig = { itemVisiblePercentThreshold: 0 }
     }
-     componentDidMount() {
+    componentDidMount() {
         // this.setState({
         //     lan: await AsyncStorage.getItem('lang'),
         // });
 
-       
+
 
     }
     keyExtractor = (item, index) => index.toString()
     render() {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('food.hedding')} bcbuttoncolor='#fff'  navigation={this.props.navigation} bdcolor='#fbb146' />
+                <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
+                <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('food.hedding')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
                 {/* <View style={styles.header}>
                     <View style={{ marginTop: 0, marginLeft: 20, marginBottom: -10 }}>
                         <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}>{i18n.t('food.hedding')}</Text> */}
-                        {/* <Text style={{ color: 'white' }}>press on foot after kick</Text> */}
+                {/* <Text style={{ color: 'white' }}>press on foot after kick</Text> */}
 
-                        {/* <View style={{ height: 100, padding: 10 }}>
+                {/* <View style={{ height: 100, padding: 10 }}>
                             <Image source={IMAGE.ICON_DIET_PLAN}
                                 style={{ height: 200, width: 320 }}
                             >
@@ -106,7 +107,7 @@ export class HealthDietChart extends Component {
                 </View> */}
 
                 <Animatable.View animation="fadeInUp" style={styles.footer}>
-      
+
                     <View style={styles.stepIndicator}>
                         <StepIndicator
                             customStyles={stepIndicatorStyles}
@@ -140,12 +141,12 @@ export class HealthDietChart extends Component {
                                 >
                                 </Image>
                                 <Text style={styles.title}>{item.body}</Text>
-                             
+
                             </View>
                         </ListItem>
                         }
                     />
-                    </Animatable.View >
+                </Animatable.View >
                 {/* </View> */}
             </SafeAreaView>
         );

@@ -176,10 +176,10 @@ export class WeightGainDetailsAdd extends Component {
                                 <MaterialCommunityIcons
                                     name="history"
                                     size={20}
-                                    color="#4633cb"
+                                    color="#fff"
                                 />
                                 {/* </View> */}
-                                <Text style={{ color: '#4633cb', padding: 7 }}>{i18n.t('weightGain.mainheading')}</Text>
+                                <Text style={{ color: '#fff', padding: 7 }}>{i18n.t('weightGain.mainheading')}</Text>
 
                             </View>
 
@@ -361,7 +361,7 @@ export class WeightGainDetailsAdd extends Component {
 
 
     }, button: {
-        backgroundColor: "white",
+        backgroundColor: "#FF4C58",
         padding: 2,
         borderRadius: 10,
         marginTop: 18,
@@ -372,6 +372,8 @@ export class WeightGainDetailsAdd extends Component {
         shadowOpacity: 0.8,
         shadowRadius: 8,
         marginHorizontal: 20,
+        paddingHorizontal:3,
+        paddingVertical:4
 
     }, linearGradient: {
 

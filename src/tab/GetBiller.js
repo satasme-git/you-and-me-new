@@ -35,16 +35,16 @@ export class GetBiller extends Component {
       prodDesc: '',
       billers: [],
       _billCode: '',
-      _billerName:'',
+      _billerName: '',
       isLoading: true,
     };
   }
   async componentDidMount() {
     const cat_id = await AsyncStorage.getItem('cat_id');
 
-    JSHmac(cat_id + "bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+    JSHmac(cat_id + "a1840a1b-986d-4c22-b16d-e3d9db64db46", "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
       .then(hash => {
-        fetch('https://dev.directpay.lk/v2/backend/external/api/retrieveBillers', {
+        fetch('https://prod.directpay.lk/v2/backend/external/api/retrieveBillers', {
           method: 'post',
           headers: {
             'Authorization': 'Bearer ' + hash,
@@ -52,18 +52,27 @@ export class GetBiller extends Component {
           },
           body: JSON.stringify({
             "categoryId": cat_id,
-            "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+            "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
 
           }),
 
         }).then((response) => response.json())
           .then((responseJson) => {
 
-console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
-            this.setState({
-              billers: responseJson.data.billerData,
-              isLoading: false,
-            });
+            if (responseJson.status == 200) {
+
+              this.setState({
+                billers: responseJson.data.billerData,
+                isLoading: false,
+              });
+            } else {
+              this.setState({
+                billers: "",
+                isLoading: false,
+              });
+              console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : " + responseJson.status);
+            }
+
 
             // console.log(responseJson.data.billerData);
 
@@ -81,7 +90,7 @@ console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
       .catch(e => console.log(e));
   }
 
-  paymentActions(billerCode,billerName) {
+  paymentActions(billerCode, billerName) {
     this.setState({
       _billCode: billerCode,
       _billerName: billerName,
@@ -90,16 +99,16 @@ console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
   }
 
   walletBalance() {
-    JSHmac("bcaad5b1-bafa-4527-83b6-a3b7119dbd76", "a419f2b7652b09c34518f09759b4dba6089fab38d792609b8bb9daf8343875cd", CONSTANTS.HmacAlgorithms.HmacSHA256)
+    JSHmac("a1840a1b-986d-4c22-b16d-e3d9db64db46", "b42e20ddb267ce11f036675bf52b41dee5a72d1ae338d5a354e9796a67d022e1", CONSTANTS.HmacAlgorithms.HmacSHA256)
       .then(hash => {
-        fetch('https://dev.directpay.lk/v2/backend/external/api/getWalletBalance', {
+        fetch('https://prod.directpay.lk/v2/backend/external/api/getWalletBalance', {
           method: 'post',
           headers: {
             'Authorization': 'Bearer ' + hash,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "merchantId": "bcaad5b1-bafa-4527-83b6-a3b7119dbd76",
+            "merchantId": "a1840a1b-986d-4c22-b16d-e3d9db64db46",
           }),
         }).then((response) => response.json())
           .then((responseJson) => {
@@ -108,16 +117,16 @@ console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
             // });
 
             if (responseJson.data.success == true) {
-           
-              
-              
+
+
+
               // setTimeout(() => {
-                AsyncStorage.setItem('billerCode', this.state._billCode).then(
-                  responseJson => {
-                    AsyncStorage.setItem('billerName', this.state._billerName);
-                    this.props.navigation.navigate('BillPaymentInformation');
-                  }
-                );
+              AsyncStorage.setItem('billerCode', this.state._billCode).then(
+                responseJson => {
+                  AsyncStorage.setItem('billerName', this.state._billerName);
+                  this.props.navigation.navigate('BillPaymentInformation');
+                }
+              );
 
               // }, 100);
               // this.props.navigation.navigate('BillPaymentInformation');
@@ -138,37 +147,49 @@ console.log(">>>>>>>>>>>>>>>>EEEEEEEEEEEE : "+hash);
         <MaterialIndicator color='#4E3CCE' />
       );
     } else {
-       lapsList = this.state.billers.map((data) => {
+      if (this.state.billers != "") {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>> : " + this.state.billers);
+        lapsList = this.state.billers.map((data) => {
+          return (
+
+            <View key={data.billerCode} style={{ margin: 8, borderRadius: 15, backgroundColor: 'white' }}>
+
+              <TouchableOpacity
+                onPress={() =>
+
+                  this.paymentActions(data.billerCode, data.billerName)
+
+                }
+              >
+                <View style={{ justifyContent: 'center', alignItems: 'center', padding: 7, width: deviceWidth / 3.6 }}>
+
+                  <Image source={{
+                    uri: 'https://youandmenest.com/tr_reactnative/public/images/BillersImages/' +
+                      data.providerImage + ".png",
+                  }} style={{ width: 80, height: 50, overflow: 'hidden' }} />
+                  <Text>{data.billerName}</Text>
+                  {/* <Text>{data.billerCode}</Text> */}
+                </View>
+
+              </TouchableOpacity>
+
+
+
+
+
+            </View>
+          )
+
+        }
+        )
+      } else {
         return (
 
-          <View key={data.billerCode} style={{ margin: 8, borderRadius: 15, backgroundColor: 'white' }}>
-
-            <TouchableOpacity
-              onPress={() =>
-
-                this.paymentActions(data.billerCode,data.billerName)
-
-              }
-            >
-              <View style={{ justifyContent: 'center', alignItems: 'center', padding: 7, width: deviceWidth / 3.6 }}>
-            
-                <Image source={{
-                  uri: 'https://youandmenest.com/tr_reactnative/public/images/Mobile/' +
-                    data.billerCode + ".png",
-                }} style={{ width: 80, height: 50, overflow: 'hidden' }} />
-                <Text>{data.billerName}</Text>
-                {/* <Text>{data.billerCode}</Text> */}
-              </View>
-
-            </TouchableOpacity>
-
-
-
-
-
+          <View  style={{ margin: 8, borderRadius: 15, backgroundColor: 'white' }}>
+            <View><Text>No billers found</Text></View>
           </View>
         )
-      })
+      }
     }
 
 

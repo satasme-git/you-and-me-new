@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, Image, TouchableOpacity,Dimensions, ScrollView } from 'react-native';
 // import { Icon } from 'react-native-elements';
 import { IMAGE } from './constants/image';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+const screenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   text: {
     height: 40, backgroundColor: 'white', borderRadius: 5, padding: 10,
@@ -30,7 +31,7 @@ export class CustomHeader extends Component {
       {/* <View style={{ flexDirection: 'row', height: 55, backgroundColor: bgcolor, borderBottomColor: bdcolor, borderBottomWidth: 1 }} > */}
 
 
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{  justifyContent: 'center',width:screenWidth/3.5 }}>
           {
             isHome ?
               <TouchableOpacity
@@ -108,10 +109,10 @@ export class CustomHeader extends Component {
 
 
 
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center',}}>
           <Text style={{ textAlign: 'center', color: titleColor, fontSize: 15, fontWeight: 'bold' }}>{title}</Text>
         </View>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{  justifyContent: 'center',width:screenWidth/3.5 }}>
           {
             isPost ? <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Image style={{ width: 20, height: 20, marginRight: 10 }}

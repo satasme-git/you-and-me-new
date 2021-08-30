@@ -20,7 +20,8 @@ const _format = 'YYYY-MM-DD'
 const _today = moment().format(_format)
 const screenWidth = Dimensions.get("window").width;
 import FlashMessage, { showMessage } from "react-native-flash-message";
-
+import CustomPushNotification from './CustomPushNotification';
+const cn = new CustomPushNotification();
 
 export class BreastFeeding extends Component {
 
@@ -100,86 +101,121 @@ export class BreastFeeding extends Component {
         })
     }
     saveData() {
-     
-        if (this.state.TextInpuBNValue == '' || this.state.TextInpuBWValue == ''  || formattedDate == ''||bbGender=='') {
-            if (this.state.TextInpuBNValue == '') {
-              showMessage({
-                message: "Somefields not filled",
-                backgroundColor: 'red'
-              })
-             
-            } else {
-              
+        var dates = this.state.date;
+        var radiobtvalue;
+        var formattedDate = moment(dates).format("YYYY-MM-DD")
+
+        this.RBSheet.close();
+        if (this.state.lan == "fr") {
+            if (this.state._radiobuttonValue == "දුව") {
+
+                radiobtvalue = "Girl";
+            } else if (this.state._radiobuttonValue == "පුතා") {
+                radiobtvalue = "Boy";
             }
 
+        } else {
+            if (this.state._radiobuttonValue == "Girl") {
+                radiobtvalue = "Girl";
+            } else if (this.state._radiobuttonValue == "Boy") {
+                radiobtvalue = "Boy";
+            }
         }
-        // var dates = this.state.date;
-        // var formattedDate = moment(dates).format("YYYY-MM-DD")
-        // this.RBSheet.close();
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+this.state.TextInpuBNValue+" / "+this.state.TextInpuBWValue+" / "+formattedDate+" / "+radiobtvalue)
+        if (this.state.TextInpuBNValue != '' && this.state.TextInpuBWValue != '' && formattedDate != '' && radiobtvalue != '') {
 
-        // var radiobtvalue;
-        // if (this.state.lan == "fr") {
-        //     if (this.state._radiobuttonValue == "දුව") {
+            db.listBabyDetails(this.state.dbs).then((data) => {
+                let datas = {
+                    bName: this.state.TextInpuBNValue,
+                    bWeight: this.state.TextInpuBWValue,
+                    bbDate: formattedDate,
+                    bbGender: radiobtvalue,
+                }
+                let result = data;
+                if (result == 0) {
+                    db.babyData(this.state.dbs, datas).then((result) => {
+                        this.loadData();
+                    }).catch((err) => {
+                    })
+                } else {
+                    let { bId } = this.props
+                    for (var i = 0; i < result.length; i++) {
+                        bId = result[i].bId;
+                    }
+                    db.babyUpdateData(this.state.dbs, datas, bId).then((result) => {
+                        this.loadData();
+                    }).catch((err) => {
+                    })
+                }
+            });
+            let dbtable;
+            if (this.state.lan == "fr") {
+                if (this.state._radiobuttonValue == "දුව") {
 
-        //         radiobtvalue = "Girl";
-        //     } else if (this.state._radiobuttonValue == "පුතා") {
-        //         radiobtvalue = "Boy";
-        //     }
+                    dbtable = 'Wightgirl';
+                } else if (this.state._radiobuttonValue == "පුතා") {
+                    dbtable = 'WightvsLength';
+                }
 
-        // } else {
-        //     if (this.state._radiobuttonValue == "Girl") {
-        //         radiobtvalue = "Girl";
-        //     } else if (this.state._radiobuttonValue == "Boy") {
-        //         radiobtvalue = "Boy";
-        //     }
-        // }
-        // db.listBabyDetails(this.state.dbs).then((data) => {
-        //     let datas = {
-        //         bName: this.state.TextInpuBNValue,
-        //         bWeight: this.state.TextInpuBWValue,
-        //         bbDate: formattedDate,
-        //         bbGender: radiobtvalue,
-        //     }
-        //     let result = data;
-        //     if (result == 0) {
-        //         db.babyData(this.state.dbs, datas).then((result) => {
-        //             this.loadData();
-        //         }).catch((err) => {
-        //         })
-        //     } else {
-        //         let { bId } = this.props
-        //         for (var i = 0; i < result.length; i++) {
-        //             bId = result[i].bId;
-        //         }
-        //         db.babyUpdateData(this.state.dbs, datas, bId).then((result) => {
-        //             this.loadData();
-        //         }).catch((err) => {
-        //         })
-        //     }
-        // });
-        // let dbtable;
-        // if (this.state.lan == "fr") {
-        //     if (this.state._radiobuttonValue == "දුව") {
+            } else {
+                if (this.state._radiobuttonValue == "Girl") {
+                    dbtable = 'Wightgirl';
+                } else if (this.state._radiobuttonValue == "Boy") {
+                    dbtable = 'WightvsLength';
+                }
+            }
+            let data = {
+                _weight: parseFloat(this.state.TextInpuBWValue),
+                _month: 0,
+                dbName: dbtable
+            }
+            db.addGrouthTracker(this.state.dbs, data).then((result) => {
+            });
+            this.addNotificatonToFirebase(formattedDate);
+        } else {
+            showMessage({
+                message: "Somefields not filled",
+                backgroundColor: 'red'
+            })
 
-        //         dbtable = 'Wightgirl';
-        //     } else if (this.state._radiobuttonValue == "පුතා") {
-        //         dbtable = 'WightvsLength';
-        //     }
+        }
+    }
+    addNotificatonToFirebase(formattedDate) {
+        let products = [];
+        let _pdate,_pcatId,_pDescription,_pTime = '';
+        db.listProduct(this.state.dbs).then((data) => {
+            products = data;
 
-        // } else {
-        //     if (this.state._radiobuttonValue == "Girl") {
-        //         dbtable = 'Wightgirl';
-        //     } else if (this.state._radiobuttonValue == "Boy") {
-        //         dbtable = 'WightvsLength';
-        //     }
-        // }
-        // let data = {
-        //     _weight: parseFloat(this.state.TextInpuBWValue),
-        //     _month: 0,
-        //     dbName: dbtable
-        // }
-        // db.addGrouthTracker(this.state.dbs, data).then((result) => {
-        // });
+            for (var i = 0; i < products.length; i++) {
+                _pdate = products[i].pName
+                _pcatId = products[i].pCatId
+                _pDescription = products[i].pDescription
+                _pTime = products[i].pTime
+                if (_pcatId == 3) {
+                    // var babayBirgDay = this.state._babybDate;
+                    if (formattedDate != "") {
+                        let nextVaaccination = moment(formattedDate).add(_pdate, 'day').format('YYYY-MM-DD');
+
+                        
+                        let beforeVaccination = moment(nextVaaccination).subtract(1, 'day').format('YYYY-MM-DD');
+
+                        let data = {
+                            _title: "Your " + _pDescription + " vacination date is  " + nextVaaccination,
+                            _bigText: "1 day more ",
+                            date: beforeVaccination
+                        }
+               
+                        cn.testPush(data);
+
+                    }
+                }
+
+            }
+        }).catch((err) => {
+            console.log(err);
+
+        })
+
     }
     render() {
         const data = [
@@ -193,7 +229,7 @@ export class BreastFeeding extends Component {
         let { isLoading } = this.state
         if (isLoading) {
             return (
-                <BarIndicator color='#fbb146' />
+                <BarIndicator color='#4E3CCE' />
             );
         }
         else {
@@ -203,9 +239,9 @@ export class BreastFeeding extends Component {
                     <CustomHeader bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title={i18n.t('bfeeding.heading')} bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
                     <FlashMessage duration={4000} />
                     <LinearGradient start={{ x: 0, y: 1 }}
-                            end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={styles.header}>
+                        end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={styles.header}>
 
-                    {/* <View style={styles.header}> */}
+                        {/* <View style={styles.header}> */}
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ marginTop: 20, marginLeft: 20 }}>
                                 {/* <View style={styles.brestposition3}>
@@ -225,7 +261,7 @@ export class BreastFeeding extends Component {
                                 <Text style={{ color: 'white', paddingTop: 5 }}>{i18n.t('bfeeding.gender')} : <Text style={{ fontWeight: 'bold', color: 'black' }}>{
                                     this.state._radiobuttonValue}
                                 </Text> </Text>
-                                <View style={{ flexDirection: 'row',marginBottom:10 }}>
+                                <View style={{ flexDirection: 'row', marginBottom: 10 }}>
                                     <TouchableOpacity style={styles.button1} onPress={() => this.RBSheet.open()}>
                                         <Text style={styles.buttonText2}>{i18n.t('bfeeding.editbtn')}</Text>
                                     </TouchableOpacity>
@@ -489,7 +525,7 @@ export class BreastFeeding extends Component {
         paddingBottom: 15,
         paddingLeft: 10,
         paddingRight: 10,
-        marginTop:0
+        marginTop: 0
     }, button5: {
         shadowColor: 'rgba(0,0,0, .4)', // IOS
         shadowOffset: { height: 1, width: 1 }, // IOS
@@ -612,11 +648,11 @@ export class BreastFeeding extends Component {
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.8,
         shadowRadius: 5,
-        marginTop:15
+        marginTop: 15
     }, button: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#ff6d00",
+        backgroundColor: "#4E3CCE",
         padding: 12,
         borderRadius: 25,
         width: 300,
@@ -626,6 +662,6 @@ export class BreastFeeding extends Component {
         fontSize: 15,
         color: '#4E3CCE',
         padding: 3,
-        paddingHorizontal:10
+        paddingHorizontal: 10
     }
 });

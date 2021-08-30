@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, ActivityIndicator, Dimensions } from 'react-native';
+import { Modal, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, ActivityIndicator, Dimensions , StatusBar} from 'react-native';
 import { CustomHeader } from '../index';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import moment from 'moment' // 2.20.1
@@ -143,9 +143,9 @@ export class PeriodCalandar extends Component {
                             _bigText: "this is subtitle",
                         }
                         let ovulation = moment(_pdate).subtract(1, 'day').format('YYYY-MM-DD');
-                        if (_today == ovulation) {
-                            cn.testPush(data);
-                        }
+                        // if (_today == ovulation) {
+                        //     cn.testPush(data);
+                        // }
 
                         const end2 = moment(_pdate, 'YYYY-MM-DD');
                         const range3 = moment.range(start, end2);
@@ -177,9 +177,9 @@ export class PeriodCalandar extends Component {
                         _bigText: "this is subtitle",
                     }
                     let nestPeriod = moment(_pdate).subtract(1, 'day').format('YYYY-MM-DD');
-                    if (_today == nestPeriod) {
-                        cn.testPush(data);
-                    }
+                    // if (_today == nestPeriod) {
+                    //     cn.testPush(data);
+                    // }
                     const end = moment(_pdate, 'YYYY-MM-DD');
                     const range = moment.range(start, end);
                     const range2 = range.snapTo('day');
@@ -215,26 +215,31 @@ export class PeriodCalandar extends Component {
         } else {
             this.RBSheet.close();
         }
-        var _ovlDate = moment(this.state.pName).add(10, 'day').format('YYYY-MM-DD');
-        var _nextDate = moment(this.state.pName).add(26, 'day').format('YYYY-MM-DD');
+
+
+        var _ovlDaten = moment(this.state.pName).add(11, 'day').format('YYYY-MM-DD');
+        var _nextDaten = moment(this.state.pName).add(27, 'day').format('YYYY-MM-DD');
 
 
         // let beforeVaccination = moment(nextVaaccination).subtract(2, 'day').format('YYYY-MM-DD');
 
         let dataOvl = {
-            _title: "Your Ovulation start date is " + _ovlDate,
-            _bigText: "2 days more ",
-            date: _ovlDate
+            _title: "Your Ovulation start date is " + _ovlDaten,
+            _bigText: "1 day more ",
+            date: _ovlDaten
         }
         let datanextp = {
-            _title: "Your Next period date is " + _nextDate,
-            _bigText: "2 days more ",
-            date: _nextDate
+            _title: "Your Next period date is " + _nextDaten,
+            _bigText: "1 day more ",
+            date: _nextDaten
         }
 
         cn.testPush(dataOvl);
         cn.testPush(datanextp);
-        
+
+
+        var _ovlDate = moment(this.state.pName).add(12, 'day').format('YYYY-MM-DD');
+        var _nextDate = moment(this.state.pName).add(28, 'day').format('YYYY-MM-DD');
         let data = {
             pName: this.state.pName,
             pDescription: "Period start ",
@@ -535,40 +540,221 @@ export class PeriodCalandar extends Component {
 
             return (
                 <SafeAreaView style={{ flex: 1, backgroundColor: '#f2f2f2' }}>
-
+                    <StatusBar barStyle={'dark-content'} backgroundColor={'white'}/>
                     <ScrollView
                         contentInsetAdjustmentBehavior="automatic"
                         style={[styles.scrollView, { marginBottom: -200 }]}>
 
-                        <CustomHeader bgcolor='#fbb146'  title="" gradient1="#4E3CCE"gradient2="#9A81FD" titleColor="white"  bcbuttoncolor='#ffc470' navigation={this.props.navigation} bdcolor='#fbb146' />
-                        <View style={styles.brestposition5}></View>
-                        <View style={styles.brestposition6}></View>
+                        <CustomHeader bgcolor='#fff'  title={i18n.t('period_calan.title')} gradient1="#fff"gradient2="#fff" titleColor="black"  bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fff' />
+                        {/* <View style={styles.brestposition5}></View>
+                        <View style={styles.brestposition6}></View> */}
 
 
                         <LinearGradient   start={{ x: 0, y: 1 }}
-                          end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']}style={{  height: 140, zIndex: -1, }} >
+                          end={{ x: 1, y: 0.9 }} colors={['#fff', '#fff']}style={{  flex: 1, zIndex: -1, }} >
                         {/* <View style={{ backgroundColor: '#fbb146', height: 140, zIndex: -1, }}> */}
 
-                            <Text style={{ fontSize: 20, marginTop: 0, marginLeft: 15, fontWeight: 'bold', color: 'white' }}>{i18n.t('period_calan.title')}</Text>
-                            <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'white', marginTop: 0,marginLeft: 15, }}>{i18n.t('period_calan.subheading')}</Text>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('PeriodHistory')} style={[styles.buttonh, { backgroundColor: '#ED1B26', width: 130, }]}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}>
+                            {/* <Text style={{ fontSize: 20, marginTop: 0, marginLeft: 15, fontWeight: 'bold', color: 'white' }}>{i18n.t('period_calan.title')}</Text> */}
+                            {/* <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'clack', marginTop: 0,marginLeft: 15, }}>{i18n.t('period_calan.subheading')}</Text> */}
+                            
+                            {this.state._reacl_next_p_date != 0 ?
+                                    // <View style={styles.containerD}>
+                                        
+                                        // <Card style={[styles.periodcard]}>
+                                        <LinearGradient   start={{ x: 0, y: 1 }}
+                                            end={{ x: 1, y: 0.9 }} colors={['#4633cb', '#7857fc']}style={{borderRadius:15,margin:10}} >
+                                            {/* <View style={{ flexDirection: 'row', paddingTop: 5, paddingLeft: 5, paddingRight: 0 }}> */}
+
+                                                {/* <View > */}
+                                                    <View style={{ flexDirection: 'column' }}>
+                                                        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' ,alignItems:'center',width:'100%',backgroundColor:'red'}}> */}
+                                                            {/* <View style={{ marginTop: 0, marginBottom: -10 }}> */}
+                                                                
+                                                                <View style={{ flexDirection: 'row', marginTop: 0,alignItems:'center',justifyContent:'space-evenly',backgroundColor:'#866bf6',borderTopLeftRadius:15,borderTopRightRadius:15,padding:2 }}>
+                                                                <View style={{alignItems:'center'}}>
+                                                                <Text style={{ color: '#fff', fontSize: 12 }}>{i18n.t('period_calan.nextpunder')}</Text>
+                                                                <Text style={{ color: '#fff', paddingTop: 0, fontSize: 17, fontWeight: 'bold' }}>{this.state._nextPeriodDate}
+                                                                    </Text>
+                                                                </View>
+
+                                                                <View style={{alignItems:'center'}}>
+                                                                <Text style={{ color: '#fff', fontSize: 12 }}>{i18n.t('period_calan.ovlstrtdate')}</Text>
+                                                                <Text style={{ color: '#fff', paddingTop: 0, fontSize: 17, fontWeight: 'bold' }}>{this.state._ovl_date}
+                                                                    </Text>
+                                                                </View>                                                                    
+                                                                </View>
+
+                                                                {/* <Text style={{ fontSize: 12, fontSize: 12, fontWeight: 'bold' }}>{this.state.pName}</Text> */}
+                                                            {/* </View> */}
+
+
+                                                        {/* </View> */}
+                                                        <View style={{flexDirection:'row',margin:10}}>
+
+                                                        <AnimatedCircularProgress
+                                                        size={100}
+                                                        width={10}
+                                                        fill={this.state._monthlyPeriod / this.state._reacl_next_p_date}
+                                                            tintColor="#fff"
+                                                            rotation={0}
+                                                            backgroundColor="#9076f7">
+                                                        {
+                                                            (fill) => (
+                                                            <View style={{ flexDirection: 'column',justifyContent:'center',alignItems:'center' }}>
+                                                                {/* <Text style={{ color: '#9e9e9e', fontSize: 12, marginLeft: 0, marginTop: 0 }}>{i18n.t('period_calan.nextperiodp')}</Text> */}
+                                                                <Text style={{ fontSize: 30,fontWeight:'bold', marginTop: -10, color: '#fff' }}>
+                                                                    {this.state._reacl_next_p_date}
+                                                                </Text>
+                                                                <Text style={{ marginTop: -7, fontSize: 16,color:'white' }}>{i18n.t('period_calan.daysleft')}</Text>
+            
+                                                            </View>
+                                                            )
+                                                        }
+                                                        </AnimatedCircularProgress>
+                                                        
+                                                        <View style={{flexDirection:'row',backgroundColor:'#4633cb',alignSelf:'center',alignItems:'center',borderRadius:15,paddingHorizontal:20,marginHorizontal:20}}>
+                                                        <Icon
+                                                                        name='calendar'
+                                                                        type='font-awesome'
+
+                                                                        iconStyle={{ fontSize: 25, padding: 20, paddingLeft: 0, marginTop: 5, color: '#fff' }}
+                                                                    />
+                                                        <View style={{alignItems:'center'}}>
+                                                                <Text style={{ color: '#fff', fontSize: 12 }}>{i18n.t('period_calan.lastp')}</Text>
+                                                                <Text style={{ color: '#fff', paddingTop: 0, fontSize: 17, fontWeight: 'bold' }}>{this.state.pName}
+                                                                    </Text>
+                                                                </View>
+                                                        </View>
+                                                        </View>
+
+
+                                                        {/* <Progress.Bar style={{ marginTop: 25, backgroundColor: '#e0e0e0', borderColor: 'white', }} color='#f78a2c' progress={this.state._monthlyPeriod / this.state._reacl_next_p_date} height={5} borderRadius={5} width={250} /> */}
+                                                        {/* <Progress.Circle size={30} indeterminate={true} /> */}
+                                                        {/* <AnimatedCircularProgress
+                                                            size={120}
+                                                            width={15}
+                                                            fill={this.state._monthlyPeriod / this.state._reacl_next_p_date}
+                                                            tintColor="#fff"
+                                                            rotation={0}
+                                                            // onAnimationComplete={() => console.log('onAnimationComplete')}
+                                                            backgroundColor="#9076f7" /> */}
+
+
+                                                        
+
+
+                                                    </View>
+                                                {/* </View> */}
+                                                
+
+                                            {/* </View> */}
+{/* calendar-alt */}
+                                            {/* <View style={styles.greenBar}>
+                                                
+                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                                    <View>
+                                                        <Text style={{ color: 'white' }}>{i18n.t('period_calan.ovlstrtdate')} <Text style={{ color: 'black', fontWeight: 'bold' }}> {this.state._ovl_date}
+                                                        </Text ></Text>
+                                                    </View>
+                                                    <View>
+                                                        <View style={{ backgroundColor: 'white', padding: 4, borderRadius: 4, marginRight: 5 }}>
+                                                            <Icon
+                                                                name='calendar'
+                                                                type='font-awesome'
+                                                                color='red'
+                                                                iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: '#90a4ae' }}
+                                                            />
+                                                        </View>
+
+                                                    </View>
+                                                </View>
+
+                                            </View> */}
+
+                                    </LinearGradient>
+                                        // </Card>
+
+                                        
+                                    // </View> 
+                                    :
+                                    <LinearGradient   start={{ x: 0, y: 1 }}
+                                            end={{ x: 1, y: 0.9 }} colors={['#4633cb', '#7857fc']}style={{borderRadius:15,margin:10}} >
+                                           
+                                                    <View style={{ flexDirection: 'column' }}>
+                                                      
+                                                                <View style={{ flexDirection: 'row', marginTop: 0,alignItems:'center',justifyContent:'space-evenly',backgroundColor:'#866bf6',borderTopLeftRadius:15,borderTopRightRadius:15,padding:2 }}>
+                                                                <View style={{alignItems:'center'}}>
+                                                                <Text style={{ color: '#fff', fontSize: 12 }}>{i18n.t('period_calan.nextpunder')}</Text>
+                                                                <Text style={{ color: '#fff', paddingTop: 0, fontSize: 17, fontWeight: 'bold' }}>{this.state._nextPeriodDate}
+                                                                    </Text>
+                                                                </View>
+
+                                                                <View style={{alignItems:'center'}}>
+                                                                <Text style={{ color: '#fff', fontSize: 12 }}>{i18n.t('period_calan.ovlstrtdate')}</Text>
+                                                                <Text style={{ color: '#fff', paddingTop: 0, fontSize: 17, fontWeight: 'bold' }}>{this.state._ovl_date}
+                                                                    </Text>
+                                                                </View>                                                                    
+                                                                </View>
+
+                                                        <View style={{flexDirection:'row',margin:10}}>
+
+                                                        <AnimatedCircularProgress
+                                                        size={100}
+                                                        width={10}
+                                                        fill={this.state._monthlyPeriod / this.state._reacl_next_p_date}
+                                                            tintColor="#fff"
+                                                            rotation={0}
+                                                            backgroundColor="#9076f7">
+                                                        {
+                                                            (fill) => (
+                                                            <View style={{ flexDirection: 'column',justifyContent:'center',alignItems:'center' }}>
+                                                                {/* <Text style={{ color: '#9e9e9e', fontSize: 12, marginLeft: 0, marginTop: 0 }}>{i18n.t('period_calan.nextperiodp')}</Text> */}
+                                                                <Text style={{ fontSize: 30,fontWeight:'bold', marginTop: -10, color: '#fff' }}>
+                                                                    {this.state._reacl_next_p_date}
+                                                                </Text>
+                                                                <Text style={{ marginTop: -7, fontSize: 16,color:'white' }}>{i18n.t('period_calan.daysleft')}</Text>
+            
+                                                            </View>
+                                                            )
+                                                        }
+                                                        </AnimatedCircularProgress>
+                                                        
+                                                        <View style={{flexDirection:'row',backgroundColor:'#4633cb',alignSelf:'center',alignItems:'center',borderRadius:15,paddingHorizontal:20,marginHorizontal:20}}>
+                                                        <Icon
+                                                                        name='calendar'
+                                                                        type='font-awesome'
+
+                                                                        iconStyle={{ fontSize: 25, padding: 20, paddingLeft: 0, marginTop: 5, color: '#fff' }}
+                                                                    />
+                                                        <View style={{alignItems:'center'}}>
+                                                                <Text style={{ color: '#fff', fontSize: 12 }}>{i18n.t('period_calan.lastp')}</Text>
+                                                                <Text style={{ color: '#fff', paddingTop: 0, fontSize: 17, fontWeight: 'bold' }}>{this.state.pName}
+                                                                    </Text>
+                                                                </View>
+                                                        </View>
+                                                        </View>
+                                                    </View>
+                                    </LinearGradient>
+                                }
+
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('PeriodHistory')} style={[styles.buttonh, { backgroundColor: '#fff',paddingHorizontal:10,alignSelf:'flex-end',marginBottom:10 }]}>
+                                <View style={{ flexDirection: 'row',alignItems:'center' }}>
+                                    {/* <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}> */}
                                         <Icon
-                                            name='suitcase'
-                                            type='font-awesome'
+                                            name='info'
+                                            type='feather'
                                             color='red'
-                                            iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: 'gray' }}
+                                            iconStyle={{ fontSize: 20, paddingRight: 0, paddingLeft: 0, color: '#394694' }}
                                         />
-                                    </View>
-                                    <Text style={{ color: 'white', padding: 7 }}>{i18n.t('period_calan.history')}</Text>
+                                    {/* </View> */}
+                                    <Text style={{ color: '#394694', padding: 7 }}>{i18n.t('period_calan.history')}</Text>
                                 </View>
                             </TouchableOpacity>
                         {/* </View> */}
                         </LinearGradient>
-                        <View style={styles.brestposition3}></View>
-                        <View style={styles.brestposition4}></View>
-                        <View style={{ flex: 1, padding: 15, bottom: 40 }}>
+                        {/* <View style={styles.brestposition3}></View>
+                        <View style={styles.brestposition4}></View> */}
+                        <View style={{ flex: 1, padding: 15, bottom: 0 ,backgroundColor:'white'}}>
 
                             <Card>
                                 {/* <Card.Title title="Card Title" subtitle="Card Subtitle" /> */}
@@ -737,92 +923,7 @@ export class PeriodCalandar extends Component {
                                         </View> : <Text></Text>
                                 } */}
 
-                                {
-
-                                    this.state._reacl_next_p_date != 0 ?
-                                        <View style={styles.containerD}>
-
-                                            <Card style={[styles.periodcard]}>
-
-                                                <View style={{ flexDirection: 'row', paddingTop: 5, paddingLeft: 5, paddingRight: 0 }}>
-
-
-                                                    <View >
-                                                        <View style={{ marginLeft: 8, marginRight: 10, flexDirection: 'column' }}>
-                                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                                                <View style={{ marginTop: 0, marginBottom: -10 }}>
-                                                                    <Text style={{ color: '#9e9e9e', fontSize: 12 }}>{i18n.t('period_calan.lastp')}</Text>
-                                                                    <View style={{ flexDirection: 'row', marginTop: 5 }}>
-
-                                                                        <Icon
-                                                                            name='calendar'
-                                                                            type='font-awesome'
-
-                                                                            iconStyle={{ fontSize: 17, paddingRight: 0, paddingLeft: 0, marginTop: 5, color: 'green' }}
-                                                                        />
-
-                                                                        <Text style={{ color: 'green', paddingTop: 0, paddingLeft: 8, fontSize: 20, fontWeight: 'bold' }}>{this.state.pName}
-                                                                        </Text>
-                                                                    </View>
-                                                                    {/* <Text style={{ fontSize: 12, fontSize: 12, fontWeight: 'bold' }}>{this.state.pName}</Text> */}
-                                                                </View>
-
-
-                                                            </View>
-                                                            {
-                                                                // console.log(">>>>>>>>>>>>>>>>>>**************************** : "+parseInt(this.state._monthlyPeriod)/parseInt(this.state._reacl_next_p_date))
-                                                            }
-                                                            <Progress.Bar style={{ marginTop: 25, backgroundColor: '#e0e0e0', borderColor: 'white', }} color='#f78a2c' progress={this.state._monthlyPeriod / this.state._reacl_next_p_date} height={5} borderRadius={5} width={250} />
-                                                            <View style={{ marginTop: 5 }}>
-                                                                {/* ((this.state._compltedWeeks / 277) * 1).toFixed(2) */}
-                                                                <Text style={{ color: 'black', fontSize: 13, marginLeft: 0, marginTop: 4 }}>{i18n.t('period_calan.nextpunder')} : <Text style={{ fontSize: 13, fontWeight: 'bold', color: 'red' }}>
-                                                                    {this.state._nextPeriodDate}
-                                                                </Text></Text>
-                                                            </View>
-                                                        </View>
-                                                    </View>
-                                                    <View style={{ flexDirection: 'column', }}>
-                                                        <Text style={{ color: '#9e9e9e', fontSize: 12, marginLeft: 0, marginTop: 0 }}>{i18n.t('period_calan.nextperiodp')}</Text>
-                                                        <Text style={{ fontSize: 70, marginBottom: -10, marginTop: -18, color: '#424242' }}>
-                                                            {this.state._reacl_next_p_date}
-                                                        </Text>
-                                                        <Text style={{ marginTop: -7, fontSize: 18 }}>{i18n.t('period_calan.daysleft')}</Text>
-
-                                                    </View>
-
-                                                </View>
-
-                                                <View style={styles.greenBar}>
-                                                    {/* calendar-alt */}
-                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                                        <View>
-                                                            <Text style={{ color: 'white' }}>{i18n.t('period_calan.ovlstrtdate')} <Text style={{ color: 'black', fontWeight: 'bold' }}> {this.state._ovl_date}
-                                                            </Text ></Text>
-                                                        </View>
-                                                        <View>
-                                                            <View style={{ backgroundColor: 'white', padding: 4, borderRadius: 4, marginRight: 5 }}>
-                                                                <Icon
-                                                                    name='calendar'
-                                                                    type='font-awesome'
-                                                                    color='red'
-                                                                    iconStyle={{ fontSize: 13, paddingRight: 0, paddingLeft: 0, color: '#90a4ae' }}
-                                                                />
-                                                            </View>
-
-                                                        </View>
-                                                    </View>
-
-                                                </View>
-
-
-                                            </Card>
-
-
-                                        </View> :
-                                        <View>
-                                            <Text></Text>
-                                        </View>
-                                }
+                                
 
 
 
@@ -934,7 +1035,7 @@ export class PeriodCalandar extends Component {
 const styles = StyleSheet.create({
 
     button: {
-        backgroundColor: "red",
+        backgroundColor: "#4E3CCE",
         padding: 12,
         borderRadius: 25,
         // width:'200',
@@ -1032,15 +1133,16 @@ const styles = StyleSheet.create({
 
 
     }, periodcard: {
-        height: 145,
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: 8,
-        elevation: 3,
+        width:'100%',
+        // height: '100%',
+        // backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        // borderRadius: 8,
+        // elevation: 3,
 
-        // shadowColor: 'gray',
-        shadowOffset: { width: 3, height: 5 },
-        // shadowOpacity: 0.2,
-        shadowRadius: 8,
+        // // shadowColor: 'gray',
+        // shadowOffset: { width: 3, height: 5 },
+        // // shadowOpacity: 0.2,
+        // shadowRadius: 8,
         // alignItems: 'center',
         // margin: 5,
         // padding: 15
@@ -1049,9 +1151,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingTop: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
+        // paddingTop: 20,
+        // paddingLeft: 10,
+        // paddingRight: 10,
         justifyContent: 'center', alignItems: 'center'
     }, greenBar: {
         backgroundColor: '#50cebb',

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView, Image, ImageBackground, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, SafeAreaView, Image, ImageBackground, ActivityIndicator, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 // import { Icon } from 'react-native-elements';
 import { IMAGE } from './constants/image';
 import AsyncStorage from '@react-native-community/async-storage';
 import i18n from 'i18n-js';
 import { Avatar, Badge } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Context from '../Context/context';
 export class CustomDrawerContent extends Component {
   constructor(props) {
     super(props)
@@ -14,19 +15,34 @@ export class CustomDrawerContent extends Component {
       name: '',
       abc: '',
       lan: '',
+      _role_id: '',
+      isImageLoaded: false
     }
   }
+  static contextType = Context;
   doLogout() {
     AsyncStorage.removeItem("memberNames").then(
       res => {
         this.props.navigation.navigate('Login');
         AsyncStorage.removeItem("memberId");
+        this.context.deleteTask("");
       }
     );
+  }
+
+  _onLoadEnd = () => {
+    this.setState({
+      loading: false
+    })
   }
   async componentDidMount() {
     const name = await AsyncStorage.getItem('memberNames');
     const myArray = await AsyncStorage.getItem('member_email');
+    const role_id = await AsyncStorage.getItem('memberId');
+    const member_image = await AsyncStorage.getItem('member_image');
+
+    this.context.addCart(member_image);
+
     this.setState({
       userName: myArray,
       name: name,
@@ -37,32 +53,32 @@ export class CustomDrawerContent extends Component {
     fetch('https://youandmenest.com/tr_reactnative/api/ge_member_byid', {
       method: 'post',
       headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-          member_email: myArray,
+        member_email: myArray,
       }),
-  })
+    })
       .then((response) => response.json())
       .then((responseJson) => {
-      
-
-          // abc = "";
-
-          // abc = responseJson.member_image;
 
 
-          this.setState({
-              isLoading: false,
-  
-              abc: responseJson.member_image,
+        // abc = "";
 
-          })
+        // abc = responseJson.member_image;
+
+
+        this.setState({
+          isLoading: false,
+          abc: responseJson.member_image,
+          _role_id: role_id
+
+        })
 
 
       }).catch((error) => {
-          console.error(error);
+        console.error(error);
       })
 
   }
@@ -75,10 +91,11 @@ export class CustomDrawerContent extends Component {
 
           <ImageBackground
             source={require('./images/undraw_pilates_gpdb.png')}
-            style={{ width: 300, paddingLeft: 20, paddingBottom: 10, paddingTop: 50, backgroundColor: '#fbb146' }}
+            style={{ width: 300, paddingLeft: 20, paddingBottom: 10, paddingTop: 20, backgroundColor: '#4E3CCE' }}
           >
 
             <Avatar
+              onLoadEnd={this._onLoadEnd}
               rounded
               showEditButton
               size={90}
@@ -86,13 +103,13 @@ export class CustomDrawerContent extends Component {
               // }
 
               source={
-                this.state.abc != ""
+                this.context.catVal != null
                   ? {
                     uri:
                       'https://youandmenest.com/tr_reactnative/public/images/Members/' +
-                      this.state.abc,
+                      this.context.catVal,
                   }
-                  :  require('./images/images1.jpg')
+                  : require('./images/images1.jpg')
               }
 
               onEditPress={() => console.log('edit button pressed')}
@@ -103,51 +120,43 @@ export class CustomDrawerContent extends Component {
               }}
 
             >
-
+              <ActivityIndicator
+                style={styles.activityIndicator}
+                animating={this.state.loading}
+              />
             </Avatar>
-            <Text style={{ color: "black", fontSize: 15, marginTop:10}}>{this.state.name}</Text>
-            <Text style={{ color: "black", fontSize: 15, }}>{this.state.userName}</Text>
+            <Text style={{ color: "#fff", fontSize: 15, marginTop: 5 }}>{this.state.name}</Text>
+            <Text style={{ color: "#fff", fontSize: 15, }}>{this.state.userName}</Text>
           </ImageBackground>
 
-          <TouchableOpacity style={[styles.FacebookStyle,{marginTop:20}]} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('HomeScreen')}>
+          <TouchableOpacity style={[styles.FacebookStyle, { marginTop: 20 }]} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('HomeScreen')}>
             <Icon
               name="home-outline"
               iconStyle={{
                 fontSize: 21,
                 fontWeight: 'normal',
-                padding: 20,paddingTop:20
+                padding: 20, paddingTop: 20
               }}
               size={21}
               color="black"
             />
 
-           
             <Text style={styles.TextStyle}>{i18n.t('drawer.home')} </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('member')}>
-           
-          <Icon
-              name="person-outline"
-              iconStyle={{
-                fontSize: 25,
-                fontWeight: 'normal',
 
-                padding: 25,paddingTop:20
-              }}
-              size={23}
-              color="black"
-            />
-  
-            <View style={styles.SeparatorLine} />
-            <Text style={styles.TextStyle}>{i18n.t('drawer.profile')} </Text>
-          </TouchableOpacity> */}
-          <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('UserProfile')}>
-          <Icon
+          <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5}
+            onPress={() => {
+              this.state._role_id != 3 ?
+                this.props.navigation.navigate('UserProfile_GP') : this.props.navigation.navigate('UserProfile')
+            }
+            }
+          >
+            <Icon
               name="person-outline"
               iconStyle={{
                 fontSize: 21,
                 fontWeight: 'normal',
-                padding: 25,paddingTop:20
+                padding: 25, paddingTop: 20
               }}
               size={21}
               color="black"
@@ -155,12 +164,12 @@ export class CustomDrawerContent extends Component {
             <Text style={styles.TextStyle}>{i18n.t('drawer.profile')} </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('offersWebView')}>
-          <Icon
+            <Icon
               name="gift-outline"
               iconStyle={{
                 fontSize: 21,
                 fontWeight: 'normal',
-                padding: 25,paddingTop:20
+                padding: 25, paddingTop: 20
               }}
               size={21}
               color="black"
@@ -168,12 +177,12 @@ export class CustomDrawerContent extends Component {
             <Text style={styles.TextStyle}>{i18n.t('drawer.offers')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('blogWebView')}>
-          <Icon
+            <Icon
               name="newspaper-outline"
               iconStyle={{
                 fontSize: 21,
                 fontWeight: 'normal',
-                padding: 25,paddingTop:20
+                padding: 25, paddingTop: 20
               }}
               size={21}
               color="black"
@@ -182,36 +191,36 @@ export class CustomDrawerContent extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('BillerCategories')}>
-          <Icon
-              name="newspaper-outline"
+            <Icon
+              name="wallet-outline"
               iconStyle={{
                 fontSize: 21,
                 fontWeight: 'normal',
-                padding: 25,paddingTop:20
+                padding: 25, paddingTop: 20
               }}
               size={21}
               color="black"
             />
             <Text style={styles.TextStyle}>{i18n.t('drawer.billpay')}</Text>
           </TouchableOpacity>
-          
-          
+
+
           <View style={styles.SeparatorLine} />
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.doLogout()}>
-           
-          <Icon
+
+            <Icon
               name="power-outline"
               iconStyle={{
                 fontSize: 21,
                 fontWeight: 'normal',
-                padding: 25,paddingTop:20
+                padding: 25, paddingTop: 20
               }}
               size={21}
               color="black"
             />
             <Text style={styles.TextStyle}>{i18n.t('drawer.logut')} </Text>
           </TouchableOpacity>
-        
+         
 
         </ScrollView>
 
@@ -231,11 +240,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 25,
     alignItems: 'center',
-    // borderBottomWidth: 0.3,
-    // borderBottomColor: 'gray',
-    // backgroundColor: '#f78a2c',
-    //borderWidth: .5,
-    // borderColor: '#fff',
+
     height: 50,
 
     //borderRadius: 5,
@@ -250,10 +255,16 @@ const styles = StyleSheet.create({
 
   }, TextStyle: {
     // color:'#fff'
-    marginLeft:15
-  },SeparatorLine:{
-    borderWidth:0.2,
-    marginTop:15,
-    borderBottomColor:'black'
+    marginLeft: 15
+  }, SeparatorLine: {
+    borderWidth: 0.2,
+    marginTop: 15,
+    borderBottomColor: 'black'
+  }, activityIndicator: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   }
 });

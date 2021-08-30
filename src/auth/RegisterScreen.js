@@ -6,9 +6,11 @@ import *as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { Icon, Avatar, Button } from 'react-native-elements';
+
+
 import { Picker } from '@react-native-community/picker';
 import i18n from 'i18n-js';
-import RNDirectPayCardPayment from 'react-native-direct-pay-card-payment';
+
 import RenderHTML from "react-native-render-html";
 import RBSheet from "react-native-raw-bottom-sheet";
 import HTML_FILE from '../constants/index.html';
@@ -27,7 +29,9 @@ import {
 } from 'react-native-indicators';
 
 import { CustomHeader } from '../index';
-
+import moment from 'moment' // 2.20.1
+const _format = 'YYYYMMDDHmm'
+const _today = moment().format(_format)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -146,24 +150,13 @@ export class RegisterScreen extends Component {
   }
 
   InputUsers = () => {
-    // const emailError = validate("email", this.state.TextInputEmail)
 
-    // this.validate({
-    //   TextInputName: { required: true},
-    //   TextInputEmail: {email: true},
-    //   TextInputPhoneNumber: {numbers: true},
-    //   PickerValueHolder:{required: true},
-    //   // date: {date: 'YYYY-MM-DD'}
-    // });
     const { TextInputName } = this.state;
     const { TextInputEmail } = this.state;
     // const { TextInputPhoneNumber } = this.state;
     const { TextInputpassword } = this.state;
     const { PickerValueHolder } = this.state;
     const { TextInputNic } = this.state;
-
-
-
     let emailValidateregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let mobileValidateregex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
     let nic10 = /^[0-9]{9}[vVxX]$/;
@@ -176,7 +169,7 @@ export class RegisterScreen extends Component {
           backgroundColor: 'red'
         })
         this.setState({
-          optionError: "Please select an option first",
+          optionError: "Please Select an Option First",
           errorFound: "true",
         })
       } else {
@@ -191,7 +184,7 @@ export class RegisterScreen extends Component {
           backgroundColor: 'red'
         })
         this.setState({
-          pwError: "Please enter password",
+          pwError: "Please Enter Password",
           errorFound: "true",
         })
       } else {
@@ -207,7 +200,7 @@ export class RegisterScreen extends Component {
           backgroundColor: 'red'
         })
         this.setState({
-          emailError: "Please enter email",
+          emailError: "Please Enter Email",
           errorFound: "true",
         })
       } else {
@@ -234,7 +227,7 @@ export class RegisterScreen extends Component {
           backgroundColor: 'red'
         })
         this.setState({
-          unameError: "Please enter user name",
+          unameError: "Please Enter Username",
           errorFound: "true",
         })
       } else {
@@ -250,7 +243,7 @@ export class RegisterScreen extends Component {
           backgroundColor: 'red'
         })
         this.setState({
-          nicError: "Please enter nic ",
+          nicError: "Please Enter NIC ",
           errorFound: "true",
         })
       } else {
@@ -258,7 +251,7 @@ export class RegisterScreen extends Component {
         if (TextInputNic.length == 10) {
           if (nic10.test(TextInputNic) == false) {
             this.setState({
-              nicError: "invalid NIC number",
+              nicError: "Invalid NIC number",
               errorFound: "true",
             })
           } else {
@@ -270,7 +263,7 @@ export class RegisterScreen extends Component {
         } else if (TextInputNic.length == 12) {
           if (nic12.test(TextInputNic) == false) {
             this.setState({
-              nicError: "invalid NIC number",
+              nicError: "Invalid NIC number",
               errorFound: "true",
             })
           } else {
@@ -281,14 +274,11 @@ export class RegisterScreen extends Component {
           }
         } else {
           this.setState({
-            nicError: "invalid NIC number",
+            nicError: "Invalid NIC number",
             errorFound: "true",
           })
         }
-        // this.setState({
-        //   nicError: "",
-        //   errorFound: "",
-        // })
+
       }
     } else {
       this.setState({
@@ -305,14 +295,7 @@ export class RegisterScreen extends Component {
           emailError: "",
           errorFound: "",
         })
-        //email verification success. process continue for further validation
 
-        //mobile verification success. process continue for further validation
-
-
-
-
-        //start save data in the server
         if (this.state.errorFound != "false" || this.state.errorFound == "") {
           this.setState({
             loading: true,
@@ -344,19 +327,21 @@ export class RegisterScreen extends Component {
               });
               if (responseJson == "Insert success") {
                 AsyncStorage.setItem('memberNames', TextInputName).then(
-                  responseJson => {
+                  // responseJson => {
 
 
-                    if (PickerValueHolder == 3) {
-                      this.props.navigation.navigate('midwifeConfirm');
-                    } else {
-                      this.props.navigation.navigate('HomeApp');
-                    }
+                  //   if (PickerValueHolder == 3) {
+                  //     this.props.navigation.navigate('midwifeConfirm');
+                  //   } else {
+                  //     this.props.navigation.navigate('HomeApp');
+                  //   }
 
-                  }
+                  // }
                 );
                 AsyncStorage.setItem('memberId', PickerValueHolder);
                 AsyncStorage.setItem('member_email', TextInputEmail);
+             
+                this.props.navigation.navigate('Subscription', { email: TextInputEmail,ref_code:_today })
 
               } else {
                 showMessage({
@@ -366,7 +351,7 @@ export class RegisterScreen extends Component {
                 })
                 this.setState({
                   loading: false,
-                  // passwordError: passwordError
+
                 })
                 this.props.navigation.navigate('Register')
 
@@ -381,73 +366,15 @@ export class RegisterScreen extends Component {
           this.state.errorFound = "false"
         }
 
-        //end save data in the server
-
-
       } else {
         this.setState({
-          emailError: "Invalid email",
+          emailError: "Invalid Email",
           errorFound: "true",
         })
       }
     }
-
-
-
-
-
   }
-  //    source = {
-  //     html: `
-  //     <head>
-  //     <meta charset="UTF-8" />
-  //     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  //     <title>Directpay|RecurringPayment</title>
-  // </head>
-  // <div id="card_container"></div>
-  // <body>
-  //     <script src="https://cdn.directpay.lk/dev/v1/directpayCardPayment.js?v=1"></script>
-  //     <script>
-  //         DirectPayCardPayment.init({
-  //             container: "card_container", //<div id="card_container"></div>
-  //             merchantId: "xxxxxxx", //your merchant_id
-  //             amount: "100.00",
-  //             refCode: "DP12345", //unique referance code form merchant
-  //             currency: "LKR",
-  //             type: "RECURRING",
-  //             recurring: {
-  //                 startPaymentDate: "2050-07-18",
-  //                 lastPaymentDate: "2050-07-19",
-  //                 interval: "MONTHLY",
-  //                 isRetry: true,
-  //                 retryAttempts: 2,
-  //                 recurringAmount: "50.00",
-  //                 doFirstPayment: true,
-  //             },
-  //             customerEmail: "abc@mail.com",
-  //             customerMobile: "+94712345467",
-  //             description: "test products", //product or service description
-  //             debug: true,
-  //             responseCallback: responseCallback,
-  //             errorCallback: errorCallback,
-  //             logo: "https://test.com/directpay_logo.png",
-  //             apiKey: "xxxxxxxxxxx",
-  //         });
-  //         //response callback.
-  //         function responseCallback(result) {
-  //             console.log("successCallback-Client", result);
-  //             alert(JSON.stringify(result));
-  //         }
 
-  //         //error callback
-  //         function errorCallback(result) {
-  //             console.log("successCallback-Client", result);
-  //             alert(JSON.stringify(result));
-  //         }
-  //     </script>
-  // </body>
-  // `
-  //   };
   componentDidMount() {
     fetch('https://youandmenest.com/tr_reactnative/api/view_role', {
       method: 'get',
@@ -464,8 +391,6 @@ export class RegisterScreen extends Component {
           console.warn(role_id);
         }
         console.log(responseJson);
-        // var datas=JSON.stringify(responseJson);
-        // Alert.alert(datas.id);
         this.setState({
           isLoading: false,
           dataSource: responseJson,
@@ -485,43 +410,20 @@ export class RegisterScreen extends Component {
       this.setState({ PickerValueHolder: itemValue });
     }
   }
-  card() {
-    RNDirectPayCardPayment.addCardToUser(
-      'dev', //env : dev or prod
-      '7c62d2fdd3d4edf99e97be9838dd2fd7bac316578bffc37ef68100d516fa7409',// apiKey
-      'II07510', // mid
-      '987654321', //unique id of the user
-      'chamil', // firstname of the user
-      'pathirana', // lastname of the user
-      'chamiljay88@mail.com', // email of the user
-      '0716460440', // phone number of the user
-      (_err, _r) => {
-        if (_err) {//failed
 
-          console.log('code: ' + _err.code);
-          console.log('message: ' + _err.message);
-        } else {//successfully added the card
-
-          console.log('id: ' + _r.id); // id (token) of the added card
-          console.log('mask: ' + _r.mask); // masked card number
-          console.log('reference: ' + _r.reference); // unique user id as the reference
-          console.log('brand: ' + _r.brand); // brand of the card (Visa / Mastercared)
-        }
-      },
-    )
-  }
   render() {
 
     let { isLoading, loading } = this.state
     if (isLoading) {
       return (
-        <BarIndicator color='#fbb146' />
+        <BarIndicator color='#4E3CCE' />
       );
     } else {
       return (
 
-        <LinearGradient colors={['#fbb448', '#f78a2c']} style={styles.gradient}>
-          <CustomHeader bgcolor='#fbb448' gradient1="transparent" gradient2="transparent" titleColor="black" title="" navigation={this.props.navigation} bdcolor='#fbb448' />
+        <LinearGradient colors={['#9A81FD', '#4E3CCE']} style={styles.gradient}>
+          <StatusBar barStyle="light-content" hidden={false} backgroundColor="#9A81FD" />
+          <CustomHeader bgcolor='#9A81FD' gradient1="transparent" gradient2="transparent" titleColor="black" title="" navigation={this.props.navigation} bdcolor='#9A81FD' />
           <FlashMessage duration={4000} />
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -541,14 +443,11 @@ export class RegisterScreen extends Component {
               <Animatable.View animation="fadeInLeft">
 
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.role1')} :</Text>
-                <View style={{ bborderColor: '#F2F2F2', borderWidth: 0.2, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }}>
+                <View style={{ bborderColor: '#F2F2F2', borderWidth: 0.2, borderRadius: 5, backgroundColor: '#fff', paddingLeft: 10 }}>
 
                   <Picker
                     mode="dropdown"
-                    // selectedValue={this.state.datasource[index].packselectedValue}
                     selectedValue={this.state.PickerValueHolder}
-                    // style={{ borderBottomColor: 'red', borderWidth: 1 }}
-                    // onValueChange={this.handleChangeOption}
                     prompt='Options'
                     onValueChange={
                       (itemValue, itemIndex) =>
@@ -560,44 +459,30 @@ export class RegisterScreen extends Component {
                     }
                   >
                     <RedPickerItem label={i18n.t('SignUp.pickerheading')} value="red" color='red' fontSize='15' value={0} />
-
                     {this.state.dataSource.map((item, key) => (
-
                       <Picker.Item label={item.role_name} value={item.id} key={key} />)
                     )}
-
                   </Picker>
                 </View>
                 <Text style={{ color: 'red' }}>{this.state.optionError}</Text>
 
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.username')} :</Text>
-                <TextInput onChangeText={TextInputValue => this.setState({ TextInputName: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_uname')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <TextInput onChangeText={TextInputValue => this.setState({ TextInputName: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_uname')} onEndEditing={this.clearFocus} autoFocus={false} />
                 <Text style={{ color: 'red' }}>{this.state.unameError}</Text>
 
 
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.nic')} :</Text>
-                <TextInput onChangeText={TextInputValue => this.setState({ TextInputNic: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_nic')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <TextInput onChangeText={TextInputValue => this.setState({ TextInputNic: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_nic')} onEndEditing={this.clearFocus} autoFocus={false} />
                 <Text style={{ color: 'red' }}>{this.state.nicError}</Text>
-
-
-
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.email')} :</Text>
-                <TextInput onChangeText={TextInputValue => this.setState({ TextInputEmail: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_email')} enter_email onEndEditing={this.clearFocus} autoFocus={false} />
+                <TextInput onChangeText={TextInputValue => this.setState({ TextInputEmail: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_email')} enter_email onEndEditing={this.clearFocus} autoFocus={false} />
                 <Text style={{ color: 'red' }}>{this.state.emailError}</Text>
 
-                {/* <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>Mobil number :</Text>
-                  <TextInput
-                    onChangeText={TextInputValue => this.setState({ TextInputPhoneNumber: TextInputValue })}
-                    keyboardType="numeric"
-                    maxLength={10}
-                    style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder="Enter Mobil number" onEndEditing={this.clearFocus} autoFocus={false} />
-                  <Text style={{ color: 'red' }}>{this.state.mobileError}</Text> */}
-
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.pw')} :</Text>
-                <TextInput secureTextEntry={true} onChangeText={TextInputValue => this.setState({ TextInputpassword: TextInputValue })} style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#ffe3b8', paddingLeft: 10 }} placeholder={i18n.t('SignUp.pwInner')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <TextInput secureTextEntry={true} onChangeText={TextInputValue => this.setState({ TextInputpassword: TextInputValue })} style={{ height: 45, borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 }} placeholder={i18n.t('SignUp.pwInner')} onEndEditing={this.clearFocus} autoFocus={false} />
                 <Text style={{ color: 'red' }}>{this.state.pwError}</Text>
                 <View style={{ flex: 1 }}>
-                
+
                   <WebView
                     style={{ flex: 1 }}
                     originWhitelist={['*']}
@@ -618,7 +503,7 @@ export class RegisterScreen extends Component {
                     paddingLeft: 15,
                     paddingRight: 15,
                     borderRadius: 25,
-                    marginBottom: 20,
+                    marginBottom: 100,
                     marginTop: 30,
                     paddingVertical: 11,
                     elevation: 3,
@@ -632,21 +517,6 @@ export class RegisterScreen extends Component {
 
                 </Button>
 
-                <TouchableOpacity style={{ marginTop: 30 }} onPress={this.card}>
-
-                  <LinearGradient colors={['#fff', '#e2e1e1']}
-                    start={{ x: 1, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={styles.linearGradient}>
-                    <Text style={styles.buttonText}>
-                      card
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-
-         
-
-                {/* <RenderHTML contentWidth={300} source={{ html }} /> */}
 
               </Animatable.View>
 
@@ -663,8 +533,7 @@ export class RegisterScreen extends Component {
               openDuration={700}
               customStyles={{
                 container: {
-                  // justifyContent: "center",
-                  // alignItems: "center",
+
                   borderTopRightRadius: 20,
                   borderTopLeftRadius: 20,
                   backgroundColor: '#F2F2F2'
@@ -676,7 +545,7 @@ export class RegisterScreen extends Component {
                 showsVerticalScrollIndicator={false}
                 contentInsetAdjustmentBehavior="automatic"
                 style={styles.scrollView}>
-        <RedPickerItem2  />
+                <RedPickerItem2 />
               </ScrollView>
             </RBSheet>
 
@@ -688,7 +557,7 @@ export class RegisterScreen extends Component {
       );
     }
   }
-} 
+}
 class RedPickerItem extends Component {
   render() {
     return (
@@ -701,9 +570,9 @@ class RedPickerItem2 extends Component {
   render() {
     return (
       <WebView
-      style={{flex: 1}}
-     
-    />
+        style={{ flex: 1 }}
+
+      />
     )
   }
 }
