@@ -37,7 +37,7 @@ const _today = moment().format(_format);
 const screenWidth = Dimensions.get("window").width;
 const labels = ["1st month", , "3rd month ", "5thmonth", "7th month", "9th month"];
 
-const nineMonth = moment(_today).subtract(9, 'month');
+const nineMonth = moment(_today).subtract(270, 'day');
 const minumumDate = moment(nineMonth).subtract(7, 'day').format('YYYY-MM-DD');
 
 const customStyles = {
@@ -132,7 +132,7 @@ export class EDDCalculator extends Component {
                 isLoading: false,
             });
 
-            const nineMonth = moment(plastdate).subtract(9, 'month');
+            const nineMonth = moment(plastdate).subtract(270, 'day');
             const eddDate = moment(nineMonth).subtract(6, 'day').format('YYYY-MM-DD');
 
 
@@ -181,7 +181,7 @@ export class EDDCalculator extends Component {
         // const minumumDate = moment(_today).subtract(278, 'day').format('YYYY-MM-DD');
 
         if (formattedDate > minumumDate) {
-            const nineMonth = moment(formattedDate).add(9, 'month');
+            const nineMonth = moment(formattedDate).add(270, 'day');
             const eddDate = moment(nineMonth).add(6, 'day').format('YYYY-MM-DD');
             let data = {
                 pName: eddDate,
