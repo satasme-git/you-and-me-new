@@ -141,18 +141,18 @@ export class ForgotPwScreen extends Component {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <StatusBar
-          barStyle="dark-content"
+          barStyle="light-content"
           hidden={false}
-          backgroundColor="white"
+          backgroundColor="#4E3CCE"
         />
 
-        <CustomHeader
-          title="Forgot Your Password?"
-          isHome={false}
+        {/* <CustomHeader
+          title=""
+        
           bdcolor="#fff"
           navigation={this.props.navigation}
-        />
-
+        /> */}
+<CustomHeader  isHome={false} bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title="Forgot Your Password?" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
         <FlashMessage duration={1000} />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
@@ -170,7 +170,7 @@ export class ForgotPwScreen extends Component {
                   fontSize: 26,
                   fontWeight: 'bold',
                   marginTop: 15,
-                  color: '#00897b',
+                  color: '#4E3CCE',
                 }}>
                 Reset Password{' '} {this.props.route.params.email}
               </Text>
@@ -387,7 +387,7 @@ export class ForgotPwScreen extends Component {
                 buttonStyle={
                   (styles.submitText,
                   {
-                    backgroundColor: '#00897b',
+                    backgroundColor: '#4E3CCE',
                     borderRadius: 15,
                     width: '100%',
                     borderColor: 'white',

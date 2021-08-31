@@ -238,8 +238,8 @@ export class PeriodCalandar extends Component {
         cn.testPush(datanextp);
 
 
-        var _ovlDate = moment(this.state.pName).add(12, 'day').format('YYYY-MM-DD');
-        var _nextDate = moment(this.state.pName).add(28, 'day').format('YYYY-MM-DD');
+        var _ovlDate = moment(this.state.pName).add(11, 'day').format('YYYY-MM-DD');
+        var _nextDate = moment(this.state.pName).add(27, 'day').format('YYYY-MM-DD');
         let data = {
             pName: this.state.pName,
             pDescription: "Period start ",

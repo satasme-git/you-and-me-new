@@ -117,6 +117,7 @@ export class WeightGainDetailsAdd extends Component {
             wgDate: dates,
             wgValue: parseInt(this.state.TextInpuPbValue)
         }
+        console.log(data)
         if (TextInpuPbValue != "" && dates != "") {
             if (dates != '' && this.state.wgValue != '') {
                 db.addWGvalue(this.state.dbs, data).then((results) => {

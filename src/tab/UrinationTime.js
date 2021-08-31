@@ -346,7 +346,7 @@ export class UrinationTime extends Component {
                         <LinearGradient start={{ x: 0, y: 1 }}
                                 end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 100, zIndex: -1 }}>
                             <View style={{ marginTop: 0, marginLeft: 20 }}>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('babyactivity.elimi')}</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>{i18n.t('babyactivity.urine')}</Text>
                                 {/* <Text style={{ color: 'white' }}>Pregnancy Due Date Calculator</Text> */}
                             </View>
                         </LinearGradient>

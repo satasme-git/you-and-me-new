@@ -208,6 +208,7 @@ export class BloodPresure extends Component {
       bpDate: _selectedDay.toString(),
       bpValue: parseInt(this.state.TextInpuPbValue)
     }
+    console.log(data)
     db.addPBvalue(this.state.dbs, data).then((result) => {
 
       this.getData();

@@ -65,7 +65,7 @@ export class BloodPresureDetailsAdd extends Component {
         });
     }
     saveData() {
-        var dates = this.state.DateText;
+        var dates = this.state.DateText==''?_today:this.state.DateText;
         var formattedDate = moment(dates).format("YYYY-MM-DD")
 
 
@@ -75,6 +75,7 @@ export class BloodPresureDetailsAdd extends Component {
             bpValue: parseInt(this.state.TextInpuSystolicbValue),
             bpdstValue: parseInt(this.state.TextInpuDiastolicValue)
         }
+        // console.log(dates)
         if (dates != '' && this.state.bpValue != '' && this.state.bpdstValue != '') {
             db.addPBvalue(this.state.dbs, data).then((result) => {
                 this.props.navigation.navigate('BloodPresureBarChart');

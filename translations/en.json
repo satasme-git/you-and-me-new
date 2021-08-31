@@ -60,7 +60,7 @@
     "idetify_preg": "Identify Pregnancy",
     "regualr_mn": "Regular Mensturation",
     "regualr_pr": "Period",
-    "healthidiet": "Normal Healthy",
+    "healthidiet": "Normal Healthy Diet",
     "diet2": "Diet",
     "RecommendedHeading": "Recommended for You",
     "invest": "Investigation",
@@ -286,7 +286,11 @@
     "month":"Month Value",
     "monthinner":"Enter Month value",
     "monthinnerbutton": "Add",
-    "moredetails": "More Details"
+    "moredetails": "More Details",
+    "error1": "Sorry !",
+    "error2": "You have to enter child born weight in the breastfeeding page first",
+    "nav": "Go to Breastfeeding",
+    "cancel": "cancel"
   },
   "growthchart": {
     "heading": "Growth chart",

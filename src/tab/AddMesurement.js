@@ -7,6 +7,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import AsyncStorage from '@react-native-community/async-storage';
+import Modal from "react-native-modal";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import i18n from 'i18n-js';
 const db = new Database();
@@ -25,6 +27,7 @@ export class AddMesurement extends Component {
       TextInpuLValue: '',
       dbs: '',
       isLoading: false,
+      isModalVisible:false
 
     };
     db.initDB().then((result) => {
@@ -34,6 +37,11 @@ export class AddMesurement extends Component {
 
 
   }
+  toggleModal = () => {
+    this.setState({
+      isModalVisible: !this.state.isModalVisible,
+    });
+  };
   loadDbVarable(result) {
     this.setState({
       dbs: result,
@@ -55,6 +63,7 @@ export class AddMesurement extends Component {
       if (result == 0) {
         this.setState({
           isLoading: false,
+          isModalVisible:true
         });
       } else {
         let { bbGender } = this.props
@@ -105,6 +114,7 @@ export class AddMesurement extends Component {
         </View>
       )
     }
+    let { isModalVisible } = this.state
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
           <StatusBar barStyle="light-content" hidden={false} backgroundColor="#4E3CCE" />
@@ -191,6 +201,127 @@ export class AddMesurement extends Component {
               onPress={() => this.saveData()} />
           </View> */}
           </View>
+          <Modal 
+          backdropOpacity={0.5}
+          animationIn={'bounceIn'}
+          isVisible={isModalVisible}>
+
+            <View style={{ flex: 1 ,justifyContent:'center'}}>
+            <View style={{flexDirection:'row',marginBottom:-30,zIndex:1}}>
+                        <View style={{backgroundColor: '#ea3f37',height:40,width:'80%',borderTopLeftRadius:5,alignItems:'center',padding:10,flexDirection:'row'}} >
+                          <MaterialIcons
+                              name="error"
+                              size={20}
+                              color={'white'}
+                              style={{alignSelf:'center',paddingRight:10}}
+                          />
+
+                          <Text style={{color:'white'}}>{i18n.t('growth.error1')}</Text>
+                        </View>
+                        <View style={{
+                          width: 0,
+                          height: 0,
+                          backgroundColor: "transparent",
+                          borderStyle: "solid",
+                          borderRightWidth: 20,
+                          borderTopWidth: 40,
+                          borderRightColor: "transparent",
+                          borderTopColor: "#ea3f37",
+                        }}/>
+                        <View style={{
+                          width: 0,
+                          height: 0,
+                          backgroundColor: "transparent",
+                          borderStyle: "solid",
+                          borderLeftWidth: 5,
+                          borderRightWidth: 5,
+                          borderBottomWidth: 10,
+                          borderLeftColor: "transparent",
+                          borderRightColor: "transparent",
+                          borderBottomColor: "#940700",
+                          marginLeft:-5
+                        }}/>
+                      </View>
+              {/* <View style={{backgroundColor:'#4E3CCE',borderTopLeftRadius:10,borderTopRightRadius:10,padding:10,alignItems:'center',width:'100%'}}>
+                <Text style={{color:'white'}}>{i18n.t('growth.error1')}</Text>
+              </View> */}
+              <View style={{backgroundColor:'white',width:'100%',padding:10,paddingTop:30,borderRadius:5,alignItems:'center'}}>
+              
+              <Text style={{textAlign:'center',padding:5}}>{i18n.t('growth.error2')}</Text>
+              <View style={{flexDirection:'row',width:'100%',justifyContent:'flex-end',paddingTop:10,borderTopColor:'gray',borderTopWidth:1}}>
+              <Button titleStyle={{fontSize:12}} buttonStyle={{backgroundColor:'#4E3CCE'}} title={i18n.t('growth.nav')} onPress={()=>{this.toggleModal();this.props.navigation.navigate('BreastFeeding', {data:''})}} />  
+              <Button titleStyle={{fontSize:12}} buttonStyle={{marginLeft:10,backgroundColor:'#4E3CCE'}} title={i18n.t('growth.cancel')} onPress={()=>{this.toggleModal()}} />  
+              </View>
+              
+              </View>
+              
+            </View>
+          </Modal>
+
+          {/* <Modal 
+                  isVisible={isVisible4}
+                  // isVisible={true}
+                  backdropOpacity={0.5}
+                  animationIn={'bounceIn'}
+                  >
+                    <View>
+                      <View style={{flexDirection:'row',marginBottom:-30,zIndex:1}}>
+                        <View style={{backgroundColor: '#ea3f37',height:40,width:windowWidth-100,borderTopLeftRadius:5,alignItems:'center',padding:10,flexDirection:'row'}} >
+                          <MaterialIcons
+                              name="error"
+                              size={25}
+                              color={'white'}
+                              style={{alignSelf:'center',paddingRight:10}}
+                          />
+
+                          <Text style={{color:'white'}}>Error</Text>
+                        </View>
+                        <View style={{
+                          width: 0,
+                          height: 0,
+                          backgroundColor: "transparent",
+                          borderStyle: "solid",
+                          borderRightWidth: 20,
+                          borderTopWidth: 40,
+                          borderRightColor: "transparent",
+                          borderTopColor: "#ea3f37",
+                        }}/>
+                        <View style={{
+                          width: 0,
+                          height: 0,
+                          backgroundColor: "transparent",
+                          borderStyle: "solid",
+                          borderLeftWidth: 5,
+                          borderRightWidth: 5,
+                          borderBottomWidth: 10,
+                          borderLeftColor: "transparent",
+                          borderRightColor: "transparent",
+                          borderBottomColor: "#940700",
+                          marginLeft:-5
+                        }}/>
+                      </View>
+                      
+                     <View style={{backgroundColor:'white',padding:15,paddingTop:40,borderRadius:5}}>
+                      <Text style={{fontSize:16}}>Code is invalid, please try again</Text>
+            
+                      <Button 
+                      title="Ok"
+                      
+                      titleStyle={{color:'black',fontSize:17}} 
+                      buttonStyle={{alignSelf:'flex-end',marginTop:10,paddingVertical:5,borderColor:'#ea3f37',paddingHorizontal:20,backgroundColor:'white',borderWidth:2,borderRadius:10}}
+                      onPress={()=>
+                      this.setState({
+                        isVisible4:false
+                      })
+                      }
+                      />
+                      
+                    </View> 
+                    </View>
+                    
+                  </Modal> */}
+
+
         </ScrollView>
       </SafeAreaView>
     );

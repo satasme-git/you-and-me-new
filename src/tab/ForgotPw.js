@@ -205,16 +205,16 @@ export class ForgotPw extends Component {
         <StatusBar
           barStyle="light-content"
           hidden={false}
-          backgroundColor="#fbb448"
+          backgroundColor="#4E3CCE"
         />
-        <CustomHeader
+        {/* <CustomHeader
           title="Forgot Password?"
           isHome={false}
           bdcolor="#fbb448"
           bgcolor="#fbb448"
           navigation={this.props.navigation}
-        />
-        
+        /> */}
+        <CustomHeader  isHome={false} bgcolor='#fbb146' gradient1="#4E3CCE" gradient2="#9A81FD" titleColor="white" title="Forgot Your Password?" bcbuttoncolor='#fff' navigation={this.props.navigation} bdcolor='#fbb146' />
         <FlashMessage duration={1000} />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
@@ -378,7 +378,7 @@ export class ForgotPw extends Component {
                 buttonStyle={
                   (styles.submitText,
                   {
-                    backgroundColor: '#fbb448',
+                    backgroundColor: '#4E3CCE',
                     borderRadius: 15,
                     width: '100%',
                     borderColor: 'white',
@@ -460,7 +460,7 @@ export class ForgotPw extends Component {
                 buttonStyle={
                   (styles.submitText,
                   {
-                    backgroundColor: '#fbb448',
+                    backgroundColor: '#4E3CCE',
                     borderRadius: 15,
                     width: '100%',
                     borderColor: 'white',

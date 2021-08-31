@@ -338,6 +338,7 @@ export class HomeScreen extends Component {
                               flexDirection: 'column',
                               justifyContent: 'space-around',
                               zIndex: 5,
+                              width:'70%',
                               // backgroundColor:'white'
                             }}>
                             <View style={{flexDirection: 'column',}}>
@@ -345,7 +346,9 @@ export class HomeScreen extends Component {
                                 style={{
                                   marginTop: 10,
                                   fontSize: 16,
-                                  color:'#fff'
+                                  color:'#fff',
+                                  
+                                  textAlign:'center'
                                 }}>
                                 {i18n.t('MainMenu.healthidiet')}
                               </Text>
