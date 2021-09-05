@@ -1647,15 +1647,16 @@ const styles = StyleSheet.create({
     // width: "90%",
   },
   iconImage:{
-    height: 50, 
-    width: 50,
-    resizeMode:'contain'
+    height: 45, 
+    width: 45,
+    resizeMode:'contain',
+    marginBottom:5
   },
   iconText:{
     marginTop: 0,
     color:'#394694',
     fontWeight: '700',
     textAlign: 'center',
-    fontSize:12
+    fontSize:10
   }
 });

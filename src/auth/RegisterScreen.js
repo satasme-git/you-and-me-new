@@ -313,6 +313,7 @@ export class RegisterScreen extends Component {
               member_nic: TextInputNic,
               member_password: TextInputpassword,
               member_role: PickerValueHolder,
+              
             }),
 
           }).then((response) => response.json())
@@ -330,18 +331,18 @@ export class RegisterScreen extends Component {
                   // responseJson => {
 
 
-                  //   if (PickerValueHolder == 3) {
-                  //     this.props.navigation.navigate('midwifeConfirm');
-                  //   } else {
-                  //     this.props.navigation.navigate('HomeApp');
-                  //   }
+                  
 
                   // }
                 );
                 AsyncStorage.setItem('memberId', PickerValueHolder);
                 AsyncStorage.setItem('member_email', TextInputEmail);
-             
-                this.props.navigation.navigate('Subscription', { email: TextInputEmail,ref_code:_today })
+                if (PickerValueHolder == 3) {
+                  this.props.navigation.navigate('midwifeConfirm');
+                } else {
+                  this.props.navigation.navigate('Subscription', { email: TextInputEmail,ref_code:_today })
+                }
+                
 
               } else {
                 showMessage({

@@ -79,7 +79,24 @@ export class BillPaymentInformation extends Component {
               width:windowWidth,
              
             }}>
-            <Text>Please add a card</Text>
+                <Button
+                                    title="Please add a card"
+                                    titleStyle={{ color: 'black', fontSize: 17 }}
+                                    buttonStyle={{
+                                        alignSelf: 'flex-end',
+                                        marginTop: 10,
+                                        paddingVertical: 5,
+                                        borderColor: '#ea3f37',
+                                        paddingHorizontal: 20,
+                                        backgroundColor: 'white',
+                                        borderWidth: 2,
+                                        borderRadius: 10,
+                                    }}
+                                    onPress={() => {
+                                        this.props.navigation.navigate('UserProfile_GP');
+                                    }}
+                                />
+            {/* <Text>Please add a card</Text> */}
           </View>
         );
       };

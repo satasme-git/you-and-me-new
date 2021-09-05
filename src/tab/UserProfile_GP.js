@@ -275,12 +275,14 @@ export class UserProfile_GP extends Component {
                 console.error(error);
             })
     }
+
     addRefferal() {
         this.setState({
             isLoading: true,
         });
         const { TextInputRefNic } = this.state;
         const { TextInputID } = this.state;
+        console.log(TextInputRefNic);
         fetch('https://youandmenest.com/tr_reactnative/api/addrefferal', {
             method: 'post',
             headers: {
@@ -655,12 +657,13 @@ export class UserProfile_GP extends Component {
                                         borderRadius: 10,
                                     }}
                                     onPress={() => {
+                                        this.addRefferal();
                                         this.setState({
                                             isVisible4: false,
                                         });
-                                        {
-                                            this.addRefferal();
-                                        }
+                                        // {
+                                        //     this.addRefferal();
+                                        // }
                                     }}
                                 />
                             </View>

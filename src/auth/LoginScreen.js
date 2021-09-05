@@ -108,6 +108,7 @@ export class LoginScreen extends Component {
 
 
 
+    const role_id = await AsyncStorage.getItem('memberId');
     const token = await AsyncStorage.getItem('memberNames');
     const email = await AsyncStorage.getItem('member_email');
 
@@ -127,6 +128,7 @@ export class LoginScreen extends Component {
           // setData(data)
           var d = JSON.stringify(data)
           console.log(data[0].subscription);
+          role_id==3?this.checkSubscription():
           data[0].subscription == "SUCCESS" ?
             this.checkSubscription()
             :

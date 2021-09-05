@@ -148,8 +148,9 @@ export class GetBiller extends Component {
       );
     } else {
       if (this.state.billers != "") {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>> : " + this.state.billers);
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>> : " + this.state.billers);
         lapsList = this.state.billers.map((data) => {
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>> : " + data.providerImage);
           return (
 
             <View key={data.billerCode} style={{ margin: 8, borderRadius: 15, backgroundColor: 'white' }}>
@@ -166,7 +167,7 @@ export class GetBiller extends Component {
                   <Image source={{
                     uri: 'https://youandmenest.com/tr_reactnative/public/images/BillersImages/' +
                       data.providerImage + ".png",
-                  }} style={{ width: 80, height: 50, overflow: 'hidden' }} />
+                  }} style={{ width: 80, height: 50, overflow: 'hidden' ,resizeMode:'cover'}} />
                   <Text>{data.billerName}</Text>
                   {/* <Text>{data.billerCode}</Text> */}
                 </View>

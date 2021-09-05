@@ -255,7 +255,7 @@ export default function Subscription() {
 
                                         </View>
                                         <Text style={{ textAlign: 'center', paddingVertical: 10, fontSize: 17 }}>YOUR TRANSACTION IS {item.subscription}</Text>
-                                        <Button title="Login" onPress={() => { toggleModal(); navigation.navigate('Login') }} color={'green'} />
+                                        <Button title="Home" onPress={() => { toggleModal(); navigation.navigate('HomeApp') }} color={'green'} />
                                     </View>
                                     :
                                     <View>

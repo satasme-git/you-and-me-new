@@ -269,6 +269,7 @@ export class UserProfile extends Component {
         });
         const { TextInputRefNic } = this.state;
         const { TextInputID } = this.state;
+        console.log(TextInputID)
         fetch('https://youandmenest.com/tr_reactnative/api/addrefferal', {
             method: 'post',
             headers: {
