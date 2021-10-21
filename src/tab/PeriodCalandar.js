@@ -736,7 +736,10 @@ export class PeriodCalandar extends Component {
                                                     </View>
                                     </LinearGradient>
                                 }
-
+                        <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+                            <View style={{width:'60%'}}>
+                                <Text style={{fontSize:17,paddingLeft:15}}>{i18n.t('edd.button')}</Text>
+                            </View>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('PeriodHistory')} style={[styles.buttonh, { backgroundColor: '#fff',paddingHorizontal:10,alignSelf:'flex-end',marginBottom:10 }]}>
                                 <View style={{ flexDirection: 'row',alignItems:'center' }}>
                                     {/* <View style={{ backgroundColor: 'white', padding: 10, borderRadius: 35 }}> */}
@@ -750,6 +753,7 @@ export class PeriodCalandar extends Component {
                                     <Text style={{ color: '#394694', padding: 7 }}>{i18n.t('period_calan.history')}</Text>
                                 </View>
                             </TouchableOpacity>
+                            </View>
                         {/* </View> */}
                         </LinearGradient>
                         {/* <View style={styles.brestposition3}></View>

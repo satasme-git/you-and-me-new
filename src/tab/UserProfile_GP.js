@@ -466,11 +466,15 @@ export class UserProfile_GP extends Component {
                         this.setRoleData(item.id, item.role_name);
                     }}
                 >
+                    {item.id==3?null:
                     <View>
                         <Text style={{ color: 'black', fontSize: 17, fontWeight: 'normal' }}>
                             {item.role_name}
                         </Text>
                     </View>
+                    
+
+                    }
                 </ListItem>
             </Animatable.View>
         );
@@ -866,13 +870,17 @@ export class UserProfile_GP extends Component {
                                             autoFocus={false} value={this.state.TextInputPhone} onChangeText={TextInputValue => this.setState({ TextInputPhone: TextInputValue })} placeholder={i18n.t('profile.entermobile')} label={i18n.t('profile.mobile')}
                                         />
                                         <Text style={styles.labelText}>{i18n.t('profile.nic')}</Text>
-                                        <TextInput
+                                        <View style={{flexDirection:'row',width:'100%',alignItems:'center'}}>
+                                            <TextInput
                                             style={[
                                                 styles.labelTextContainer,
                                                 { padding: 10, width: windowWidth - 65, marginBottom: 5 },
                                             ]}
+                                            keyboardType={'numeric'} 
                                             autoFocus={false} value={this.state.TextInputNIC} onChangeText={TextInputValue => this.setState({ TextInputNIC: TextInputValue })} placeholder={i18n.t('profile.enternic')} label={i18n.t('profile.nic')}
                                         />
+                                        <Text style={{fontSize:15,marginLeft:-20,fontWeight:'bold'}}>V</Text>
+                                        </View>
                                         <Text style={styles.labelText}>{i18n.t('profile.address')}</Text>
                                         <TextInput
                                             style={[

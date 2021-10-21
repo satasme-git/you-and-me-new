@@ -122,7 +122,7 @@
     "calandar": "Calendar",
     "slt_date": "Select Date",
     "descrpt": "Description",
-    "inner_descript": "Select Time",
+    "inner_descript": "Enter Description",
     "time": "Select Time",
     "button": "Add Note",
     "historynote": "Special Note History",
@@ -408,5 +408,26 @@
     "Preparelabourbag":"Prepare labor room bag",
     "Preparelabourbaghead":"Labor room bag",
     "Preparebabybaghead":"Baby bag"
+  }
+  ,
+  "subscribe": {
+    "hedding": "Subscribe",
+    "free": "Free Trial",
+    "pro": "Pro",
+    "plan1": "24 Hours",
+    "plan2": "Monthly",
+    "start1": "Start Now",
+    "start2": "Subscribe Now",
+    "expire": "Trial Expired",
+    "log": " Log Again",
+    "left": "Left ",
+    "choose": "Choose a Plan ",
+    "choose2": "Choose Your Plan",
+    "h": "Hours ",
+    "m": "Minutes ",
+    "s": "Seconds ",
+    "in": "Your Free Trial Expires in.. ",
+    "use": "Use Trial",
+    "sub":"Your Subscription is not Valid."
   }
 }

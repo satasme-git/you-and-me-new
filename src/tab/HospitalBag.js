@@ -113,6 +113,8 @@ export class HospitalBag extends Component {
 
 
     }
+
+
     viewListData() {
         let mother_bag = [];
         db.listMotherBagItems(this.state.dbs, this.state.lan).then((data) => {
@@ -125,7 +127,7 @@ export class HospitalBag extends Component {
                     _mother_bag: mother_bag,
                     isLoading: false,
                 });
-
+                // console.log(data)
             }
 
 

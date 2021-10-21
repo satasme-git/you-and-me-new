@@ -1,12 +1,15 @@
 
 import React, { Component } from 'react';
-import { TextInput, StatusBar, Text, View, SafeAreaView, TouchableOpacity, Alert, StyleSheet, ScrollView } from 'react-native';
+import { TextInput, StatusBar, Text, View, SafeAreaView, Dimensions, Alert, StyleSheet, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import *as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { Icon, Avatar, Button } from 'react-native-elements';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Context from '../../Context/context';
 
+import Modal from 'react-native-modal';
 
 import { Picker } from '@react-native-community/picker';
 import i18n from 'i18n-js';
@@ -15,6 +18,10 @@ import RenderHTML from "react-native-render-html";
 import RBSheet from "react-native-raw-bottom-sheet";
 import HTML_FILE from '../constants/index.html';
 import { WebView } from 'react-native-webview';
+
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 import {
   BallIndicator,
@@ -129,6 +136,7 @@ const HTML = `
 </div>
 `;
 export class RegisterScreen extends Component {
+  static contextType = Context;
   constructor(props) {
     super(props)
     this.state = {
@@ -145,10 +153,20 @@ export class RegisterScreen extends Component {
       items: [],
       loading: false,
       language: 'java',
+      
+      isModalVisible: false,
       // emailError: "",
     }
   }
-
+  toggleModal = () => {
+    // let { isModalVisible } = this.state
+    // this.setState({
+    //   isModalVisible: !isModalVisible,
+    //   isLoading: false
+    // });
+    
+    this.props.navigation.navigate('TrialScreen')
+  };
   InputUsers = () => {
 
     const { TextInputName } = this.state;
@@ -340,7 +358,10 @@ export class RegisterScreen extends Component {
                 if (PickerValueHolder == 3) {
                   this.props.navigation.navigate('midwifeConfirm');
                 } else {
-                  this.props.navigation.navigate('Subscription', { email: TextInputEmail,ref_code:_today })
+                  
+                  this.context.addEmail(TextInputEmail);
+                  this.toggleModal()
+                  // this.props.navigation.navigate('Subscription', { email: TextInputEmail,ref_code:_today })
                 }
                 
 
@@ -411,10 +432,19 @@ export class RegisterScreen extends Component {
       this.setState({ PickerValueHolder: itemValue });
     }
   }
+  gotoSubscribe = async () => {
+
+    const email = await AsyncStorage.getItem('member_email');
+    // const nic = await AsyncStorage.getItem('member_nic');
+    
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+nic);
+    this.props.navigation.navigate('Subscription', { email: email,ref_code:_today });
+
+  };
 
   render() {
 
-    let { isLoading, loading } = this.state
+    let { isLoading, loading,isModalVisible } = this.state
     if (isLoading) {
       return (
         <BarIndicator color='#4E3CCE' />
@@ -473,7 +503,9 @@ export class RegisterScreen extends Component {
 
 
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.nic')} :</Text>
-                <TextInput onChangeText={TextInputValue => this.setState({ TextInputNic: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_nic')} onEndEditing={this.clearFocus} autoFocus={false} />
+                <View style={{flexDirection:'row',width:'100%',alignItems:'center'}}><TextInput onChangeText={TextInputValue => this.setState({ TextInputNic: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 ,paddingRight:25,width:'100%'}} placeholder={i18n.t('SignUp.enter_nic')} onEndEditing={this.clearFocus} autoFocus={false} keyboardType={'numeric'} />
+                <Text style={{fontSize:15,marginLeft:-20,fontWeight:'bold'}}>V</Text>
+                </View>
                 <Text style={{ color: 'red' }}>{this.state.nicError}</Text>
                 <Text style={{ color: 'white', paddingVertical: 10, marginLeft: 2, }}>{i18n.t('SignUp.email')} :</Text>
                 <TextInput onChangeText={TextInputValue => this.setState({ TextInputEmail: TextInputValue })} style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, backgroundColor: '#fff', paddingLeft: 10 }} placeholder={i18n.t('SignUp.enter_email')} enter_email onEndEditing={this.clearFocus} autoFocus={false} />
@@ -549,6 +581,8 @@ export class RegisterScreen extends Component {
                 <RedPickerItem2 />
               </ScrollView>
             </RBSheet>
+
+           
 
 
           </ScrollView>

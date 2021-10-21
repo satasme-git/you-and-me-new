@@ -644,7 +644,7 @@ export default class Database {
             } else {
                 status = "true";
             }
-            var table_name;
+            var table_name="Hospitalbagmother";
             if(lan=="en"){
                 table_name="Hospitalbagmother";
             }else if(lan=="fr"){

@@ -6,6 +6,8 @@ export default class GlobalState extends React.Component {
     tasks: [],
     name: [],
     catVal:"0",
+    sub:"aaa",
+    email:"aaa",
   };
 
   addNewTask = (task) => {
@@ -16,6 +18,17 @@ export default class GlobalState extends React.Component {
   addCart = (task) => {
     this.setState({
       catVal: task,
+    });
+  };
+  addEmail = (task) => {
+    this.setState({
+      email: task,
+    });
+  };
+  
+  addSub = (task) => {
+    this.setState({
+      sub: task,
     });
   };
 
@@ -38,10 +51,14 @@ export default class GlobalState extends React.Component {
           tasks: this.state.tasks,
           name: this.state.name,
           catVal:this.state.catVal,
+          sub:this.state.sub,
+          email:this.state.email,
 
 
           addNewTask: this.addNewTask,
+          addSub: this.addSub,
           addCart: this.addCart,
+          addEmail: this.addEmail,
           deleteTask: this.deleteTask,
         }}>
         {this.props.children}

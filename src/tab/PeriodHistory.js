@@ -190,7 +190,7 @@ export class PeriodHistory extends Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentInsetAdjustmentBehavior="automatic"
-                    style={styles.scrollView}>
+                    style={{marginTop:30}}>
 
                     <View>
 

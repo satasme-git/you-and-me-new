@@ -132,8 +132,8 @@ android {
         applicationId "com.navigation2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "1.16"
+        versionCode 25
+        versionName "1.25"
         // multiDexEnabled true
     }
     signingConfigs {

@@ -127,6 +127,7 @@ export class CustomDrawerContent extends Component {
             </Avatar>
             <Text style={{ color: "#fff", fontSize: 15, marginTop: 5 }}>{this.state.name}</Text>
             <Text style={{ color: "#fff", fontSize: 15, }}>{this.state.userName}</Text>
+            {/* <Text style={{ color: "#fff", fontSize: 15, }}>{this.context.sub}</Text> */}
           </ImageBackground>
 
           <TouchableOpacity style={[styles.FacebookStyle, { marginTop: 20 }]} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('HomeScreen')}>
@@ -163,6 +164,8 @@ export class CustomDrawerContent extends Component {
             />
             <Text style={styles.TextStyle}>{i18n.t('drawer.profile')} </Text>
           </TouchableOpacity>
+
+          {this.context.sub=='FREE'?null:
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('offersWebView')}>
             <Icon
               name="gift-outline"
@@ -176,6 +179,9 @@ export class CustomDrawerContent extends Component {
             />
             <Text style={styles.TextStyle}>{i18n.t('drawer.offers')}</Text>
           </TouchableOpacity>
+          }
+
+          {this.context.sub=='FREE'?null:
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('blogWebView')}>
             <Icon
               name="newspaper-outline"
@@ -189,6 +195,7 @@ export class CustomDrawerContent extends Component {
             />
             <Text style={styles.TextStyle}>{i18n.t('drawer.blog')}</Text>
           </TouchableOpacity>
+        }
 
           <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('BillerCategories')}>
             <Icon

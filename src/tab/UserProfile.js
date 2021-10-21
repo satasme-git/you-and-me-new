@@ -54,6 +54,7 @@ export class UserProfile extends Component {
             abc: '',
             lan: '',
             data: [],
+            cData: [],
             dataSource1: [],
             PickerValueHolder: '',
         };
@@ -132,6 +133,7 @@ export class UserProfile extends Component {
                     abc: abc,
                 })
                 this.loadRefferalData();
+                this.loadComData();
             }).catch((error) => {
                 console.error(error);
             })
@@ -313,6 +315,32 @@ export class UserProfile extends Component {
                 });
             })
     }
+
+    async loadComData() {
+        // const myArray = await AsyncStorage.getItem('memberId');
+
+        fetch('https://youandmenest.com/tr_reactnative/api/getEaning/' + this.state.TextInputID, {
+            method: 'get',
+            header: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    cData: responseJson,
+                });
+                console.log(responseJson)
+            })
+            .catch((error) => {
+                // console.error(error);
+                // this.setState({
+                //     errormsg: 1,
+                // });
+            })
+    }
     emptyComponent = () => {
         return (
             <View
@@ -456,11 +484,15 @@ export class UserProfile extends Component {
                         this.setRoleData(item.id, item.role_name);
                     }}
                 >
+                    {item.id==3?
                     <View>
                         <Text style={{ color: 'black', fontSize: 17, fontWeight: 'normal' }}>
                             {item.role_name}
                         </Text>
                     </View>
+                    :null
+                    }
+                    
                 </ListItem>
             </Animatable.View>
         );
@@ -817,7 +849,7 @@ export class UserProfile extends Component {
                             <View
                                 style={[styles.cardcontainer, { width: windowWidth - 25 }]}
                                 activeOpacity={0.95}>
-                                <View style={styles.labelContainer}>
+                                <View style={[styles.labelContainer,{paddingBottom: 0}]}>
                                     <View>
                                         <View>
                                             <Text style={styles.mainText}>{i18n.t("profile.userinfo")}</Text>
@@ -854,14 +886,21 @@ export class UserProfile extends Component {
                                             ]}
                                             autoFocus={false} value={this.state.TextInputPhone} onChangeText={TextInputValue => this.setState({ TextInputPhone: TextInputValue })} placeholder={i18n.t('profile.entermobile')} label={i18n.t('profile.mobile')}
                                         />
+                                        
                                         <Text style={styles.labelText}>{i18n.t('profile.nic')}</Text>
+                                        
+                                        <View style={{flexDirection:'row',width:'100%',alignItems:'center'}}>
                                         <TextInput
                                             style={[
                                                 styles.labelTextContainer,
                                                 { padding: 10, width: windowWidth - 65, marginBottom: 5 },
                                             ]}
+                                            keyboardType={'numeric'} 
                                             autoFocus={false} value={this.state.TextInputNIC} onChangeText={TextInputValue => this.setState({ TextInputNIC: TextInputValue })} placeholder={i18n.t('profile.enternic')} label={i18n.t('profile.nic')}
                                         />
+                                        <Text style={{fontSize:15,marginLeft:-20,fontWeight:'bold'}}>V</Text>
+                                        </View>
+                                        
                                         <Text style={styles.labelText}>{i18n.t('profile.address')}</Text>
                                         <TextInput
                                             style={[
@@ -933,7 +972,7 @@ export class UserProfile extends Component {
                         content: this.renderContent(
                             <View style={{ padding: 10, width: windowWidth }}>
                                 <View style={{ marginLeft: 10, marginTop: 10, justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={styles.mainText}>{i18n.t("profile.currnetReffral")}</Text>
+                                    <Text style={styles.mainText}>{i18n.t("profile.addbankcard2")}</Text>
                                     <Button
                                         title="Add Card"
                                         titleStyle={[styles.buttonText, { color: 'white', fontSize: 15 }]}
@@ -1024,9 +1063,17 @@ export class UserProfile extends Component {
                                 activeOpacity={0.95}>
                                 <View style={styles.labelContainer}>
                                     <View>
-                                        <View>
-                                            <Text style={styles.mainText}>Earnings last month</Text>
-                                        </View>
+                                        {/* <View style={{flexDirection:'row'}}>
+                                            <Text style={styles.mainText}>Earnings last month     : Rs.</Text> 
+                                            
+                                        </View> */}
+                                        {this.state.cData.map((item,index)=>
+                                        <View style={{flexDirection:'row',justifyContent:'space-between'}} key={index}>
+                                        <Text style={[styles.mainText,{paddingRight:25}]}>{item.month}  </Text> 
+                                        <Text style={styles.mainText}>: Rs. {item.points}.00</Text> 
+                                        
+                                    </View>
+                                        )}
 
                                     </View>
                                 </View>

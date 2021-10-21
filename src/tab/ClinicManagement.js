@@ -131,18 +131,18 @@ export class ClinicManagement extends Component {
 
         let datanotf = {
             _title: " " + TextInputNoteValue + " " + formattedDate,
-            _bigText: "One day more..",
+            _bigText: "   ",
             date: nestPeriod
         }
         cn.testPush(datanotf);
 
         let data = {
             _note: this.state.TextInputNoteValue,
-            _date: dates,
-            pTime: time,
+            _date: dates==''?_today:dates,
+            pTime: time==''?_timenow:time,
         }
-
-        if (TextInputNoteValue != "" && dates != "" && time != "") {
+        console.log(time)
+        if (TextInputNoteValue != "" ) {
             db.addNote(this.state.dbs, data).then((result) => {
                 this.props.navigation.navigate('PeriodAgenda');
 

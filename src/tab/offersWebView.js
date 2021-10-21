@@ -32,7 +32,7 @@ const db = new Database();
     }
     return (
         <WebView
-        source={{ uri: 'https://www.google.com' }}
+        source={{ uri: 'https://youandmenest.com/?page_id=714' }}
         style={{ marginTop: 20 }}
       />
     );

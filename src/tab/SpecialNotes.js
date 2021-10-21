@@ -6,6 +6,7 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import DatePicker from 'react-native-date-picker';
 import Database from '../Database';
 const db = new Database();
+
 import { TextInput } from 'react-native-paper';
 export class SpecialNotes extends Component {
     constructor(props) {

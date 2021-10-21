@@ -159,7 +159,7 @@ export class WeightGainDetailsAdd extends Component {
 
             
                     <LinearGradient start={{ x: 0, y: 1 }}
-                        end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ height: 120, zIndex: -1}}>
+                        end={{ x: 1, y: 0.9 }} colors={['#4E3CCE', '#9A81FD']} style={{ zIndex: -1}}>
                     {/* <View style={{ backgroundColor: 'red', height: 140, zIndex: -1, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}> */}
                         <View style={{ marginTop: 0, marginLeft: 20 }}>
                         <Text style={{ fontSize: 20, fontWeight: 'normal', color: 'white', marginTop: -5 }}>{i18n.t('weightGain.heading2')} {this.state.userName}</Text>
@@ -365,8 +365,8 @@ export class WeightGainDetailsAdd extends Component {
         backgroundColor: "#FF4C58",
         padding: 2,
         borderRadius: 10,
-        marginTop: 18,
-        width: 130,
+        marginTop: 10,
+        // width: 130,
         elevation: 10,
         shadowColor: '#30C1DD',
         shadowOffset: { width: 0, height: 5 },
@@ -374,7 +374,9 @@ export class WeightGainDetailsAdd extends Component {
         shadowRadius: 8,
         marginHorizontal: 20,
         paddingHorizontal:3,
-        paddingVertical:4
+        paddingVertical:4,
+        marginBottom:10,
+        alignSelf:'flex-start'
 
     }, linearGradient: {
 

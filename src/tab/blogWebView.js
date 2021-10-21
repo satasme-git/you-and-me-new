@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, TextInput, DrawerLayou
 import { Button } from 'react-native-elements';
 import Database from '../Database';
 import { WebView } from 'react-native-webview';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const db = new Database();
 
@@ -17,11 +18,19 @@ const db = new Database();
       prodId: '',
       prodName: '',
       prodDesc: '',
-
+      role:'',
       isLoading: false,
     };
   }
-  
+
+  async componentDidMount() {
+    const role_id = await AsyncStorage.getItem('memberId');
+    this.setState({
+      role: role_id
+    })
+    console.log(this.state.role)
+    }
+
   render() {
     if(this.state.isLoading){
       return(
@@ -30,9 +39,12 @@ const db = new Database();
         </View>
       )
     }
+
+    
+
     return (
         <WebView
-        source={{ uri: 'https://www.google.com' }}
+        source={{ uri:this.state.role==2? 'https://youandmenest.com/?cat=50' :'https://youandmenest.com/?cat=51'}}
         style={{ marginTop: 20 }}
       />
     );
