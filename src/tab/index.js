@@ -69,6 +69,10 @@ export * from './BillerCategories';
 export * from './GetBiller';
 export * from './BillPaymentInformation';
 export * from './UserProfile_GP';
+export * from './QRScan';
+export * from './DIscountAvailable';
+export * from './DiscountNotAvailable';
+
 
 
 

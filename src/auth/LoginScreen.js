@@ -212,7 +212,7 @@ export class LoginScreen extends Component {
     const email = await AsyncStorage.getItem('member_email');
 
     if (role_id != 3) {
-      this.props.navigation.navigate('HomeApp');
+      this.props.navigation.navigate('HomeApp',{ msg: "" });
       this.setState({
         isLoading: false,
       });
@@ -242,7 +242,7 @@ export class LoginScreen extends Component {
             this.setState({
               isVisible: false,
             });
-            this.props.navigation.navigate('HomeApp');
+            this.props.navigation.navigate('HomeApp',{ msg: "" });
           } else {
             this.setState({
               isVisible: false,
@@ -575,7 +575,7 @@ export class LoginScreen extends Component {
                                         borderRadius: 10,
                                         marginRight: 10,
                                     }}
-                                    onPress={() =>{this.props.navigation.navigate('HomeApp');this.toggleModal()}}
+                                    onPress={() =>{this.props.navigation.navigate('HomeApp',{ msg: "" });this.toggleModal()}}
                                 />
                                   }
                                   {

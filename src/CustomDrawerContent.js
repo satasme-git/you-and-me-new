@@ -210,6 +210,19 @@ export class CustomDrawerContent extends Component {
             />
             <Text style={styles.TextStyle}>{i18n.t('drawer.billpay')}</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => this.props.navigation.navigate('QRScan')}>
+            <Icon
+              name="qr-code-outline"
+              iconStyle={{
+                fontSize: 21,
+                fontWeight: 'normal',
+                padding: 25, paddingTop: 20
+              }}
+              size={21}
+              color="black"
+            />
+            <Text style={styles.TextStyle}>{i18n.t('drawer.qrscan')}</Text>
+          </TouchableOpacity>
 
 
           <View style={styles.SeparatorLine} />

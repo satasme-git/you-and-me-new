@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
-import { Text, View, SafeAreaView, Image, TouchableOpacity, ScrollView, StyleSheet, TextInput , Dimensions} from 'react-native';
+import { Text, View, SafeAreaView, Image, TouchableOpacity, ScrollView, StyleSheet, TextInput, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { CustomHeader, CustomDrawerContent } from './src';
 import {
   HomeScreen, HomeScreenDetail, SettingsScreen, SettingsScreenDetail, CreatePost, NewPost, NotificationScreen, MemberProfile, MenuScreen, PeriodCalandar, TestScreeen, ProductScreen2, HospitalBag, HospitalBagBaby, BMICalculator, BMIMeter, IdentifyPregnancy, RegularMenstruation, BloodPresure, MatirializeDialog, Investigation, Excercise, DitHelthyMother, WeightGain, AddWeight, KickCounter, EDDCalculator,
-  CalandarData, EddWebView, GrowthWebView, VaccineWebView, BreastFeeding, VerticleYearChart, VerticleYearChart2, BabyActivities, FeedingTimeChart, UrinationTime, EliminationChart, SleepingTimeChart, WeightChart, HealthDietChart, LabourRoomPacking, MealPlan, PeriodAgenda, PeriodHistory, SpecialNotes, TestChart, AreaCharts, AddMesurement, PrograssCircular, FoodPhyramid, WightGainBarchart, WeightGainDetailsAdd, BloodPresureBarChart, BloodPresureDetailsAdd, KickCounterHister, ClinicManagement, AgendaHistory, BathTracking, BathTrackingHistroy, ProfileImageView, UserProfile, ForgotPw, ForgotPwScreen, blogWebView, offersWebView, midwifeConfirm, BillerCategories, GetBiller, UserProfile_GP, BillPaymentInformation
+  CalandarData, EddWebView, GrowthWebView, VaccineWebView, BreastFeeding, VerticleYearChart, VerticleYearChart2, BabyActivities, FeedingTimeChart, UrinationTime, EliminationChart, SleepingTimeChart, WeightChart, HealthDietChart, LabourRoomPacking, MealPlan, PeriodAgenda, PeriodHistory, SpecialNotes, TestChart, AreaCharts, AddMesurement, PrograssCircular, FoodPhyramid, WightGainBarchart, WeightGainDetailsAdd, BloodPresureBarChart, BloodPresureDetailsAdd, KickCounterHister, ClinicManagement, AgendaHistory, BathTracking, BathTrackingHistroy, ProfileImageView, UserProfile, ForgotPw, ForgotPwScreen, blogWebView, offersWebView, midwifeConfirm, BillerCategories, GetBiller, UserProfile_GP, BillPaymentInformation, QRScan, DIscountAvailable, DiscountNotAvailable
 } from './src/tab';
 import { NotificationsScreen } from './src/drawer';
 import { RegisterScreen, LoginScreen, Login2Screen, SplashScreen } from './src/auth';
@@ -96,23 +96,23 @@ function SettingsScreen4() {
   );
 }
 
-function ModalScreeen({navigation}) {
+function ModalScreeen({ navigation }) {
 
   const [state, setState] = useState({
-    
+
     lan: '',
     defaultval: 0,
     isVisible: false,
     isModalVisible: false,
     isLoading: true,
-    created:0,
-    expired:false,
-    failed:false,
+    created: 0,
+    expired: false,
+    failed: false,
 
-    modalLoading:true,
+    modalLoading: true,
 
-    time:20000,
-    email:''
+    time: 20000,
+    email: ''
   });
 
   useEffect(() => {
@@ -120,12 +120,12 @@ function ModalScreeen({navigation}) {
   }, []);
 
   const toggleModal = () => {
-    const {isModalVisible} = this.state
+    const { isModalVisible } = this.state
     setState({
       isModalVisible: !isModalVisible,
       isLoading: false
     });
-     
+
   };
 
   const checkToken = async () => {
@@ -150,40 +150,39 @@ function ModalScreeen({navigation}) {
       })
         .then(response => response.json())
         .then(data => {
-          if(data[0].member_role==3){
+          if (data[0].member_role == 3) {
             this.checkSubscription()
           }
-          else{
-              if(data[0].subscription=='FREE'){
+          else {
+            if (data[0].subscription == 'FREE') {
               var date1 = moment(new Date()) //firstDate
               var date2 = moment(data[0].trial_date).add(1, 'days')
 
               setState({
-                time: date2.diff(date1, 'seconds')*1000,
+                time: date2.diff(date1, 'seconds') * 1000,
                 created: date2.diff(date1, 'seconds'),
                 isLoading: false,
               });
               // context.addSub('FREE');
               // context.addEmail(email);
 
-              console.log(date2.diff(date1, 'seconds')*1000)
+              console.log(date2.diff(date1, 'seconds') * 1000)
 
-              if (date2.diff(date1, 'seconds')*1000 >=0){
-              setTimeout(() => 
-              {
-                toggleModal()
-                setState({
-                  created: 0,
-                  isLoading: false,
-                });
-            }
-              , date2.diff(date1, 'seconds')*1000 )
-              console.log('high')
-            }
-            else {
-              toggleModal();
-              console.log('low')
-            }
+              if (date2.diff(date1, 'seconds') * 1000 >= 0) {
+                setTimeout(() => {
+                  toggleModal()
+                  setState({
+                    created: 0,
+                    isLoading: false,
+                  });
+                }
+                  , date2.diff(date1, 'seconds') * 1000)
+                console.log('high')
+              }
+              else {
+                toggleModal();
+                console.log('low')
+              }
               // var d = JSON.stringify(data)
               // console.log(data[0].subscription);
               // data[0].member_role==3?this.checkSubscription():
@@ -192,22 +191,22 @@ function ModalScreeen({navigation}) {
               //   :
               //   // null
               //   this.toggleModal()
-              }
-              // else if(data[0].subscription=='SUCCESS'){
-              //   console.log('SUCCESS')
+            }
+            // else if(data[0].subscription=='SUCCESS'){
+            //   console.log('SUCCESS')
 
-              //   this.checkSubscription()
-              //   this.context.addEmail(email);
-              // }
-              // else {
-              //   console.log('failed')
-              //   this.toggleModal()
-              //   this.setState({
-              //       failed: true,
-              //     }); 
-                  
-              //   this.context.addEmail(email);
-              // }
+            //   this.checkSubscription()
+            //   this.context.addEmail(email);
+            // }
+            // else {
+            //   console.log('failed')
+            //   this.toggleModal()
+            //   this.setState({
+            //       failed: true,
+            //     }); 
+
+            //   this.context.addEmail(email);
+            // }
           }
 
 
@@ -228,193 +227,193 @@ function ModalScreeen({navigation}) {
     }
   }
 
-  const { email, isModalVisible, isLoading , created, expired,failed , modalLoading} = state
+  const { email, isModalVisible, isLoading, created, expired, failed, modalLoading } = state
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-       <Modal
-              isVisible={isModalVisible}
-              // isVisible={true}
-              transparent={true}
-              backdropOpacity={0.5}
+      <Modal
+        isVisible={isModalVisible}
+        // isVisible={true}
+        transparent={true}
+        backdropOpacity={0.5}
 
-              animationIn={'bounceIn'}
-            >
-             
-
-              <View onLayout={()=>setTimeout(()=>{setState({modalLoading: false})}, 1000)}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                marginBottom: -30,
-                                zIndex: 1,
-                            }}>
-                            <View
-                                style={{
-                                    backgroundColor: expired==true?'red':failed==true?'red':'green',
-                                    height: 40,
-                                    width: windowWidth - 100,
-                                    borderTopLeftRadius: 5,
-                                    alignItems: 'center',
-                                    padding: 10,
-                                    flexDirection: 'row',
-                                }}>
-                                <MaterialIcons
-                                    name="cached"
-                                    size={20}
-                                    color={'white'}
-                                    style={{ alignSelf: 'center', paddingRight: 10 }}
-                                />
-                                <Text style={{ color: 'white' }}>{i18n.t('subscribe.hedding')}</Text>
-                            </View>
-                            <View
-                                style={{
-                                    width: 0,
-                                    height: 0,
-                                    backgroundColor: 'transparent',
-                                    borderStyle: 'solid',
-                                    borderRightWidth: 20,
-                                    borderTopWidth: 40,
-                                    borderRightColor: 'transparent',
-                                    borderTopColor: expired==true?'red':failed==true?'red':'green',
-                                }}
-                            />
-                            <View
-                                style={{
-                                    width: 0,
-                                    height: 0,
-                                    backgroundColor: 'transparent',
-                                    borderStyle: 'solid',
-                                    borderLeftWidth: 5,
-                                    borderRightWidth: 5,
-                                    borderBottomWidth: 10,
-                                    borderLeftColor: 'transparent',
-                                    borderRightColor: 'transparent',
-                                    borderBottomColor: expired==true?'#a80606':failed==true?'#a80606':'#104c2e',
-                                    marginLeft: -5,
-                                }}
-                            />
-                        </View>
-
-                        <View
-                            style={{
-                                backgroundColor: 'white',
-                                padding: 15,
-                                paddingTop: 40,
-                                borderRadius: 5,
-                            }}>
-                              {failed==true?
-                                <Text style={{fontSize:17,paddingVertical:12}}>{i18n.t('subscribe.sub')}</Text>
-                                :
-                                <View>
-                              <View style={{alignItems:'center',justifyContent:'center'}}>
-                              <Text style={{fontSize:17}}>{i18n.t('subscribe.in')}</Text>
-                            </View>
-                            {created==0?
-                        <View style={{alignItems:'center',justifyContent:'center',height:40}}>
-                            <BarIndicator color='#4E3CCE' size={17} />
-                            </View>
-                        :
-                        <CountDown
-                            until={created}
-                            digitStyle={{backgroundColor: '#FFF'}}
-                            digitTxtStyle={{color: '#000'}}
-                            onFinish={() => setState({
-                              expired: true
-                            })}
-                            size={20}
-                            timeToShow={['H', 'M', 'S']}
-                            timeLabels={{h:i18n.t('subscribe.h'),m: i18n.t('subscribe.m'), s: i18n.t('subscribe.s')}}
-                            separatorStyle={{color: '#000',paddingBottom:20}}
-                            showSeparator
-                        />}
-                        </View>
-                        }
-                        {modalLoading==true?
-                        <View style={{backgroundColor:"#fff",padding:10}}>
-                        <BarIndicator style={{ marginTop: 0 }} color='#4E3CCE'  size={17} />
-                      </View>
-                        :
-                            <View
-                                style={{ flexDirection: 'row', justifyContent: 'flex-end' ,alignItems:'center'}}>
-                                  {
-                                    expired==true?<Text style={{fontSize:17,paddingRight:20,marginTop: 10}}>{i18n.t('subscribe.expire')}</Text>:
-                                    failed==true?
-                                    null:
-                                    <Button
-                                    title={i18n.t('subscribe.use')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        marginTop: 10,
-                                        paddingVertical: 5,
-                                        borderColor: 'green',
-                                        paddingHorizontal: 20,
-                                        backgroundColor: 'white',
-                                        borderWidth: 2,
-                                        borderRadius: 10,
-                                        marginRight: 10,
-                                    }}
-                                    onPress={() =>{props.navigation.navigate('HomeApp');this.toggleModal()}}
-                                />
-                                  }
-                                  {
-                                    expired==true?
-                                    <Button
-                                    title={i18n.t('subscribe.start2')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        marginTop: 10,
-                                        paddingVertical: 5,
-                                        borderColor: expired==true?'red':failed==true?'red':'green',
-                                        paddingHorizontal: 20,
-                                        backgroundColor: 'white',
-                                        borderWidth: 2,
-                                        borderRadius: 10,
-                                    }}
-                                    onPress={() => {props.navigation.navigate('Subscription', { email: email,ref_code:_today });toggleModal()}}
-                                />:
-                                    failed==true?
-                                    <Button
-                                    title={i18n.t('subscribe.start2')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        marginTop: 10,
-                                        paddingVertical: 5,
-                                        borderColor: expired==true?'red':failed==true?'red':'green',
-                                        paddingHorizontal: 20,
-                                        backgroundColor: 'white',
-                                        borderWidth: 2,
-                                        borderRadius: 10,
-                                    }}
-                                    onPress={() => {gotoSubscribe();toggleModal()}}
-                                />
-                                :
-                                <Button
-                                title={i18n.t('subscribe.choose')}
-                                titleStyle={{ color: 'black', fontSize: 17 }}
-                                buttonStyle={{
-                                    alignSelf: 'flex-end',
-                                    marginTop: 10,
-                                    paddingVertical: 5,
-                                    borderColor: expired==true?'red':failed==true?'red':'green',
-                                    paddingHorizontal: 20,
-                                    backgroundColor: 'white',
-                                    borderWidth: 2,
-                                    borderRadius: 10,
-                                }}
-                                onPress={() => {props.navigation.navigate('TrialScreen');toggleModal()}}
-                            />
-                                  }
-                            </View>
-                            }
-                        </View>
-                    </View>
+        animationIn={'bounceIn'}
+      >
 
 
-            </Modal>
+        <View onLayout={() => setTimeout(() => { setState({ modalLoading: false }) }, 1000)}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginBottom: -30,
+              zIndex: 1,
+            }}>
+            <View
+              style={{
+                backgroundColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                height: 40,
+                width: windowWidth - 100,
+                borderTopLeftRadius: 5,
+                alignItems: 'center',
+                padding: 10,
+                flexDirection: 'row',
+              }}>
+              <MaterialIcons
+                name="cached"
+                size={20}
+                color={'white'}
+                style={{ alignSelf: 'center', paddingRight: 10 }}
+              />
+              <Text style={{ color: 'white' }}>{i18n.t('subscribe.hedding')}</Text>
+            </View>
+            <View
+              style={{
+                width: 0,
+                height: 0,
+                backgroundColor: 'transparent',
+                borderStyle: 'solid',
+                borderRightWidth: 20,
+                borderTopWidth: 40,
+                borderRightColor: 'transparent',
+                borderTopColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+              }}
+            />
+            <View
+              style={{
+                width: 0,
+                height: 0,
+                backgroundColor: 'transparent',
+                borderStyle: 'solid',
+                borderLeftWidth: 5,
+                borderRightWidth: 5,
+                borderBottomWidth: 10,
+                borderLeftColor: 'transparent',
+                borderRightColor: 'transparent',
+                borderBottomColor: expired == true ? '#a80606' : failed == true ? '#a80606' : '#104c2e',
+                marginLeft: -5,
+              }}
+            />
+          </View>
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 15,
+              paddingTop: 40,
+              borderRadius: 5,
+            }}>
+            {failed == true ?
+              <Text style={{ fontSize: 17, paddingVertical: 12 }}>{i18n.t('subscribe.sub')}</Text>
+              :
+              <View>
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ fontSize: 17 }}>{i18n.t('subscribe.in')}</Text>
+                </View>
+                {created == 0 ?
+                  <View style={{ alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                    <BarIndicator color='#4E3CCE' size={17} />
+                  </View>
+                  :
+                  <CountDown
+                    until={created}
+                    digitStyle={{ backgroundColor: '#FFF' }}
+                    digitTxtStyle={{ color: '#000' }}
+                    onFinish={() => setState({
+                      expired: true
+                    })}
+                    size={20}
+                    timeToShow={['H', 'M', 'S']}
+                    timeLabels={{ h: i18n.t('subscribe.h'), m: i18n.t('subscribe.m'), s: i18n.t('subscribe.s') }}
+                    separatorStyle={{ color: '#000', paddingBottom: 20 }}
+                    showSeparator
+                  />}
+              </View>
+            }
+            {modalLoading == true ?
+              <View style={{ backgroundColor: "#fff", padding: 10 }}>
+                <BarIndicator style={{ marginTop: 0 }} color='#4E3CCE' size={17} />
+              </View>
+              :
+              <View
+                style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                {
+                  expired == true ? <Text style={{ fontSize: 17, paddingRight: 20, marginTop: 10 }}>{i18n.t('subscribe.expire')}</Text> :
+                    failed == true ?
+                      null :
+                      <Button
+                        title={i18n.t('subscribe.use')}
+                        titleStyle={{ color: 'black', fontSize: 17 }}
+                        buttonStyle={{
+                          alignSelf: 'flex-end',
+                          marginTop: 10,
+                          paddingVertical: 5,
+                          borderColor: 'green',
+                          paddingHorizontal: 20,
+                          backgroundColor: 'white',
+                          borderWidth: 2,
+                          borderRadius: 10,
+                          marginRight: 10,
+                        }}
+                        onPress={() => { props.navigation.navigate('HomeApp',{ msg: "" }); this.toggleModal() }}
+                      />
+                }
+                {
+                  expired == true ?
+                    <Button
+                      title={i18n.t('subscribe.start2')}
+                      titleStyle={{ color: 'black', fontSize: 17 }}
+                      buttonStyle={{
+                        alignSelf: 'flex-end',
+                        marginTop: 10,
+                        paddingVertical: 5,
+                        borderColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                        paddingHorizontal: 20,
+                        backgroundColor: 'white',
+                        borderWidth: 2,
+                        borderRadius: 10,
+                      }}
+                      onPress={() => { props.navigation.navigate('Subscription', { email: email, ref_code: _today }); toggleModal() }}
+                    /> :
+                    failed == true ?
+                      <Button
+                        title={i18n.t('subscribe.start2')}
+                        titleStyle={{ color: 'black', fontSize: 17 }}
+                        buttonStyle={{
+                          alignSelf: 'flex-end',
+                          marginTop: 10,
+                          paddingVertical: 5,
+                          borderColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                          paddingHorizontal: 20,
+                          backgroundColor: 'white',
+                          borderWidth: 2,
+                          borderRadius: 10,
+                        }}
+                        onPress={() => { gotoSubscribe(); toggleModal() }}
+                      />
+                      :
+                      <Button
+                        title={i18n.t('subscribe.choose')}
+                        titleStyle={{ color: 'black', fontSize: 17 }}
+                        buttonStyle={{
+                          alignSelf: 'flex-end',
+                          marginTop: 10,
+                          paddingVertical: 5,
+                          borderColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                          paddingHorizontal: 20,
+                          backgroundColor: 'white',
+                          borderWidth: 2,
+                          borderRadius: 10,
+                        }}
+                        onPress={() => { props.navigation.navigate('TrialScreen'); toggleModal() }}
+                      />
+                }
+              </View>
+            }
+          </View>
+        </View>
+
+
+      </Modal>
     </View>
   );
 }
@@ -628,352 +627,351 @@ export default class App extends React.Component {
 
   static contextType = Context;
   // export default function App() {
-    constructor(props) {
-      super(props)
+  constructor(props) {
+    super(props)
 
-      this.state = {
-        lan: '',
-        defaultval: 0,
-        isVisible: false,
-        isModalVisible: false,
-        isLoading: true,
-        created:0,
-        expired:false,
-        failed:false,
-  
-        modalLoading:true,
+    this.state = {
+      lan: '',
+      defaultval: 0,
+      isVisible: false,
+      isModalVisible: false,
+      isLoading: true,
+      created: 0,
+      expired: false,
+      failed: false,
 
-        time:20000,
-        email:''
-      }
+      modalLoading: true,
 
+      time: 20000,
+      email: ''
     }
-    componentDidMount () {
-      this.checkToken()
-      let {time} = this.state;
-      
-   }
-   
-    toggleModal = () => {
-      const {isModalVisible} = this.state
-      this.setState({
-        isModalVisible: !isModalVisible,
-        isLoading: false
-      });
-       
-    };
 
-    checkToken = async () => {
+  }
+  componentDidMount() {
+    this.checkToken()
+    let { time } = this.state;
 
-      const role_id = await AsyncStorage.getItem('memberId');
-      const token = await AsyncStorage.getItem('memberNames');
-      const email = await AsyncStorage.getItem('member_email');
+  }
 
-      this.setState({
-        email: email
-      });
+  toggleModal = () => {
+    const { isModalVisible } = this.state
+    this.setState({
+      isModalVisible: !isModalVisible,
+      isLoading: false
+    });
 
-      if (token) {
-  
-        const formData = new FormData()
-  
-        formData.append('email', email);
-  
-        fetch('https://youandmenest.com/tr_reactnative/api/getStatus', {
-          method: 'POST', // or 'PUT'
-          body: formData
-        })
-          .then(response => response.json())
-          .then(data => {
-            if(data[0].member_role==3){
-              this.checkSubscription()
-            }
-            else{
-                if(data[0].subscription=='FREE'){
-                var date1 = moment(new Date()) //firstDate
-                var date2 = moment(data[0].trial_date).add(1, 'days')
-  
-                this.setState({
-                  time: date2.diff(date1, 'seconds')*1000,
-                  // created: date2.diff(date1, 'seconds'),
-                  isLoading: false,
-                });
-                this.context.addSub('FREE');
-                this.context.addEmail(email);
-  
-                console.log(date2.diff(date1, 'seconds')*1000)
+  };
 
-                if (date2.diff(date1, 'seconds')*1000 >=0){
-                setTimeout(() => 
-                {
+  checkToken = async () => {
+
+    const role_id = await AsyncStorage.getItem('memberId');
+    const token = await AsyncStorage.getItem('memberNames');
+    const email = await AsyncStorage.getItem('member_email');
+
+    this.setState({
+      email: email
+    });
+
+    if (token) {
+
+      const formData = new FormData()
+
+      formData.append('email', email);
+
+      fetch('https://youandmenest.com/tr_reactnative/api/getStatus', {
+        method: 'POST', // or 'PUT'
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data[0].member_role == 3) {
+            this.checkSubscription()
+          }
+          else {
+            if (data[0].subscription == 'FREE') {
+              var date1 = moment(new Date()) //firstDate
+              var date2 = moment(data[0].trial_date).add(1, 'days')
+
+              this.setState({
+                time: date2.diff(date1, 'seconds') * 1000,
+                // created: date2.diff(date1, 'seconds'),
+                isLoading: false,
+              });
+              this.context.addSub('FREE');
+              this.context.addEmail(email);
+
+              console.log(date2.diff(date1, 'seconds') * 1000)
+
+              if (date2.diff(date1, 'seconds') * 1000 >= 0) {
+                setTimeout(() => {
                   this.toggleModal()
                   this.setState({
                     created: 0,
                     isLoading: false,
                   });
-              }
-                , date2.diff(date1, 'seconds')*1000 )
+                }
+                  , date2.diff(date1, 'seconds') * 1000)
                 console.log('high')
               }
               // else {
               //   this.toggleModal();
               //   console.log('low')
               // }
-                // var d = JSON.stringify(data)
-                // console.log(data[0].subscription);
-                // data[0].member_role==3?this.checkSubscription():
-                // data[0].subscription == "SUCCESS" ?
-                //   this.checkSubscription()
-                //   :
-                //   // null
-                //   this.toggleModal()
-                }
-                // else if(data[0].subscription=='SUCCESS'){
-                //   console.log('SUCCESS')
-  
-                //   this.checkSubscription()
-                //   this.context.addEmail(email);
-                // }
-                // else {
-                //   console.log('failed')
-                //   this.toggleModal()
-                //   this.setState({
-                //       failed: true,
-                //     }); 
-                    
-                //   this.context.addEmail(email);
-                // }
+              // var d = JSON.stringify(data)
+              // console.log(data[0].subscription);
+              // data[0].member_role==3?this.checkSubscription():
+              // data[0].subscription == "SUCCESS" ?
+              //   this.checkSubscription()
+              //   :
+              //   // null
+              //   this.toggleModal()
             }
-  
-  
-          })
-          .catch((error) => {
-          });
-  
-  
-      }
-  
-      else {
-        this.setState({
-          isLoading: false,
+            // else if(data[0].subscription=='SUCCESS'){
+            //   console.log('SUCCESS')
+
+            //   this.checkSubscription()
+            //   this.context.addEmail(email);
+            // }
+            // else {
+            //   console.log('failed')
+            //   this.toggleModal()
+            //   this.setState({
+            //       failed: true,
+            //     }); 
+
+            //   this.context.addEmail(email);
+            // }
+          }
+
+
+        })
+        .catch((error) => {
         });
-        // this.props.navigation.navigate('Login');
-  
-        console.log("data");
-      }
+
+
     }
+
+    else {
+      this.setState({
+        isLoading: false,
+      });
+      // this.props.navigation.navigate('Login');
+
+      console.log("data");
+    }
+  }
   render() {
     const { navigation } = this.props;
-    const { email, isModalVisible, isLoading , created, expired,failed , modalLoading} = this.state
-    
-      
+    const { email, isModalVisible, isLoading, created, expired, failed, modalLoading } = this.state
+
+
 
     const gotoSubscribe = async () => {
 
       const email = await AsyncStorage.getItem('member_email');
       // const nic = await AsyncSStorage.getItem('member_nic');
-      
+
       // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+nic);
-      this.props.navigation.navigate('Subscription', { email: email,ref_code:_today });
-  
+      this.props.navigation.navigate('Subscription', { email: email, ref_code: _today });
+
     };
-    
+
     return (
       <GlobalState>
-      <NavigationContainer>
+        <NavigationContainer>
 
-         <Modal
-              isVisible={isModalVisible}
-              // isVisible={true}
-              transparent={true}
-              backdropOpacity={0.5}
+          <Modal
+            isVisible={isModalVisible}
+            // isVisible={true}
+            transparent={true}
+            backdropOpacity={0.5}
 
-              animationIn={'bounceIn'}
-            >
-             
+            animationIn={'bounceIn'}
+          >
 
-              <View onLayout={()=>setTimeout(()=>{this.setState({modalLoading: false})}, 1000)}>
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                marginBottom: -30,
-                                zIndex: 1,
-                            }}>
-                            <View
-                                style={{
-                                    backgroundColor: expired==true?'red':failed==true?'red':'green',
-                                    height: 40,
-                                    width: windowWidth - 100,
-                                    borderTopLeftRadius: 5,
-                                    alignItems: 'center',
-                                    padding: 10,
-                                    flexDirection: 'row',
-                                }}>
-                                <MaterialIcons
-                                    name="cached"
-                                    size={20}
-                                    color={'white'}
-                                    style={{ alignSelf: 'center', paddingRight: 10 }}
-                                />
-                                <Text style={{ color: 'white' }}>{i18n.t('subscribe.hedding')}</Text>
-                            </View>
-                            <View
-                                style={{
-                                    width: 0,
-                                    height: 0,
-                                    backgroundColor: 'transparent',
-                                    borderStyle: 'solid',
-                                    borderRightWidth: 20,
-                                    borderTopWidth: 40,
-                                    borderRightColor: 'transparent',
-                                    borderTopColor: expired==true?'red':failed==true?'red':'green',
-                                }}
-                            />
-                            <View
-                                style={{
-                                    width: 0,
-                                    height: 0,
-                                    backgroundColor: 'transparent',
-                                    borderStyle: 'solid',
-                                    borderLeftWidth: 5,
-                                    borderRightWidth: 5,
-                                    borderBottomWidth: 10,
-                                    borderLeftColor: 'transparent',
-                                    borderRightColor: 'transparent',
-                                    borderBottomColor: expired==true?'#a80606':failed==true?'#a80606':'#104c2e',
-                                    marginLeft: -5,
-                                }}
-                            />
-                        </View>
 
-                        <View
-                            style={{
-                                backgroundColor: 'white',
-                                padding: 15,
-                                paddingTop: 40,
-                                borderRadius: 5,
-                            }}>
-                              {failed==true?
-                                <Text style={{fontSize:17,paddingVertical:12}}>{i18n.t('subscribe.sub')}</Text>
-                                :
-                                <View>
-                              <View style={{alignItems:'center',justifyContent:'center'}}>
-                              <Text style={{fontSize:17}}>{i18n.t('subscribe.in')}</Text>
-                            </View>
-                            {/* {created==0?
+            <View onLayout={() => setTimeout(() => { this.setState({ modalLoading: false }) }, 1000)}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginBottom: -30,
+                  zIndex: 1,
+                }}>
+                <View
+                  style={{
+                    backgroundColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                    height: 40,
+                    width: windowWidth - 100,
+                    borderTopLeftRadius: 5,
+                    alignItems: 'center',
+                    padding: 10,
+                    flexDirection: 'row',
+                  }}>
+                  <MaterialIcons
+                    name="cached"
+                    size={20}
+                    color={'white'}
+                    style={{ alignSelf: 'center', paddingRight: 10 }}
+                  />
+                  <Text style={{ color: 'white' }}>{i18n.t('subscribe.hedding')}</Text>
+                </View>
+                <View
+                  style={{
+                    width: 0,
+                    height: 0,
+                    backgroundColor: 'transparent',
+                    borderStyle: 'solid',
+                    borderRightWidth: 20,
+                    borderTopWidth: 40,
+                    borderRightColor: 'transparent',
+                    borderTopColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                  }}
+                />
+                <View
+                  style={{
+                    width: 0,
+                    height: 0,
+                    backgroundColor: 'transparent',
+                    borderStyle: 'solid',
+                    borderLeftWidth: 5,
+                    borderRightWidth: 5,
+                    borderBottomWidth: 10,
+                    borderLeftColor: 'transparent',
+                    borderRightColor: 'transparent',
+                    borderBottomColor: expired == true ? '#a80606' : failed == true ? '#a80606' : '#104c2e',
+                    marginLeft: -5,
+                  }}
+                />
+              </View>
+
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  padding: 15,
+                  paddingTop: 40,
+                  borderRadius: 5,
+                }}>
+                {failed == true ?
+                  <Text style={{ fontSize: 17, paddingVertical: 12 }}>{i18n.t('subscribe.sub')}</Text>
+                  :
+                  <View>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                      <Text style={{ fontSize: 17 }}>{i18n.t('subscribe.in')}</Text>
+                    </View>
+                    {/* {created==0?
                         <View style={{alignItems:'center',justifyContent:'center',height:40}}>
                             <BarIndicator color='#4E3CCE' size={17} />
                             </View>
                         : */}
-                        <CountDown
-                            until={created}
-                            digitStyle={{backgroundColor: '#FFF'}}
-                            digitTxtStyle={{color: '#000'}}
-                            onFinish={() => this.setState({
-                              expired: true
-                            })}
-                            size={20}
-                            timeToShow={['H', 'M', 'S']}
-                            timeLabels={{h:i18n.t('subscribe.h'),m: i18n.t('subscribe.m'), s: i18n.t('subscribe.s')}}
-                            separatorStyle={{color: '#000',paddingBottom:20}}
-                            showSeparator
+                    <CountDown
+                      until={created}
+                      digitStyle={{ backgroundColor: '#FFF' }}
+                      digitTxtStyle={{ color: '#000' }}
+                      onFinish={() => this.setState({
+                        expired: true
+                      })}
+                      size={20}
+                      timeToShow={['H', 'M', 'S']}
+                      timeLabels={{ h: i18n.t('subscribe.h'), m: i18n.t('subscribe.m'), s: i18n.t('subscribe.s') }}
+                      separatorStyle={{ color: '#000', paddingBottom: 20 }}
+                      showSeparator
+                    />
+                    {/* } */}
+                  </View>
+                }
+                {modalLoading == true ?
+                  <View style={{ backgroundColor: "#fff", padding: 10 }}>
+                    <BarIndicator style={{ marginTop: 0 }} color='#4E3CCE' size={17} />
+                  </View>
+                  :
+                  <View
+                    style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                    {
+                      expired == true ? <Text style={{ fontSize: 17, paddingRight: 20, marginTop: 10 }}>{i18n.t('subscribe.expire')}</Text> :
+                        failed == true ?
+                          null :
+                          <Button
+                            title={i18n.t('subscribe.use')}
+                            titleStyle={{ color: 'black', fontSize: 17 }}
+                            buttonStyle={{
+                              alignSelf: 'flex-end',
+                              marginTop: 10,
+                              paddingVertical: 5,
+                              borderColor: 'green',
+                              paddingHorizontal: 20,
+                              backgroundColor: 'white',
+                              borderWidth: 2,
+                              borderRadius: 10,
+                              marginRight: 10,
+                            }}
+                            onPress={() => { this.props.navigation.navigate('HomeApp',{ msg: "" }); this.toggleModal() }}
+                          />
+                    }
+                    {
+                      expired == true ?
+                        <Button
+                          title={i18n.t('subscribe.log')}
+                          titleStyle={{ color: 'black', fontSize: 17 }}
+                          buttonStyle={{
+                            alignSelf: 'flex-end',
+                            marginTop: 10,
+                            paddingVertical: 5,
+                            borderColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                            paddingHorizontal: 20,
+                            backgroundColor: 'white',
+                            borderWidth: 2,
+                            borderRadius: 10,
+                          }}
+                          onPress={() => { RNRestart.Restart(); this.toggleModal() }}
                         />
-                        {/* } */}
-                        </View>
-                        }
-                        {modalLoading==true?
-                        <View style={{backgroundColor:"#fff",padding:10}}>
-                        <BarIndicator style={{ marginTop: 0 }} color='#4E3CCE'  size={17} />
-                      </View>
+                        // null
                         :
-                            <View
-                                style={{ flexDirection: 'row', justifyContent: 'flex-end' ,alignItems:'center'}}>
-                                  {
-                                    expired==true?<Text style={{fontSize:17,paddingRight:20,marginTop: 10}}>{i18n.t('subscribe.expire')}</Text>:
-                                    failed==true?
-                                    null:
-                                    <Button
-                                    title={i18n.t('subscribe.use')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        marginTop: 10,
-                                        paddingVertical: 5,
-                                        borderColor: 'green',
-                                        paddingHorizontal: 20,
-                                        backgroundColor: 'white',
-                                        borderWidth: 2,
-                                        borderRadius: 10,
-                                        marginRight: 10,
-                                    }}
-                                    onPress={() =>{this.props.navigation.navigate('HomeApp');this.toggleModal()}}
-                                />
-                                  }
-                                  {
-                                    expired==true?
-                                    <Button
-                                    title={i18n.t('subscribe.log')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        marginTop: 10,
-                                        paddingVertical: 5,
-                                        borderColor: expired==true?'red':failed==true?'red':'green',
-                                        paddingHorizontal: 20,
-                                        backgroundColor: 'white',
-                                        borderWidth: 2,
-                                        borderRadius: 10,
-                                    }}
-                                    onPress={() => {RNRestart.Restart();this.toggleModal()}}
-                                />
-                                // null
-                                :
-                                    failed==true?
-                                    <Button
-                                    title={i18n.t('subscribe.start2')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
-                                    buttonStyle={{
-                                        alignSelf: 'flex-end',
-                                        marginTop: 10,
-                                        paddingVertical: 5,
-                                        borderColor: expired==true?'red':failed==true?'red':'green',
-                                        paddingHorizontal: 20,
-                                        backgroundColor: 'white',
-                                        borderWidth: 2,
-                                        borderRadius: 10,
-                                    }}
-                                    onPress={() => {this.gotoSubscribe();this.toggleModal()}}
-                                />
-                                :
-                                <Button
-                                title={i18n.t('subscribe.choose')}
-                                titleStyle={{ color: 'black', fontSize: 17 }}
-                                buttonStyle={{
-                                    alignSelf: 'flex-end',
-                                    marginTop: 10,
-                                    paddingVertical: 5,
-                                    borderColor: expired==true?'red':failed==true?'red':'green',
-                                    paddingHorizontal: 20,
-                                    backgroundColor: 'white',
-                                    borderWidth: 2,
-                                    borderRadius: 10,
-                                }}
-                                onPress={() => {this.props.navigation.navigate('TrialScreen');this.toggleModal()}}
-                            />
-                                  }
-                            </View>
-                            }
-                        </View>
-                    </View>
+                        failed == true ?
+                          <Button
+                            title={i18n.t('subscribe.start2')}
+                            titleStyle={{ color: 'black', fontSize: 17 }}
+                            buttonStyle={{
+                              alignSelf: 'flex-end',
+                              marginTop: 10,
+                              paddingVertical: 5,
+                              borderColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                              paddingHorizontal: 20,
+                              backgroundColor: 'white',
+                              borderWidth: 2,
+                              borderRadius: 10,
+                            }}
+                            onPress={() => { this.gotoSubscribe(); this.toggleModal() }}
+                          />
+                          :
+                          <Button
+                            title={i18n.t('subscribe.choose')}
+                            titleStyle={{ color: 'black', fontSize: 17 }}
+                            buttonStyle={{
+                              alignSelf: 'flex-end',
+                              marginTop: 10,
+                              paddingVertical: 5,
+                              borderColor: expired == true ? 'red' : failed == true ? 'red' : 'green',
+                              paddingHorizontal: 20,
+                              backgroundColor: 'white',
+                              borderWidth: 2,
+                              borderRadius: 10,
+                            }}
+                            onPress={() => { this.props.navigation.navigate('TrialScreen'); this.toggleModal() }}
+                          />
+                    }
+                  </View>
+                }
+              </View>
+            </View>
 
 
-            </Modal>
+          </Modal>
 
 
 
-        
+
           <StackApp.Navigator initialRouteName="SplashScreen">
-          {/* <StackApp.Screen name="App" component={DrawerNavigator} options={navOptionHandler} /> */}
+            {/* <StackApp.Screen name="App" component={DrawerNavigator} options={navOptionHandler} /> */}
             <StackApp.Screen name="HomeApp" component={DrawerNavigator} options={navOptionHandler} />
             <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler} />
             <StackApp.Screen name="Login2" component={Login2Screen} options={navOptionHandler} />
@@ -1007,7 +1005,7 @@ export default class App extends React.Component {
             <StackApp.Screen name="UrinationTime" component={UrinationTime} options={navOptionHandler} />
             <StackApp.Screen name="EliminationChart" component={EliminationChart} options={navOptionHandler} />
             <StackApp.Screen name="SleepingTimeChart" component={SleepingTimeChart} options={navOptionHandler} />
-           
+
             <StackApp.Screen name="WeightChart" component={WeightChart} options={navOptionHandler} />
             <StackApp.Screen name="HealthDietChart" component={HealthDietChart} options={navOptionHandler} />
             <StackApp.Screen name="LabourRoomPacking" component={LabourRoomPacking} options={navOptionHandler} />
@@ -1078,10 +1076,21 @@ export default class App extends React.Component {
             }} component={BillPaymentInformation} />
             <StackApp.Screen name="CardAddWebView" options={{ title: 'CardAddWebView', headerShown: true }} component={CardAddWebView} />
 
-            <StackApp.Screen name="Subscription" options={{ headerShown: true }} component={Subscription} />
-         
-            <StackApp.Screen name="TrialScreen" options={{ headerShown: false }} component={TrialScreen} /> 
-            </StackApp.Navigator>
+            <StackApp.Screen name="Subscription" options={{ headerShown: true, title: "Membership" }} component={Subscription} />
+
+            <StackApp.Screen name="TrialScreen" options={{ headerShown: false }} component={TrialScreen} />
+            <StackApp.Screen name="QRScan" options={{ headerShown: false, title: "Membership" }} component={QRScan} />
+
+            <StackApp.Screen name="DIscountAvailable" options={{
+              headerShown: true, title: "DIscountAvailable", headerTintColor: 'white', headerStyle: {
+                backgroundColor: '#4E3CCE',
+              }, headerTitleStyle: {
+                color: 'white'
+              },
+            }} component={DIscountAvailable} />
+            <StackApp.Screen name="DiscountNotAvailable" options={{ headerShown: true, title: "DiscountNotAvailable" }} component={DiscountNotAvailable} />
+          </StackApp.Navigator>
+
         </NavigationContainer>
       </GlobalState>
     );
@@ -1089,6 +1098,6 @@ export default class App extends React.Component {
 
 
 
-    
+
   }
 }

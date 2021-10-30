@@ -545,7 +545,7 @@ export class RegisterScreen extends Component {
                     shadowOpacity: 0.7,
                     shadowRadius: 8,
                   }}
-                  onPress={() => this.props.navigation.navigate('HomeApp')} onPress={this.InputUsers}
+                  onPress={() => this.props.navigation.navigate('HomeApp',{ msg: "" })} onPress={this.InputUsers}
                 >
 
                 </Button>

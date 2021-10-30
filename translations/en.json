@@ -340,7 +340,8 @@
     "logut": "Log Out" ,
     "offers": "Offers" ,
     "blog": "Blog" ,
-    "billpay": "Pay Bill"
+    "billpay": "Pay Bill",
+    "qrscan": "QR Code Scan"
     
   },
   "profile": {
@@ -411,13 +412,13 @@
   }
   ,
   "subscribe": {
-    "hedding": "Subscribe",
+    "hedding": "Membership",
     "free": "Free Trial",
     "pro": "Pro",
     "plan1": "24 Hours",
     "plan2": "Monthly",
     "start1": "Start Now",
-    "start2": "Subscribe Now",
+    "start2": "Get Your Membership Now",
     "expire": "Trial Expired",
     "log": " Log Again",
     "left": "Left ",
@@ -428,6 +429,16 @@
     "s": "Seconds ",
     "in": "Your Free Trial Expires in.. ",
     "use": "Use Trial",
-    "sub":"Your Subscription is not Valid."
+    "sub":"Your Membership is not Valid.",
+    "scan":"Scan QR code",
+    "back":"Go back"
+  }
+  ,
+  "qrcode": {
+    "heading": "Congratulations ..!",
+    "congratz": "You are eligible for a Discount",
+    "sorry":"Sorry ..!",
+    "sad": "You are not eligible for a Discount",
+    "button": "Ok"
   }
 }

@@ -192,6 +192,9 @@ const IMAGE = {
     ICON_SLIDE5: require('../images/slide5.jpg'),
     ICON_SLIDE6: require('../images/slide6.jpg'),
     ICON_SLIDE7: require('../images/slide7.png'),
+
+    ICON_DISCOUNTAVLBLE: require('../images/discount3.png'),
+    ICON_OOPS: require('../images/sorry.png'),
  
 }
 

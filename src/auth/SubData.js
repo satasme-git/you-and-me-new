@@ -14,7 +14,7 @@ export const SubData = [
       id:'2',
     name: 'hedding',
     plan:"pro",
-    price:"300.00",
+    price:"199.00",
     month:"plan2",
     button:'start2',
     screen:'home'

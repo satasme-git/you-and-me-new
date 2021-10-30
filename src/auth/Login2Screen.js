@@ -157,6 +157,7 @@ export class Login2Screen extends Component {
                         })
                         AsyncStorage.setItem('memberNames', responseJson.member_name).then(
                             responseJson => {
+                                
                                 this.props.navigation.navigate('HomeApp', { msg: responseJson })
                             }
                         );
@@ -279,7 +280,7 @@ export class Login2Screen extends Component {
         let { TextInputName } = this.state
 
         const nic = await AsyncStorage.getItem('member_nic');
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+TextInputName+" / "+_today);
+        // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : "+TextInputName+" / "+_today);
 
         this.props.navigation.navigate('Subscription', { email: TextInputName,ref_code:_today });
         this.setState({
@@ -486,7 +487,7 @@ export class Login2Screen extends Component {
                             <View
                                 style={{ flexDirection: 'row', justifyContent: 'flex-end' ,alignItems:'center'}}>
                                   {
-                                    expired==true?<Text style={{fontSize:17,paddingRight:20,marginTop: 10}}>{i18n.t('subscribe.expire')}</Text>:
+                                    expired==true?<Text style={{fontSize:15,paddingRight:10,marginTop: 10}}>{i18n.t('subscribe.expire')}</Text>:
                                     failed==true?
                                     null:
                                     <Button
@@ -511,13 +512,13 @@ export class Login2Screen extends Component {
                                     expired==true?
                                     <Button
                                     title={i18n.t('subscribe.start2')}
-                                    titleStyle={{ color: 'black', fontSize: 17 }}
+                                    titleStyle={{ color: 'black', fontSize: 14 }}
                                     buttonStyle={{
                                         alignSelf: 'flex-end',
                                         marginTop: 10,
                                         paddingVertical: 5,
                                         borderColor: expired==true?'red':failed==true?'red':'green',
-                                        paddingHorizontal: 20,
+                                        paddingHorizontal: 5,
                                         backgroundColor: 'white',
                                         borderWidth: 2,
                                         borderRadius: 10,
